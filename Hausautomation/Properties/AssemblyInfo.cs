@@ -5,13 +5,13 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Test")]
+[assembly: AssemblyTitle("Hausautomation")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Test")]
-[assembly: AssemblyCopyright("Copyright ©  2018")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyProduct("Hausautomation")]
+[assembly: AssemblyCopyright("Copyright © G_&_CH_MOERTH 2018")]
+[assembly: AssemblyTrademark("GMC_COMPUTER")]
 [assembly: AssemblyCulture("")]
 
 // Version information for an assembly consists of the following four values:

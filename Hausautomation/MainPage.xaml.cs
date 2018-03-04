@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
-using Test.Pages;
+using Hausautomation.Pages;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -16,7 +16,7 @@ using Windows.UI.Xaml.Navigation;
 
 // Die Elementvorlage "Leere Seite" wird unter https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x407 dokumentiert.
 
-namespace Test
+namespace Hausautomation
 {
     /// <summary>
     /// Eine leere Seite, die eigenständig verwendet oder zu der innerhalb eines Rahmens navigiert werden kann.
@@ -43,7 +43,7 @@ namespace Test
             else
             {
                 var selectedItem = (NavigationViewItem)args.SelectedItem;
-                string pageName = "Test.Pages." + ((string)selectedItem.Tag);
+                string pageName = "Hausautomation.Pages." + ((string)selectedItem.Tag);
                 Type pageType = Type.GetType(pageName);
                 contentFrame.Navigate(pageType);
                 nvSample.Header = ((string)selectedItem.Tag);
