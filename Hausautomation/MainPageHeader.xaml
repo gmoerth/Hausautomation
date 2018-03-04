@@ -1,0 +1,55 @@
+﻿<Page
+    x:Class="Test.MainPageHeader"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Test"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <GridView>
+
+
+            <!--x:Name="itemGridView"
+            Padding="24,0,0,0"
+            AutomationProperties.AutomationId="ItemGridView"
+            AutomationProperties.Name="Items In Group"
+            --><!--ContainerContentChanging="OnItemGridViewContainerContentChanging"--><!--
+            IsItemClickEnabled="True"
+            IsSwipeEnabled="False">
+            --><!--ItemClick="OnItemGridViewItemClick"
+            ItemContainerStyle="{StaticResource GridViewItemStyle}"
+            ItemTemplate="{StaticResource ControlItemTemplate}"
+            ItemsSource="{x:Bind Items, Mode=OneWay}"
+            KeyDown="OnItemGridViewKeyDown"
+            Loaded="OnItemGridViewLoaded"
+            SizeChanged="OnItemGridViewSizeChanged"
+            SelectionMode="None">-->
+
+            <!--<interactivity:Interaction.Behaviors>
+                <behavior:ImageScrollBehavior TargetControl="{Binding ElementName=pageHeader}" />
+            </interactivity:Interaction.Behaviors>-->
+
+
+            <GridView.Header>
+                <ParallaxView
+                    x:Name="headerImageView"
+                    Height="1080"
+                    Margin="-24,0,0,24">
+                    <!--Source="{x:Bind itemGridView}"-->
+                    <!--VerticalShift="350">-->
+                    <Image
+                        x:Name="headerImage"
+                        HorizontalAlignment="Center"
+                        Source="Assets/ListView.png"
+                        Stretch="UniformToFill" />
+                </ParallaxView>
+            </GridView.Header>
+
+
+        </GridView>
+
+    </Grid>
+</Page>
