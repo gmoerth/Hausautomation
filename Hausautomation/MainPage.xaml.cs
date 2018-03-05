@@ -38,7 +38,7 @@ namespace Hausautomation
         {
             if (args.IsSettingsSelected)
             {
-                contentFrame.Navigate(typeof(SampleSettingsPage));
+                contentFrame.Navigate(typeof(SettingsPage));
             }
             else
             {

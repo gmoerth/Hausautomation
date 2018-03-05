@@ -5,10 +5,83 @@
     xmlns:local="using:Hausautomation.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:data="using:Hausautomation.Model"
     mc:Ignorable="d">
 
+    <!--<Page.Resources>
+        <DataTemplate x:Key="ImageTextListTemplate" x:DataType="data:ControlInfoDataItem">
+            <RelativePanel>
+                <Border Width="80" x:Name="imageBorder">
+                    <Image Width="36" Margin="0,8,0,8" Source="{x:Bind ImagePath}" />
+                </Border>
+                <StackPanel VerticalAlignment="Center" Margin="8,8,0,0" RelativePanel.RightOf="imageBorder">
+                    <TextBlock Text="{x:Bind Title}" Style="{StaticResource BaseTextBlockStyle}" />
+                    <TextBlock Text="{x:Bind Subtitle}" TextWrapping="WrapWholeWords"
+                            Style="{StaticResource CaptionTextBlockStyle}" />
+                    <TextBlock Text="{x:Bind Description}" TextWrapping="WrapWholeWords" Margin="0,8,0,0"
+                            Style="{StaticResource BodyTextBlockStyle}" />
+                </StackPanel>
+            </RelativePanel>
+        </DataTemplate>
+    </Page.Resources>-->
+
+
+
+
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBlock HorizontalAlignment="Left" Margin="120,120,0,0" Text="TextBlock1" TextWrapping="Wrap" VerticalAlignment="Top"/>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <!--<Button Style="{StaticResource SplitViewTogglePaneButtonStyle}"
+                VerticalAlignment="Center"
+            Click="ShowSliptView"/>-->
+            <TextBlock Text="Alle Geräte"
+                VerticalAlignment="Top"
+                Style="{ThemeResource TitleTextBlockStyle}"
+                Margin="12" />
+        </StackPanel>
+
+        <TextBlock Grid.Row="1"
+                Style="{ThemeResource BodyTextBlockStyle}"
+                Text="Klicke auf die Listeneinträge um sie als Favoriten zu markieren"
+                Margin="12,0,0,12"/>
+
+        <ListView x:Name="ItemsListView" Grid.Row="2" 
+                  ItemsSource="{x:Bind _items}" 
+                  IsItemClickEnabled="True" 
+                  SelectionMode="Multiple" >
+            <!--ContainerContentChanging="ItemsListView_ContainerContentChanging"
+                  ItemClick="ItemsListView_ItemClick">-->
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="data:Item">
+                    <RelativePanel>
+                        <TextBlock x:Name="IdLabel"
+                                   Margin="0,12,5,12" 
+                                   Style="{ThemeResource BaseTextBlockStyle}"
+                                   Text="Id :"/>
+                        <TextBlock RelativePanel.RightOf="IdLabel"
+                                   Style="{ThemeResource BaseTextBlockStyle}"
+                                   Margin="0,12,0,12" 
+                                   Text="{x:Bind Id}"/>
+                        <Image RelativePanel.Below="IdLabel"
+                               Source="{x:Bind ImageSource}" 
+                               MaxWidth="50"
+                               Stretch="Uniform"
+                               Margin="0,0,0,24" />
+                        <TextBlock RelativePanel.RightOf="IdLabel"
+                                   Style="{ThemeResource BaseTextBlockStyle}"
+                                   Margin="50,12,0,12" 
+                                   Text="Bla Bla Bla Hier kommt die Beschreibung, Bla Bla Bla Hier kommt die Beschreibung, Bla Bla Bla Hier kommt die Beschreibung, Bla Bla Bla Hier kommt die Beschreibung, Bla Bla Bla Hier kommt die Beschreibung" />
+                    </RelativePanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <!--<local:SamplesPane x:Name="MySamplesPane" Grid.RowSpan="3"/>-->
 
     </Grid>
 </Page>

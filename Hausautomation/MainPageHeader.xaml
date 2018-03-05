@@ -43,7 +43,7 @@
                     <Image
                         x:Name="headerImage"
                         HorizontalAlignment="Center"
-                        Source="Assets/ListView.png"
+                        Source="Assets/Speedy.jpg"
                         Stretch="UniformToFill" />
                 </ParallaxView>
             </GridView.Header>

@@ -95,6 +95,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\Item.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -110,8 +111,8 @@
     <Compile Include="Pages\SamplePage3.xaml.cs">
       <DependentUpon>SamplePage3.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\SampleSettingsPage.xaml.cs">
-      <DependentUpon>SampleSettingsPage.xaml</DependentUpon>
+    <Compile Include="Pages\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -122,7 +123,17 @@
     <None Include="Hausautomation_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\112_hmip-wrc2_thumb.png" />
+    <Content Include="Assets\113_hmip-psm_thumb.png" />
+    <Content Include="Assets\124_hm-sec-mdir_thumb.png" />
+    <Content Include="Assets\4_hm-lc-sw1-fm_thumb.png" />
+    <Content Include="Assets\5_hm-lc-sw2-fm_thumb.png" />
+    <Content Include="Assets\70_hm-pb-4dis-wm_thumb.png" />
+    <Content Include="Assets\75_hm-pb-2-wm55_thumb.png" />
+    <Content Include="Assets\93_hm-es-pmsw1-pl_thumb.png" />
+    <Content Include="Assets\98_hm-sec-sco_thumb.png" />
     <Content Include="Assets\ListView.png" />
+    <Content Include="Assets\PushButton-2ch-wm_thumb.png" />
     <Content Include="Assets\Speedy.jpg" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
@@ -132,6 +143,12 @@
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+    <Content Include="XMLFile1.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="XMLFile2.xml">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -158,7 +175,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\SampleSettingsPage.xaml">
+    <Page Include="Pages\SettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

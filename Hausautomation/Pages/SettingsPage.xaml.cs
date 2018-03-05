@@ -20,11 +20,21 @@ namespace Hausautomation.Pages
     /// <summary>
     /// Eine leere Seite, die eigenständig verwendet oder zu der innerhalb eines Rahmens navigiert werden kann.
     /// </summary>
-    public sealed partial class SampleSettingsPage : Page
+    public sealed partial class SettingsPage : Page
     {
-        public SampleSettingsPage()
+        public SettingsPage()
         {
             this.InitializeComponent();
+        }
+
+        private void tbHMIP_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void tbHMPO_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            
         }
     }
 }
