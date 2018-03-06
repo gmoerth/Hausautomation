@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="iso-8859-1"?>
 <deviceList>
   <device name="HM-ES-PMSw1-Pl-DN-R1 NEQ1663455" address="NEQ1663455" ise_id="1422" interface="BidCos-RF" device_type="HM-ES-PMSw1-Pl-DN-R1" ready_config="true">
     <channel name="HM-ES-PMSw1-Pl-DN-R1 NEQ1663455:1" type="26" address="NEQ1663455:1" ise_id="1451" direction="RECEIVER" parent_device="1422" index="1" group_partner="" aes_available="true" transmission_mode="DEFAULT" visible="true" ready_config="true" operate="true" />

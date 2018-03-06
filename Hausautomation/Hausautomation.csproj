@@ -102,6 +102,7 @@
     <Compile Include="MainPageHeader.xaml.cs">
       <DependentUpon>MainPageHeader.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\ReadXDoc.cs" />
     <Compile Include="Pages\SamplePage1.xaml.cs">
       <DependentUpon>SamplePage1.xaml</DependentUpon>
     </Compile>
@@ -132,9 +133,9 @@
     <Content Include="Assets\75_hm-pb-2-wm55_thumb.png" />
     <Content Include="Assets\93_hm-es-pmsw1-pl_thumb.png" />
     <Content Include="Assets\98_hm-sec-sco_thumb.png" />
-    <Content Include="Assets\ListView.png" />
     <Content Include="Assets\PushButton-2ch-wm_thumb.png" />
     <Content Include="Assets\Speedy.jpg" />
+    <Content Include="z_functionlist.xml" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -143,12 +144,14 @@
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
-    <Content Include="XMLFile1.xml">
+    <Content Include="z_roomlist.xml" />
+    <Content Include="z_devicelist.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="XMLFile2.xml">
+    <Content Include="z_statelist.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="z_XML-API.txt" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

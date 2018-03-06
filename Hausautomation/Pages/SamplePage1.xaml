@@ -8,26 +8,6 @@
     xmlns:data="using:Hausautomation.Model"
     mc:Ignorable="d">
 
-    <!--<Page.Resources>
-        <DataTemplate x:Key="ImageTextListTemplate" x:DataType="data:ControlInfoDataItem">
-            <RelativePanel>
-                <Border Width="80" x:Name="imageBorder">
-                    <Image Width="36" Margin="0,8,0,8" Source="{x:Bind ImagePath}" />
-                </Border>
-                <StackPanel VerticalAlignment="Center" Margin="8,8,0,0" RelativePanel.RightOf="imageBorder">
-                    <TextBlock Text="{x:Bind Title}" Style="{StaticResource BaseTextBlockStyle}" />
-                    <TextBlock Text="{x:Bind Subtitle}" TextWrapping="WrapWholeWords"
-                            Style="{StaticResource CaptionTextBlockStyle}" />
-                    <TextBlock Text="{x:Bind Description}" TextWrapping="WrapWholeWords" Margin="0,8,0,0"
-                            Style="{StaticResource BodyTextBlockStyle}" />
-                </StackPanel>
-            </RelativePanel>
-        </DataTemplate>
-    </Page.Resources>-->
-
-
-
-
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
         <Grid.RowDefinitions>
@@ -36,20 +16,16 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <!--<Button Style="{StaticResource SplitViewTogglePaneButtonStyle}"
-                VerticalAlignment="Center"
-            Click="ShowSliptView"/>-->
-            <TextBlock Text="Alle Geräte"
-                VerticalAlignment="Top"
-                Style="{ThemeResource TitleTextBlockStyle}"
-                Margin="12" />
-        </StackPanel>
+        <TextBlock Grid.Row="0"
+                       Text="Alle Geräte"
+                       VerticalAlignment="Top"
+                       Style="{ThemeResource TitleTextBlockStyle}"
+                       Margin="12" />
 
         <TextBlock Grid.Row="1"
-                Style="{ThemeResource BodyTextBlockStyle}"
-                Text="Klicke auf die Listeneinträge um sie als Favoriten zu markieren"
-                Margin="12,0,0,12"/>
+                   Style="{ThemeResource BodyTextBlockStyle}"
+                   Text="Klicke auf die Listeneinträge um sie als Favoriten zu markieren"
+                       Margin="12" />
 
         <ListView x:Name="ItemsListView" Grid.Row="2" 
                   ItemsSource="{x:Bind _items}" 
@@ -76,7 +52,7 @@
                         <TextBlock RelativePanel.RightOf="IdLabel"
                                    Style="{ThemeResource BaseTextBlockStyle}"
                                    Margin="50,12,0,12" 
-                                   Text="Bla Bla Bla Hier kommt die Beschreibung, Bla Bla Bla Hier kommt die Beschreibung, Bla Bla Bla Hier kommt die Beschreibung, Bla Bla Bla Hier kommt die Beschreibung, Bla Bla Bla Hier kommt die Beschreibung" />
+                                   Text="{x:Bind Description}" />
                     </RelativePanel>
                 </DataTemplate>
             </ListView.ItemTemplate>

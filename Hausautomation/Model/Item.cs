@@ -14,6 +14,7 @@ namespace Hausautomation.Model
         private BitmapImage imageSource;
         private static List<BitmapImage> sources;
         private string id;
+        private string description;
 
         public BitmapImage ImageSource
         {
@@ -41,10 +42,24 @@ namespace Hausautomation.Model
             }
         }
 
+        public string Description
+        {
+            get
+            {
+                return description;
+            }
+
+            set
+            {
+                description = value;
+            }
+        }
+
         public Item()
         {
             imageSource = new BitmapImage();
             id = string.Empty;
+            description = "Bla Bla Bla Hier kommt die Beschreibung, Bla Bla Bla Hier kommt die Beschreibung, Bla Bla Bla Hier kommt die Beschreibung, Bla Bla Bla Hier kommt die Beschreibung, Bla Bla Bla Hier kommt die Beschreibung, Bla Bla Bla Hier kommt die Beschreibung, ";
 
             sources = new List<BitmapImage>()
             {

@@ -31,8 +31,8 @@ namespace Hausautomation.Pages
     {
 
         private ObservableCollection<Item> _items;
-        private SolidColorBrush InvalidFormat = new SolidColorBrush(Colors.Red);
-        private SolidColorBrush ValidFormat = new SolidColorBrush(Colors.Green);
+        //private SolidColorBrush InvalidFormat = new SolidColorBrush(Colors.Red);
+        //private SolidColorBrush ValidFormat = new SolidColorBrush(Colors.Green);
 
 
         public SamplePage1()
@@ -40,10 +40,10 @@ namespace Hausautomation.Pages
             this.InitializeComponent();
             _items = Item.GetItems(100);
             //SeiteEinlesen("http://192.168.178.15", 80, "addons/xmlapi/devicelist.cgi"); 
-            SeiteEinlesen("http://192.168.178.15", 80, "addons/xmlapi/statelist.cgi");
+            //SeiteEinlesen("http://192.168.178.15", 80, "addons/xmlapi/statelist.cgi");
         }
 
-        public async Task<string> SeiteEinlesen(string ip, int port, string page)
+        /*public async Task<string> SeiteEinlesen(string ip, int port, string page)
         {
             string str = "";
             try
@@ -53,9 +53,9 @@ namespace Hausautomation.Pages
                 HttpWebResponse response = (HttpWebResponse)await request.GetResponseAsync() as HttpWebResponse;
                 StreamReader reader = new StreamReader(response.GetResponseStream());
                 XDocument xdoc = XDocument.Load(reader);
-                IEnumerable<XElement> deviceList = xdoc.Elements();
+                //IEnumerable<XElement> deviceList = xdoc.Elements();
 
-                foreach (XElement element in xdoc.Descendants("device")/*.Descendants("channel")*/)
+                foreach (XElement element in xdoc.Descendants("device").Descendants("channel"))
                 {
                     Debug.WriteLine(element);
                     
@@ -68,7 +68,7 @@ namespace Hausautomation.Pages
                 Debug.WriteLine("SeiteEinlesen " + ex.Message.ToString());
             }
             return str;
-        }
+        }*/
 
 
     }

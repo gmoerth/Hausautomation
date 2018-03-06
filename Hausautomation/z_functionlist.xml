@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<functionList>
+  <function ise_id="23116" name="Aktor" description="">
+    <channel ise_id="1451" address="NEQ1663455:1"/>
+    <channel ise_id="1617" address="NEQ0212241:1"/>
+    <channel ise_id="14453" address="OEQ0475224:1"/>
+    <channel ise_id="23761" address="OEQ0475809:1"/>
+    <channel ise_id="23910" address="OEQ0475838:1"/>
+    <channel ise_id="23952" address="OEQ0475868:1"/>
+    <channel ise_id="1263" address="OEQ0320613:1"/>
+    <channel ise_id="1269" address="OEQ0320613:2"/>
+    <channel ise_id="24990" address="000855699C523E:4"/>
+    <channel ise_id="23997" address="000858A98A4297:4"/>
+    <channel ise_id="24880" address="0001D709A56E76:3"/>
+    <channel ise_id="26157" address="OEQ0623833:1"/>
+  </function>
+  <function ise_id="1215" name="Licht" description="">
+    <channel ise_id="1451" address="NEQ1663455:1"/>
+    <channel ise_id="1457" address="NEQ1663455:2"/>
+    <channel ise_id="1464" address="NEQ1663455:3"/>
+    <channel ise_id="1466" address="NEQ1663455:4"/>
+    <channel ise_id="1468" address="NEQ1663455:5"/>
+    <channel ise_id="1470" address="NEQ1663455:6"/>
+    <channel ise_id="1617" address="NEQ0212241:1"/>
+    <channel ise_id="14453" address="OEQ0475224:1"/>
+    <channel ise_id="23761" address="OEQ0475809:1"/>
+    <channel ise_id="23910" address="OEQ0475838:1"/>
+    <channel ise_id="23952" address="OEQ0475868:1"/>
+    <channel ise_id="1263" address="OEQ0320613:1"/>
+    <channel ise_id="1269" address="OEQ0320613:2"/>
+    <channel ise_id="1554" address="NEQ1542641:1"/>
+    <channel ise_id="1560" address="NEQ1542641:2"/>
+    <channel ise_id="1296" address="OEQ0345410:1"/>
+    <channel ise_id="1302" address="OEQ0345410:2"/>
+    <channel ise_id="25596" address="IEQ0100217:1"/>
+    <channel ise_id="25602" address="IEQ0100217:2"/>
+    <channel ise_id="24980" address="000855699C523E:1"/>
+    <channel ise_id="24983" address="000855699C523E:2"/>
+    <channel ise_id="24990" address="000855699C523E:4"/>
+    <channel ise_id="25005" address="000855699C523E:7"/>
+    <channel ise_id="23987" address="000858A98A4297:1"/>
+    <channel ise_id="23990" address="000858A98A4297:2"/>
+    <channel ise_id="23997" address="000858A98A4297:4"/>
+    <channel ise_id="24012" address="000858A98A4297:7"/>
+    <channel ise_id="24873" address="0001D709A56E76:1"/>
+    <channel ise_id="24880" address="0001D709A56E76:3"/>
+    <channel ise_id="24902" address="0001D709A56E76:7"/>
+    <channel ise_id="14027" address="000197098D93E9:1"/>
+    <channel ise_id="14030" address="000197098D93E9:2"/>
+    <channel ise_id="26157" address="OEQ0623833:1"/>
+  </function>
+  <function ise_id="1224" name="Rollo" description="">
+    <channel ise_id="25608" address="IEQ0100217:3"/>
+    <channel ise_id="25614" address="IEQ0100217:4"/>
+    <channel ise_id="19272" address="0011170999CF72:1"/>
+    <channel ise_id="19275" address="0011170999CF72:2"/>
+    <channel ise_id="19284" address="0011170999CF72:4"/>
+    <channel ise_id="19473" address="0011170999D228:1"/>
+    <channel ise_id="19476" address="0011170999D228:2"/>
+    <channel ise_id="19485" address="0011170999D228:4"/>
+    <channel ise_id="19115" address="001117099DB626:1"/>
+    <channel ise_id="19118" address="001117099DB626:2"/>
+    <channel ise_id="19127" address="001117099DB626:4"/>
+    <channel ise_id="19060" address="001117099DB68D:1"/>
+    <channel ise_id="19063" address="001117099DB68D:2"/>
+    <channel ise_id="19072" address="001117099DB68D:4"/>
+  </function>
+  <function ise_id="1220" name="Sicherheit" description="">
+    <channel ise_id="26255" address="OEQ0488052:1"/>
+  </function>
+  <function ise_id="1222" name="Taster" description="">
+    <channel ise_id="14453" address="OEQ0475224:1"/>
+    <channel ise_id="23761" address="OEQ0475809:1"/>
+    <channel ise_id="23910" address="OEQ0475838:1"/>
+    <channel ise_id="23952" address="OEQ0475868:1"/>
+    <channel ise_id="1554" address="NEQ1542641:1"/>
+    <channel ise_id="1560" address="NEQ1542641:2"/>
+    <channel ise_id="1296" address="OEQ0345410:1"/>
+    <channel ise_id="1302" address="OEQ0345410:2"/>
+    <channel ise_id="25596" address="IEQ0100217:1"/>
+    <channel ise_id="25602" address="IEQ0100217:2"/>
+    <channel ise_id="25608" address="IEQ0100217:3"/>
+    <channel ise_id="25614" address="IEQ0100217:4"/>
+    <channel ise_id="19272" address="0011170999CF72:1"/>
+    <channel ise_id="19275" address="0011170999CF72:2"/>
+    <channel ise_id="19473" address="0011170999D228:1"/>
+    <channel ise_id="19476" address="0011170999D228:2"/>
+    <channel ise_id="19115" address="001117099DB626:1"/>
+    <channel ise_id="19118" address="001117099DB626:2"/>
+    <channel ise_id="19060" address="001117099DB68D:1"/>
+    <channel ise_id="19063" address="001117099DB68D:2"/>
+    <channel ise_id="24980" address="000855699C523E:1"/>
+    <channel ise_id="24983" address="000855699C523E:2"/>
+    <channel ise_id="23987" address="000858A98A4297:1"/>
+    <channel ise_id="23990" address="000858A98A4297:2"/>
+    <channel ise_id="24873" address="0001D709A56E76:1"/>
+    <channel ise_id="14027" address="000197098D93E9:1"/>
+    <channel ise_id="14030" address="000197098D93E9:2"/>
+    <channel ise_id="26157" address="OEQ0623833:1"/>
+  </function>
+  <function ise_id="1221" name="Verschluss" description="">
+    <channel ise_id="26196" address="OEQ0807137:1"/>
+  </function>
+  <function ise_id="1223" name="Zentrale" description="">
+    <channel ise_id="1015" address="BidCoS-RF:1"/>
+    <channel ise_id="1051" address="BidCoS-RF:10"/>
+    <channel ise_id="1055" address="BidCoS-RF:11"/>
+    <channel ise_id="1059" address="BidCoS-RF:12"/>
+    <channel ise_id="1063" address="BidCoS-RF:13"/>
+    <channel ise_id="1067" address="BidCoS-RF:14"/>
+    <channel ise_id="1071" address="BidCoS-RF:15"/>
+    <channel ise_id="1075" address="BidCoS-RF:16"/>
+    <channel ise_id="1079" address="BidCoS-RF:17"/>
+    <channel ise_id="1083" address="BidCoS-RF:18"/>
+    <channel ise_id="1087" address="BidCoS-RF:19"/>
+    <channel ise_id="1019" address="BidCoS-RF:2"/>
+    <channel ise_id="1091" address="BidCoS-RF:20"/>
+    <channel ise_id="1095" address="BidCoS-RF:21"/>
+    <channel ise_id="1099" address="BidCoS-RF:22"/>
+    <channel ise_id="1103" address="BidCoS-RF:23"/>
+    <channel ise_id="1107" address="BidCoS-RF:24"/>
+    <channel ise_id="1111" address="BidCoS-RF:25"/>
+    <channel ise_id="1115" address="BidCoS-RF:26"/>
+    <channel ise_id="1119" address="BidCoS-RF:27"/>
+    <channel ise_id="1123" address="BidCoS-RF:28"/>
+    <channel ise_id="1127" address="BidCoS-RF:29"/>
+    <channel ise_id="1023" address="BidCoS-RF:3"/>
+    <channel ise_id="1131" address="BidCoS-RF:30"/>
+    <channel ise_id="1135" address="BidCoS-RF:31"/>
+    <channel ise_id="1139" address="BidCoS-RF:32"/>
+    <channel ise_id="1143" address="BidCoS-RF:33"/>
+    <channel ise_id="1147" address="BidCoS-RF:34"/>
+    <channel ise_id="1151" address="BidCoS-RF:35"/>
+    <channel ise_id="1155" address="BidCoS-RF:36"/>
+    <channel ise_id="1159" address="BidCoS-RF:37"/>
+    <channel ise_id="1163" address="BidCoS-RF:38"/>
+    <channel ise_id="1167" address="BidCoS-RF:39"/>
+    <channel ise_id="1027" address="BidCoS-RF:4"/>
+    <channel ise_id="1171" address="BidCoS-RF:40"/>
+    <channel ise_id="1175" address="BidCoS-RF:41"/>
+    <channel ise_id="1179" address="BidCoS-RF:42"/>
+    <channel ise_id="1183" address="BidCoS-RF:43"/>
+    <channel ise_id="1187" address="BidCoS-RF:44"/>
+    <channel ise_id="1191" address="BidCoS-RF:45"/>
+    <channel ise_id="1195" address="BidCoS-RF:46"/>
+    <channel ise_id="1199" address="BidCoS-RF:47"/>
+    <channel ise_id="1203" address="BidCoS-RF:48"/>
+    <channel ise_id="1207" address="BidCoS-RF:49"/>
+    <channel ise_id="1031" address="BidCoS-RF:5"/>
+    <channel ise_id="1211" address="BidCoS-RF:50"/>
+    <channel ise_id="1035" address="BidCoS-RF:6"/>
+    <channel ise_id="1039" address="BidCoS-RF:7"/>
+    <channel ise_id="1043" address="BidCoS-RF:8"/>
+    <channel ise_id="1047" address="BidCoS-RF:9"/>
+  </function>
+</functionList>

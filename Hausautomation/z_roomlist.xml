@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<roomList>
+  <room ise_id="26166" name="Bad">
+    <channel ise_id="26157"/>
+  </room>
+  <room ise_id="1230" name="Büro">
+    <channel ise_id="1015"/>
+    <channel ise_id="1019"/>
+    <channel ise_id="1023"/>
+  </room>
+  <room ise_id="1229" name="Esszimmer">
+    <channel ise_id="19272"/>
+    <channel ise_id="19275"/>
+    <channel ise_id="19284"/>
+  </room>
+  <room ise_id="23961" name="Gäste Wohnung">
+    <channel ise_id="1451"/>
+    <channel ise_id="1457"/>
+    <channel ise_id="1464"/>
+    <channel ise_id="1466"/>
+    <channel ise_id="1468"/>
+    <channel ise_id="1470"/>
+    <channel ise_id="14453"/>
+    <channel ise_id="23761"/>
+    <channel ise_id="23910"/>
+    <channel ise_id="23952"/>
+    <channel ise_id="26157"/>
+    <channel ise_id="26196"/>
+    <channel ise_id="26255"/>
+  </room>
+  <room ise_id="1228" name="Kinderzimmer">
+    <channel ise_id="23761"/>
+    <channel ise_id="19060"/>
+    <channel ise_id="19063"/>
+    <channel ise_id="19072"/>
+  </room>
+  <room ise_id="1226" name="Küche">
+    <channel ise_id="1451"/>
+    <channel ise_id="1457"/>
+    <channel ise_id="1464"/>
+    <channel ise_id="1466"/>
+    <channel ise_id="1468"/>
+    <channel ise_id="1470"/>
+    <channel ise_id="1263"/>
+    <channel ise_id="1269"/>
+    <channel ise_id="1554"/>
+    <channel ise_id="1560"/>
+    <channel ise_id="1296"/>
+    <channel ise_id="1302"/>
+  </room>
+  <room ise_id="1227" name="Schlafzimmer">
+    <channel ise_id="23952"/>
+    <channel ise_id="25596"/>
+    <channel ise_id="25602"/>
+    <channel ise_id="25608"/>
+    <channel ise_id="25614"/>
+    <channel ise_id="19115"/>
+    <channel ise_id="19118"/>
+    <channel ise_id="19127"/>
+    <channel ise_id="24980"/>
+    <channel ise_id="24983"/>
+    <channel ise_id="24990"/>
+    <channel ise_id="25005"/>
+    <channel ise_id="24873"/>
+    <channel ise_id="24880"/>
+    <channel ise_id="24902"/>
+    <channel ise_id="14027"/>
+    <channel ise_id="14030"/>
+  </room>
+  <room ise_id="17343" name="Schrankraum">
+    <channel ise_id="1617"/>
+  </room>
+  <room ise_id="23962" name="WC">
+    <channel ise_id="14453"/>
+  </room>
+  <room ise_id="1225" name="Wohnzimmer">
+    <channel ise_id="23910"/>
+    <channel ise_id="19473"/>
+    <channel ise_id="19476"/>
+    <channel ise_id="19485"/>
+    <channel ise_id="23987"/>
+    <channel ise_id="23990"/>
+    <channel ise_id="23997"/>
+    <channel ise_id="24012"/>
+  </room>
+</roomList>
