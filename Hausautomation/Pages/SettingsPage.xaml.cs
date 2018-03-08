@@ -22,14 +22,23 @@ namespace Hausautomation.Pages
     /// </summary>
     public sealed partial class SettingsPage : Page
     {
+
         public SettingsPage()
         {
             this.InitializeComponent();
         }
 
+        //public string tbHMIP { get; set; }
+
+        public void ReadXDoc()
+        {
+            
+        }
+
+
         private void tbHMIP_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            
         }
 
         private void tbHMPO_TextChanged(object sender, TextChangedEventArgs e)

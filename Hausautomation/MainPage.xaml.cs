@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Hausautomation.Model;
 using Hausautomation.Pages;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -23,9 +25,18 @@ namespace Hausautomation
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        static DeviceList devicelist;
+
+
         public MainPage()
         {
             this.InitializeComponent();
+
+            devicelist = new DeviceList();
+            ReadXDoc readXDoc = new ReadXDoc(devicelist);
+
+
+            Debug.WriteLine("Main fertig\r\n");
         }
 
         private void NavigationView_Loaded(object sender, RoutedEventArgs e)

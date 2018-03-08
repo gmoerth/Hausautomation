@@ -95,6 +95,10 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\Channel.cs" />
+    <Compile Include="Model\Datapoint.cs" />
+    <Compile Include="Model\Device.cs" />
+    <Compile Include="Model\Function.cs" />
     <Compile Include="Model\Item.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -103,6 +107,7 @@
       <DependentUpon>MainPageHeader.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\ReadXDoc.cs" />
+    <Compile Include="Model\Room.cs" />
     <Compile Include="Pages\SamplePage1.xaml.cs">
       <DependentUpon>SamplePage1.xaml</DependentUpon>
     </Compile>
