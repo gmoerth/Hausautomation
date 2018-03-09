@@ -26,6 +26,8 @@
                    Style="{ThemeResource BodyTextBlockStyle}"
                    Text="Klicke auf die Listeneinträge um sie als Favoriten zu markieren"
                        Margin="12" />
+        <Button Grid.Row="1" Margin="450,0,0,0" Content="Ein/Aus" />
+        <Slider Grid.Row="1" TickPlacement="Outside" Margin="550,0,20,0" Value="10" TickFrequency="10"/>
 
         <ListView x:Name="ItemsListView" Grid.Row="2" 
                   ItemsSource="{x:Bind _items}" 

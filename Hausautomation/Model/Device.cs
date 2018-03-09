@@ -9,15 +9,23 @@ using System.Xml.Serialization;
 
 namespace Hausautomation.Model
 {
-    [XmlRoot(ElementName = "deviceList")]
     public class DeviceList
     {
-        [XmlElement(ElementName = "device")]
         public List<Device> Devicelist { get; set; }
 
         public DeviceList()
         {
             Devicelist = new List<Device>();
+        }
+
+        public void GetDevice(int ise_id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetDevice(int ise_id)
+        {
+            throw new NotImplementedException();
         }
     }
 

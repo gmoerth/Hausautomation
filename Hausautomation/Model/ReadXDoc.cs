@@ -16,33 +16,41 @@ namespace Hausautomation.Model
     {
         public string HMIP { get; set; }
         public int HMPO { get; set; }
+        public bool online { get; set; }
         DeviceList devicelist;
 
         public ReadXDoc(DeviceList devicelist)
         {
             this.devicelist = devicelist;
-
             HMIP = "http://192.168.178.15";
             HMPO = 80;
+#pragma warning disable 4014
             SeiteEinlesen("addons/xmlapi/devicelist.cgi");
+            //SeiteEinlesen("addons/xmlapi/statelist.cgi");
+#pragma warning restore 4014
         }
 
+        public async Task Frage_ob_Online()
+        {
+            MessageDialog showDialog = new MessageDialog("Online = JA\nOffline = Nein", "Online Verbindung mit HomeMatic herstellen?");
+            showDialog.Commands.Add(new UICommand("Ja") { Id = 0 });
+            showDialog.Commands.Add(new UICommand("Nein") { Id = 1 });
+            showDialog.DefaultCommandIndex = 0;
+            showDialog.CancelCommandIndex = 1;
+            var result = await showDialog.ShowAsync();
+            if ((int)result.Id == 0)
+                online = true;
+            else
+                online = false;
+        }
 
         public async Task SeiteEinlesen(string page)
         {
-
-
+            await Frage_ob_Online();
             try
             {
                 XDocument xdoc;
-
-                MessageDialog showDialog = new MessageDialog("Online = JA\nOffline = Nein", "Online Verbindung mit HomeMatic herstellen?");
-                showDialog.Commands.Add(new UICommand("Ja") { Id = 0 });
-                showDialog.Commands.Add(new UICommand("Nein") { Id = 1 });
-                showDialog.DefaultCommandIndex = 0;
-                showDialog.CancelCommandIndex = 1;
-                var result = await showDialog.ShowAsync();
-                if ((int)result.Id == 0)
+                if (online == true)
                 {
                     // Daten von der HomeMatic laden
                     Uri uri = new Uri(HMIP + ":" + HMPO.ToString() + "/" + page);

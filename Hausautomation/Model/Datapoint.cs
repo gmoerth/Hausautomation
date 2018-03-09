@@ -51,12 +51,12 @@ namespace Hausautomation.Model
             get { return valuetype; }
             set { valuetype = value; }
         }
-        private double value;
+        private double value1;
 
         public double Value
         {
-            get { return value; }
-            set { value = value; }
+            get { return value1; }
+            set { value1 = value; }
         }
         private string type;
 
@@ -75,7 +75,7 @@ namespace Hausautomation.Model
             this.timestamp = timestamp;
             this.valueunit = valueunit ?? throw new ArgumentNullException(nameof(valueunit));
             this.valuetype = valuetype;
-            this.value = value;
+            this.value1 = value;
             this.type = type ?? throw new ArgumentNullException(nameof(type));
         }
 
