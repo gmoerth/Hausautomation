@@ -18,12 +18,16 @@ namespace Hausautomation.Model
             Devicelist = new List<Device>();
         }
 
-        public void GetDevice(int ise_id)
+        public Device GetDevice(int ise_id)
         {
-            throw new NotImplementedException();
+            foreach (Device device in Devicelist)
+                if (device.Ise_id == ise_id)
+                    return device;
+            return null;
+            //throw new IndexOutOfRangeException();
         }
 
-        public void SetDevice(int ise_id)
+        public void SetDevice(int ise_id, Device device)
         {
             throw new NotImplementedException();
         }
@@ -32,13 +36,14 @@ namespace Hausautomation.Model
     public class Device
     {
         #region Properties
-        private List<Channel> channellist;
+        /*private List<Channel> channellist;
 
         public List<Channel> Channellist
         {
             get { return channellist; }
             set { channellist = value; }
-        }
+        }*/
+        public ChannelList Channellist;
 
         private string name;
 
@@ -120,7 +125,8 @@ namespace Hausautomation.Model
 
         public Device()
         {
-            Channellist = new List<Channel>();
+            //Channellist = new List<Channel>();
+            Channellist = new ChannelList();
         }
 
         public void ParseDevicelist(XElement xElement)
@@ -152,7 +158,7 @@ namespace Hausautomation.Model
                         Ready_config = rc;
                         break;
                     default:
-                        break;
+                        throw new NotImplementedException();
                 }
             }
             // Channel parsen
@@ -162,12 +168,60 @@ namespace Hausautomation.Model
                 Channel channel = new Channel();
                 channel.ParseDevicelist(xnode);
                 // hinzufügen zur Liste
-                channellist.Add(channel);
+                Channellist.Channellist.Add(channel);
             }
         }
 
-        public void ParseStatelist()
+        public void ParseStatelist(XElement xElement)
         {
+            // Device parsen
+            foreach (XAttribute xattribute in xElement.Attributes())
+            {
+                //Debug.WriteLine(xattribute);
+                switch (xattribute.Name.ToString())
+                {
+                    case "name":
+                        Name = xattribute.Value;
+                        break;
+                    case "ise_id":
+                        int.TryParse(xattribute.Value, out int id);
+                        Ise_id = id;
+                        break;
+                    case "config_pending":
+                        bool.TryParse(xattribute.Value, out bool cp);
+                        Config_pending = cp;
+                        break;
+                    case "sticky_unreach":
+                        bool.TryParse(xattribute.Value, out bool su);
+                        Sticky_unreach = su;
+                        break;
+                    case "unreach":
+                        bool.TryParse(xattribute.Value, out bool un);
+                        Unreach = un;
+                        break;
+                    default:
+                        throw new NotImplementedException();
+                }
+            }
+            // Channel parsen
+            foreach (XNode xnode in xElement.Nodes())
+            {
+                //Debug.WriteLine(xnode);
+                XElement element = Channel.ToXElement(xnode);
+                bool ok = int.TryParse(element.Attribute("ise_id").Value.ToString(), out int ise_id);
+                Channel channel = Channellist.GetChannel(ise_id);
+                if (channel != null)
+                {
+                    channel.ParseStatelist(xnode);
+                }
+                else
+                {
+                    channel = new Channel();
+                    channel.ParseStatelist(xnode);
+                    // hinzufügen zur Liste
+                    Channellist.Channellist.Add(channel);
+                }
+            }
 
         }
 

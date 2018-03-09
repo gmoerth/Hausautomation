@@ -26,7 +26,7 @@ namespace Hausautomation.Model
             HMPO = 80;
 #pragma warning disable 4014
             SeiteEinlesen("addons/xmlapi/devicelist.cgi");
-            //SeiteEinlesen("addons/xmlapi/statelist.cgi");
+            //SeiteEinlesen2("addons/xmlapi/statelist.cgi");
 #pragma warning restore 4014
         }
 
@@ -81,8 +81,52 @@ namespace Hausautomation.Model
             {
                 Debug.WriteLine("SeiteEinlesen " + ex.Message.ToString());
             }
+            SeiteEinlesen2("addons/xmlapi/statelist.cgi");
         }
 
+        public async Task SeiteEinlesen2(string page)
+        {
+            await Frage_ob_Online();
+            try
+            {
+                XDocument xdoc;
+                if (online == true)
+                {
+                    // Daten von der HomeMatic laden
+                    Uri uri = new Uri(HMIP + ":" + HMPO.ToString() + "/" + page);
+                    HttpWebRequest request = WebRequest.Create(uri) as HttpWebRequest;
+                    HttpWebResponse response = (HttpWebResponse)await request.GetResponseAsync() as HttpWebResponse;
+                    StreamReader reader = new StreamReader(response.GetResponseStream());
+                    xdoc = XDocument.Load(reader);
+                }
+                else
+                {
+                    // Lokales File laden
+                    xdoc = XDocument.Load("z_statelist.xml");
+                }
+
+                // XML File parsen
+                foreach (XElement element in xdoc.Descendants("device")/*.Descendants("channel")*/)
+                {
+                    //Debug.WriteLine(element);
+                    // Device parsen
+                    bool ok = int.TryParse(element.Attribute("ise_id").Value.ToString(), out int ise_id);
+                    Device device = devicelist.GetDevice(ise_id);
+                    if(device != null)
+                        device.ParseStatelist(element);
+                    else
+                    {
+                        device = new Device();
+                        device.ParseStatelist(element);
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("SeiteEinlesen2 " + ex.Message.ToString());
+            }
+        }
 
 
     }

@@ -8,6 +8,30 @@ using System.Xml.Linq;
 
 namespace Hausautomation.Model
 {
+    public class ChannelList
+    {
+        public List<Channel> Channellist { get; set; }
+
+        public ChannelList()
+        {
+            Channellist = new List<Channel>();
+        }
+
+        public Channel GetChannel(int ise_id)
+        {
+            foreach (Channel channel in Channellist)
+                if (channel.Ise_id == ise_id)
+                    return channel;
+            return null;
+            //throw new IndexOutOfRangeException();
+        }
+
+        public void SetChannel(int ise_id, Channel channel)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
     public class Channel
     {
         #region Properties
@@ -148,10 +172,10 @@ namespace Hausautomation.Model
 
         public Channel()
         {
-
+            //Datapointlist = new DatapointList();
         }
 
-        static XElement ToXElement(XNode xnode)
+        static public XElement ToXElement(XNode xnode)
         {
             return xnode as XElement; // returns null if node is not an XElement
         }
@@ -212,7 +236,36 @@ namespace Hausautomation.Model
                         Operate = op;
                         break;
                     default:
+                        throw new NotImplementedException();
+                }
+            }
+        }
+
+        public void ParseStatelist(XNode xnode)
+        {
+            XElement xElement = ToXElement(xnode);
+            foreach (XAttribute xattribute in xElement.Attributes())
+            {
+                //Debug.WriteLine(xattribute);
+                switch (xattribute.Name.ToString())
+                {
+                    case "name":
+                        Name = xattribute.Value;
                         break;
+                    case "ise_id":
+                        int.TryParse(xattribute.Value, out int id);
+                        Ise_id = id;
+                        break;
+                    case "visible":
+                        bool.TryParse(xattribute.Value, out bool vis);
+                        Visible = vis;
+                        break;
+                    case "operate":
+                        bool.TryParse(xattribute.Value, out bool op);
+                        Operate = op;
+                        break;
+                    default:
+                        throw new NotImplementedException();
                 }
             }
         }

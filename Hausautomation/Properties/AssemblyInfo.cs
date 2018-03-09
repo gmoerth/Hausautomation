@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Hausautomation")]
 [assembly: AssemblyCopyright("Copyright © G_&_CH_MOERTH 2018")]
-[assembly: AssemblyTrademark("GMC_COMPUTER")]
+[assembly: AssemblyTrademark("GMC-COMPUTER")]
 [assembly: AssemblyCulture("")]
 
 // Version information for an assembly consists of the following four values:
