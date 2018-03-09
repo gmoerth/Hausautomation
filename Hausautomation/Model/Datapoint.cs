@@ -6,6 +6,25 @@ using System.Threading.Tasks;
 
 namespace Hausautomation.Model
 {
+    public class DatapointList
+    {
+        public List<Datapoint> Datapointlist { get; set; }
+
+        public DatapointList()
+        {
+            Datapointlist = new List<Datapoint>();
+        }
+
+        public Datapoint GetDatapoint(int ise_id)
+        {
+            foreach (Datapoint datapoint in Datapointlist)
+                if (datapoint.Ise_id == ise_id)
+                    return datapoint;
+            return null;
+            //throw new IndexOutOfRangeException();
+        }
+    }
+
     public class Datapoint
     {
         #region Properties
@@ -31,7 +50,7 @@ namespace Hausautomation.Model
             set { operations = value; }
         }
         private DateTime timestamp;
-                
+
         public DateTime Timestamp
         {
             get { return timestamp; }

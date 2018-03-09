@@ -35,13 +35,14 @@ namespace Hausautomation.Model
     public class Channel
     {
         #region Properties
-        private List<Datapoint> datapointlist;
+        /*private List<Datapoint> datapointlist;
 
         public List<Datapoint> Datapointlist
         {
             get { return datapointlist; }
             set { datapointlist = value; }
-        }
+        }*/
+        public DatapointList Datapointlist;
 
         private List<Room> roomlist;
 
@@ -152,29 +153,34 @@ namespace Hausautomation.Model
         }
         #endregion
 
-        public Channel(List<Datapoint> datapointlist, string name, int type, string address, int ise_id, string direction, int parent_device, int index, string group_partner, bool aes_available, string transmission_mode, bool visible, bool ready_config, bool operate)
-        {
-            this.datapointlist = datapointlist ?? throw new ArgumentNullException(nameof(datapointlist));
-            this.name = name ?? throw new ArgumentNullException(nameof(name));
-            this.type = type;
-            this.address = address ?? throw new ArgumentNullException(nameof(address));
-            this.ise_id = ise_id;
-            this.direction = direction ?? throw new ArgumentNullException(nameof(direction));
-            this.parent_device = parent_device;
-            this.index = index;
-            this.group_partner = group_partner ?? throw new ArgumentNullException(nameof(group_partner));
-            this.aes_available = aes_available;
-            this.transmission_mode = transmission_mode ?? throw new ArgumentNullException(nameof(transmission_mode));
-            this.visible = visible;
-            this.ready_config = ready_config;
-            this.operate = operate;
-        }
-
+        #region Konstruktoren
         public Channel()
         {
             //Datapointlist = new DatapointList();
         }
 
+        public Channel(DatapointList datapointlist, List<Room> roomlist, List<Function> functionslist, string name, int type, string address, int ise_id, string direction, int parent_Device, int index, string group_partner, bool aes_available, string transmission_mode, bool visible, bool ready_config, bool operate)
+        {
+            Datapointlist = datapointlist ?? throw new ArgumentNullException(nameof(datapointlist));
+            Roomlist = roomlist ?? throw new ArgumentNullException(nameof(roomlist));
+            Functionslist = functionslist ?? throw new ArgumentNullException(nameof(functionslist));
+            Name = name ?? throw new ArgumentNullException(nameof(name));
+            Type = type;
+            Address = address ?? throw new ArgumentNullException(nameof(address));
+            Ise_id = ise_id;
+            Direction = direction ?? throw new ArgumentNullException(nameof(direction));
+            Parent_Device = parent_Device;
+            Index = index;
+            Group_partner = group_partner ?? throw new ArgumentNullException(nameof(group_partner));
+            Aes_available = aes_available;
+            Transmission_mode = transmission_mode ?? throw new ArgumentNullException(nameof(transmission_mode));
+            Visible = visible;
+            Ready_config = ready_config;
+            Operate = operate;
+        }
+        #endregion
+
+        #region Methoden
         static public XElement ToXElement(XNode xnode)
         {
             return xnode as XElement; // returns null if node is not an XElement
@@ -269,6 +275,6 @@ namespace Hausautomation.Model
                 }
             }
         }
-
+        #endregion
     }
 }

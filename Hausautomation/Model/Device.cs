@@ -36,13 +36,6 @@ namespace Hausautomation.Model
     public class Device
     {
         #region Properties
-        /*private List<Channel> channellist;
-
-        public List<Channel> Channellist
-        {
-            get { return channellist; }
-            set { channellist = value; }
-        }*/
         public ChannelList Channellist;
 
         private string name;
@@ -110,25 +103,28 @@ namespace Hausautomation.Model
         }
         #endregion
 
-        public Device(string name, string address, int ise_id, string @interface, string device_type, bool ready_config, bool config_pending, bool sticky_unreach, bool unreach)
-        {
-            this.name = name ?? throw new ArgumentNullException(nameof(name));
-            this.address = address ?? throw new ArgumentNullException(nameof(address));
-            this.ise_id = ise_id;
-            _interface = @interface ?? throw new ArgumentNullException(nameof(@interface));
-            this.device_type = device_type ?? throw new ArgumentNullException(nameof(device_type));
-            this.ready_config = ready_config;
-            this.config_pending = config_pending;
-            this.sticky_unreach = sticky_unreach;
-            this.unreach = unreach;
-        }
-
+        #region Konstruktoren
         public Device()
         {
-            //Channellist = new List<Channel>();
             Channellist = new ChannelList();
         }
 
+        public Device(ChannelList channellist, string name, string address, int ise_id, string @interface, string device_type, bool ready_config, bool config_pending, bool sticky_unreach, bool unreach)
+        {
+            Channellist = channellist ?? throw new ArgumentNullException(nameof(channellist));
+            Name = name ?? throw new ArgumentNullException(nameof(name));
+            Address = address ?? throw new ArgumentNullException(nameof(address));
+            Ise_id = ise_id;
+            Interface = @interface ?? throw new ArgumentNullException(nameof(@interface));
+            Device_type = device_type ?? throw new ArgumentNullException(nameof(device_type));
+            Ready_config = ready_config;
+            Config_pending = config_pending;
+            Sticky_unreach = sticky_unreach;
+            Unreach = unreach;
+        }
+        #endregion
+
+        #region Methoden
         public void ParseDevicelist(XElement xElement)
         {
             // Device parsen
@@ -224,6 +220,6 @@ namespace Hausautomation.Model
             }
 
         }
-
+        #endregion
     }
 }
