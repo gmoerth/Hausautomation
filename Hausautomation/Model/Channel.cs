@@ -36,13 +36,7 @@ namespace Hausautomation.Model
         #region Properties
         public DatapointList Datapointlist;
 
-        private List<Room> roomlist;
-
-        public List<Room> Roomlist
-        {
-            get { return roomlist; }
-            set { roomlist = value; }
-        }
+        public RoomList Roomlist;
 
         private List<Function> functionlist;
 
@@ -151,7 +145,7 @@ namespace Hausautomation.Model
             Datapointlist = new DatapointList();
         }
 
-        public Channel(DatapointList datapointlist, List<Room> roomlist, List<Function> functionslist, string name, int type, string address, int ise_id, string direction, int parent_Device, int index, string group_partner, bool aes_available, string transmission_mode, bool visible, bool ready_config, bool operate)
+        public Channel(DatapointList datapointlist, RoomList roomlist, List<Function> functionslist, string name, int type, string address, int ise_id, string direction, int parent_Device, int index, string group_partner, bool aes_available, string transmission_mode, bool visible, bool ready_config, bool operate)
         {
             Datapointlist = datapointlist ?? throw new ArgumentNullException(nameof(datapointlist));
             Roomlist = roomlist ?? throw new ArgumentNullException(nameof(roomlist));

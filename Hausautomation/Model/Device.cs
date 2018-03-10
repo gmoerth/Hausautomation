@@ -189,6 +189,9 @@ namespace Hausautomation.Model
                 }
             }
         }
+        public void Parse(Room room)
+        {
+        }
         #endregion
     }
 }
