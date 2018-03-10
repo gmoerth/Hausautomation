@@ -25,56 +25,56 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Hausautomation.Model.Channel" Collapsed="true">
-    <Position X="8" Y="1.75" Width="1.5" />
+    <Position X="10.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAIAAAACAAchEgQCABAASAAAIFwACKAUGBiBABAYA=</HashCode>
+      <HashCode>AAAgIAAAACAAMhEgQCABAASAAAIFwACKAUGAiBABAYA=</HashCode>
       <FileName>Model\Channel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Hausautomation.Model.Datapoint" Collapsed="true">
-    <Position X="14.75" Y="1.75" Width="1.5" />
+    <Position X="15" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAACAAAAAgAAAAACAAQAAgAFQCEAAUAxAAAAEAA=</HashCode>
       <FileName>Model\Datapoint.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Hausautomation.Model.DeviceList" Collapsed="true">
-    <Position X="3.5" Y="1.75" Width="1.5" />
+    <Position X="3.75" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAEAAAAAAAAAAAAAAAACAAAgAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAQAAAAAEAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
       <FileName>Model\Device.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Hausautomation.Model.Device" Collapsed="true">
-    <Position X="5.75" Y="1.75" Width="1.5" />
+    <Position X="6" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAACAIAAAAQAAAAABCwCSAAkIEwAISAEAAgAAAAAA=</HashCode>
+      <HashCode>AAAgACAIAAAAAAAAAABCwCSAAgIEwAICAEAAgAAAAAA=</HashCode>
       <FileName>Model\Device.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Hausautomation.Model.Function" Collapsed="true">
-    <Position X="12.5" Y="1.75" Width="1.5" />
+    <Position X="19.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAEQAAAAEAAAAAAAAA=</HashCode>
       <FileName>Model\Function.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Hausautomation.Model.Item" Collapsed="true">
-    <Position X="17" Y="1.75" Width="1.5" />
+    <Position X="21.75" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAQAAAAgAQAAIAEAABgAAAAAAgAAAAAAAAAAAgA=</HashCode>
       <FileName>Model\Item.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Hausautomation.Model.ReadXDoc" Collapsed="true">
-    <Position X="1.25" Y="1.75" Width="1.5" />
+    <Position X="1.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAQAAAAAAABAAAIAAAAAAAABAAAAAAAAAAAQAAACA=</HashCode>
+      <HashCode>AAAAQAAAAAAABAAAIAAAAAAAABAAAAQAAAAAAQAAACA=</HashCode>
       <FileName>Model\ReadXDoc.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Hausautomation.Model.Room" Collapsed="true">
-    <Position X="10.25" Y="1.75" Width="1.5" />
+    <Position X="17.25" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAEQAAAAEAAAAAAAAA=</HashCode>
       <FileName>Model\Room.cs</FileName>
@@ -113,7 +113,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="System.Object" Collapsed="true">
-    <Position X="9" Y="0.5" Width="1.5" />
+    <Position X="11.5" Y="0.5" Width="1.5" />
     <TypeIdentifier />
   </Class>
   <Class Name="Windows.UI.Xaml.Controls.Page" Collapsed="true">
@@ -123,6 +123,20 @@
   <Class Name="Windows.UI.Xaml.Application" Collapsed="true">
     <Position X="0.5" Y="6.5" Width="1.5" />
     <TypeIdentifier />
+  </Class>
+  <Class Name="Hausautomation.Model.ChannelList" Collapsed="true">
+    <Position X="8.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAQAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Model\Channel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Hausautomation.Model.DatapointList" Collapsed="true">
+    <Position X="12.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAAgAAAAAAAAAAAQA=</HashCode>
+      <FileName>Model\Datapoint.cs</FileName>
+    </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

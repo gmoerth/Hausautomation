@@ -71,11 +71,11 @@ namespace Hausautomation.Model
                     //Debug.WriteLine(element);
                     // Device parsen
                     Device device = new Device();
-                    device.ParseDevicelist(element);
+                    device.Parse(element);
                     // hinzufügen zur Liste
-                    devicelist.Devicelist.Add(device);
+                    devicelist.AddDevice(device);
                 }
-
+                Debug.WriteLine("Seite 1 fertig");
             }
             catch (Exception ex)
             {
@@ -112,15 +112,20 @@ namespace Hausautomation.Model
                     // Device parsen
                     bool ok = int.TryParse(element.Attribute("ise_id").Value.ToString(), out int ise_id);
                     Device device = devicelist.GetDevice(ise_id);
-                    if(device != null)
-                        device.ParseStatelist(element);
+                    if (device != null)
+                    {
+                        //Debug.WriteLine($"GetDevice - Parse\n{element}");
+                        device.Parse(element);
+                    }
                     else
                     {
+                        //Debug.WriteLine($"AddDevice - Parse\n{element}");
                         device = new Device();
-                        device.ParseStatelist(element);
+                        device.Parse(element);
+                        devicelist.AddDevice(device);
                     }
                 }
-
+                Debug.WriteLine("Seite 2 fertig");
             }
             catch (Exception ex)
             {

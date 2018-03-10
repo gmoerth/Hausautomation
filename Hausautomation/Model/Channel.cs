@@ -10,7 +10,7 @@ namespace Hausautomation.Model
 {
     public class ChannelList
     {
-        public List<Channel> Channellist { get; set; }
+        private List<Channel> Channellist { get; set; }
 
         public ChannelList()
         {
@@ -23,25 +23,17 @@ namespace Hausautomation.Model
                 if (channel.Ise_id == ise_id)
                     return channel;
             return null;
-            //throw new IndexOutOfRangeException();
         }
 
-        public void SetChannel(int ise_id, Channel channel)
+        public void AddChannel(Channel channel)
         {
-            throw new NotImplementedException();
+            Channellist.Add(channel);
         }
     }
 
     public class Channel
     {
         #region Properties
-        /*private List<Datapoint> datapointlist;
-
-        public List<Datapoint> Datapointlist
-        {
-            get { return datapointlist; }
-            set { datapointlist = value; }
-        }*/
         public DatapointList Datapointlist;
 
         private List<Room> roomlist;
@@ -156,7 +148,7 @@ namespace Hausautomation.Model
         #region Konstruktoren
         public Channel()
         {
-            //Datapointlist = new DatapointList();
+            Datapointlist = new DatapointList();
         }
 
         public Channel(DatapointList datapointlist, List<Room> roomlist, List<Function> functionslist, string name, int type, string address, int ise_id, string direction, int parent_Device, int index, string group_partner, bool aes_available, string transmission_mode, bool visible, bool ready_config, bool operate)
@@ -181,14 +173,17 @@ namespace Hausautomation.Model
         #endregion
 
         #region Methoden
-        static public XElement ToXElement(XNode xnode)
+        public static XElement ToXElement(XNode xnode)
         {
             return xnode as XElement; // returns null if node is not an XElement
         }
 
-        public void ParseDevicelist(XNode xnode)
+        public void Parse(XNode xnode)
         {
             XElement xElement = ToXElement(xnode);
+            if (xElement == null)
+                throw new InvalidOperationException();
+            // Channel parsen
             foreach (XAttribute xattribute in xElement.Attributes())
             {
                 //Debug.WriteLine(xattribute);
@@ -245,33 +240,25 @@ namespace Hausautomation.Model
                         throw new NotImplementedException();
                 }
             }
-        }
-
-        public void ParseStatelist(XNode xnode)
-        {
-            XElement xElement = ToXElement(xnode);
-            foreach (XAttribute xattribute in xElement.Attributes())
+            // Datapoint parsen
+            foreach (XNode xnode2 in xElement.Nodes())
             {
-                //Debug.WriteLine(xattribute);
-                switch (xattribute.Name.ToString())
+                //Debug.WriteLine(xnode);
+                XElement xNodeElement = Channel.ToXElement(xnode2);
+                if (xNodeElement == null)
+                    throw new InvalidOperationException();
+                bool ok = int.TryParse(xNodeElement.Attribute("ise_id").Value.ToString(), out int ise_id);
+                Datapoint datapoint = Datapointlist.GetDatapoint(ise_id);
+                if (datapoint != null)
                 {
-                    case "name":
-                        Name = xattribute.Value;
-                        break;
-                    case "ise_id":
-                        int.TryParse(xattribute.Value, out int id);
-                        Ise_id = id;
-                        break;
-                    case "visible":
-                        bool.TryParse(xattribute.Value, out bool vis);
-                        Visible = vis;
-                        break;
-                    case "operate":
-                        bool.TryParse(xattribute.Value, out bool op);
-                        Operate = op;
-                        break;
-                    default:
-                        throw new NotImplementedException();
+                    datapoint.Parse(xnode2);
+                }
+                else
+                {
+                    datapoint = new Datapoint();
+                    datapoint.Parse(xnode2);
+                    // hinzufügen zur Liste
+                    Datapointlist.AddDatapoint(datapoint);
                 }
             }
         }

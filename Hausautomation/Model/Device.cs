@@ -5,13 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using System.Xml.Serialization;
 
 namespace Hausautomation.Model
 {
     public class DeviceList
     {
-        public List<Device> Devicelist { get; set; }
+        private List<Device> Devicelist { get; set; }
 
         public DeviceList()
         {
@@ -24,12 +23,11 @@ namespace Hausautomation.Model
                 if (device.Ise_id == ise_id)
                     return device;
             return null;
-            //throw new IndexOutOfRangeException();
         }
 
-        public void SetDevice(int ise_id, Device device)
+        public void AddDevice(Device device)
         {
-            throw new NotImplementedException();
+            Devicelist.Add(device);
         }
     }
 
@@ -125,10 +123,10 @@ namespace Hausautomation.Model
         #endregion
 
         #region Methoden
-        public void ParseDevicelist(XElement xElement)
+        public void Parse(XElement xElement)
         {
             // Device parsen
-            foreach(XAttribute xattribute in xElement.Attributes())
+            foreach (XAttribute xattribute in xElement.Attributes())
             {
                 //Debug.WriteLine(xattribute);
                 switch (xattribute.Name.ToString())
@@ -153,36 +151,6 @@ namespace Hausautomation.Model
                         bool.TryParse(xattribute.Value, out bool rc);
                         Ready_config = rc;
                         break;
-                    default:
-                        throw new NotImplementedException();
-                }
-            }
-            // Channel parsen
-            foreach(XNode xnode in xElement.Nodes())
-            {
-                //Debug.WriteLine(xnode);
-                Channel channel = new Channel();
-                channel.ParseDevicelist(xnode);
-                // hinzufügen zur Liste
-                Channellist.Channellist.Add(channel);
-            }
-        }
-
-        public void ParseStatelist(XElement xElement)
-        {
-            // Device parsen
-            foreach (XAttribute xattribute in xElement.Attributes())
-            {
-                //Debug.WriteLine(xattribute);
-                switch (xattribute.Name.ToString())
-                {
-                    case "name":
-                        Name = xattribute.Value;
-                        break;
-                    case "ise_id":
-                        int.TryParse(xattribute.Value, out int id);
-                        Ise_id = id;
-                        break;
                     case "config_pending":
                         bool.TryParse(xattribute.Value, out bool cp);
                         Config_pending = cp;
@@ -203,22 +171,23 @@ namespace Hausautomation.Model
             foreach (XNode xnode in xElement.Nodes())
             {
                 //Debug.WriteLine(xnode);
-                XElement element = Channel.ToXElement(xnode);
-                bool ok = int.TryParse(element.Attribute("ise_id").Value.ToString(), out int ise_id);
+                XElement xNodeElement = Channel.ToXElement(xnode);
+                if (xNodeElement == null)
+                    throw new InvalidOperationException();
+                bool ok = int.TryParse(xNodeElement.Attribute("ise_id").Value.ToString(), out int ise_id);
                 Channel channel = Channellist.GetChannel(ise_id);
                 if (channel != null)
                 {
-                    channel.ParseStatelist(xnode);
+                    channel.Parse(xnode);
                 }
                 else
                 {
                     channel = new Channel();
-                    channel.ParseStatelist(xnode);
+                    channel.Parse(xnode);
                     // hinzufügen zur Liste
-                    Channellist.Channellist.Add(channel);
+                    Channellist.AddChannel(channel);
                 }
             }
-
         }
         #endregion
     }
