@@ -10,7 +10,7 @@ namespace Hausautomation.Model
 {
     public class ChannelList
     {
-        private List<Channel> Channellist { get; set; }
+        public List<Channel> Channellist { get; set; }
 
         public ChannelList()
         {
@@ -137,6 +137,10 @@ namespace Hausautomation.Model
             get { return operate; }
             set { operate = value; }
         }
+
+        public string Room { get; set; }
+
+        public string Function { get; set; }
         #endregion
 
         #region Konstruktoren
@@ -230,6 +234,12 @@ namespace Hausautomation.Model
                         bool.TryParse(xattribute.Value, out bool op);
                         Operate = op;
                         break;
+                    case "room":
+                        Transmission_mode = xattribute.Value;
+                        break;
+                    case "function":
+                        Transmission_mode = xattribute.Value;
+                        break;
                     default:
                         throw new NotImplementedException();
                 }
@@ -237,7 +247,7 @@ namespace Hausautomation.Model
             // Datapoint parsen
             foreach (XNode xnode2 in xElement.Nodes())
             {
-                //Debug.WriteLine(xnode);
+                //Debug.WriteLine(xnode2);
                 XElement xNodeElement = Channel.ToXElement(xnode2);
                 if (xNodeElement == null)
                     throw new InvalidOperationException();

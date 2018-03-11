@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Hausautomation.Model
 {
@@ -46,6 +48,29 @@ namespace Hausautomation.Model
         {
             get { return name; }
             set { name = value; }
+        }
+        #endregion
+
+        #region Methoden
+        public void Parse(XElement xElement)
+        {
+            // Room parsen
+            foreach (XAttribute xattribute in xElement.Attributes())
+            {
+                //Debug.WriteLine(xattribute);
+                switch (xattribute.Name.ToString())
+                {
+                    case "name":
+                        Name = xattribute.Value;
+                        break;
+                    case "ise_id":
+                        int.TryParse(xattribute.Value, out int id);
+                        Ise_id = id;
+                        break;
+                    default:
+                        throw new NotImplementedException();
+                }
+            }
         }
         #endregion
     }

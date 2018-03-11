@@ -10,7 +10,7 @@ namespace Hausautomation.Model
 {
     public class DatapointList
     {
-        private List<Datapoint> Datapointlist { get; set; }
+        public List<Datapoint> Datapointlist { get; set; }
 
         public DatapointList()
         {

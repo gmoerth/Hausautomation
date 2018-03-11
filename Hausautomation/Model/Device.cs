@@ -10,11 +10,14 @@ namespace Hausautomation.Model
 {
     public class DeviceList
     {
-        private List<Device> Devicelist { get; set; }
+        public List<Device> Devicelist { get; set; }
+
+        public RoomList Roomlist { get; set; } // diese Liste ist eigentlich redundant aber hilfreich
 
         public DeviceList()
         {
             Devicelist = new List<Device>();
+            Roomlist = new RoomList();
         }
 
         public Device GetDevice(int ise_id)
@@ -28,6 +31,72 @@ namespace Hausautomation.Model
         public void AddDevice(Device device)
         {
             Devicelist.Add(device);
+        }
+
+        public void LoadXDocument(XDocument xDocument)
+        {
+            // device parsen
+            foreach (XElement element in xDocument.Descendants("device")/*.Descendants("channel")*/)
+            {
+                //Debug.WriteLine(element);
+                bool ok = int.TryParse(element.Attribute("ise_id").Value.ToString(), out int ise_id);
+                Device device = GetDevice(ise_id);
+                if (device != null)
+                {
+                    //Debug.WriteLine($"GetDevice - Parse\n{element}");
+                    device.Parse(element);
+                }
+                else
+                {
+                    //Debug.WriteLine($"AddDevice - Parse\n{element}");
+                    device = new Device();
+                    device.Parse(element);
+                    AddDevice(device);
+                }
+            }
+            // room parsen
+            foreach (XElement element in xDocument.Descendants("room"))
+            {
+                //Debug.WriteLine(element);
+                bool ok = int.TryParse(element.Attribute("ise_id").Value.ToString(), out int ise_id);
+                Room room = Roomlist.GetRoom(ise_id);
+                if (room != null)
+                {
+                    //Debug.WriteLine($"GetRoom - Parse\n{element}");
+                    room.Parse(element);
+                    InsertRoomInChannel(element);
+                }
+                else
+                {
+                    //Debug.WriteLine($"AddRoom - Parse\n{element}");
+                    room = new Room();
+                    room.Parse(element);
+                    InsertRoomInChannel(element);
+                    Roomlist.AddRoom(room);
+
+                }
+            }
+        }
+
+        public void InsertRoomInChannel(XElement xElement)
+        {
+            // Room Name zu Channel hinzufügen
+            foreach (XNode xnode in xElement.Nodes())
+            {
+                //Debug.WriteLine(xnode);
+                XElement xNodeElement = Channel.ToXElement(xnode);
+                if (xNodeElement == null)
+                    throw new InvalidOperationException();
+                bool ok = int.TryParse(xNodeElement.Attribute("ise_id").Value.ToString(), out int ise_id);
+                foreach (Device device in Devicelist)
+                    foreach (Channel channel in device.Channellist.Channellist)
+                        if (channel.Ise_id == ise_id)
+                        {
+                            channel.Room = xElement.Attribute("name").Value.ToString();
+                            Debug.WriteLine($"{channel.Name} {channel.Room}");
+                        }
+            }
+
         }
     }
 
@@ -188,9 +257,6 @@ namespace Hausautomation.Model
                     Channellist.AddChannel(channel);
                 }
             }
-        }
-        public void Parse(Room room)
-        {
         }
         #endregion
     }

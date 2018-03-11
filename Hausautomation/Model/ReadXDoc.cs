@@ -17,11 +17,9 @@ namespace Hausautomation.Model
         public string HMIP { get; set; }
         public int HMPO { get; set; }
         public bool online { get; set; }
-        DeviceList devicelist;
 
-        public ReadXDoc(DeviceList devicelist)
+        public ReadXDoc()
         {
-            this.devicelist = devicelist;
             HMIP = "http://192.168.178.15";
             HMPO = 80;
 #pragma warning disable 4014
@@ -64,17 +62,7 @@ namespace Hausautomation.Model
                     // Lokales File laden
                     xdoc = XDocument.Load("z_devicelist.xml");
                 }
-
-                // XML File parsen
-                foreach (XElement element in xdoc.Descendants("device")/*.Descendants("channel")*/)
-                {
-                    //Debug.WriteLine(element);
-                    // Device parsen
-                    Device device = new Device();
-                    device.Parse(element);
-                    // hinzufügen zur Liste
-                    devicelist.AddDevice(device);
-                }
+                MainPage.devicelist.LoadXDocument(xdoc);
                 Debug.WriteLine("Seite 1 fertig");
             }
             catch (Exception ex)
@@ -104,33 +92,57 @@ namespace Hausautomation.Model
                     // Lokales File laden
                     xdoc = XDocument.Load("z_statelist.xml");
                 }
-
-                // XML File parsen
-                foreach (XElement element in xdoc.Descendants("device")/*.Descendants("channel")*/)
-                {
-                    //Debug.WriteLine(element);
-                    // Device parsen
-                    bool ok = int.TryParse(element.Attribute("ise_id").Value.ToString(), out int ise_id);
-                    Device device = devicelist.GetDevice(ise_id);
-                    if (device != null)
-                    {
-                        //Debug.WriteLine($"GetDevice - Parse\n{element}");
-                        device.Parse(element);
-                    }
-                    else
-                    {
-                        //Debug.WriteLine($"AddDevice - Parse\n{element}");
-                        device = new Device();
-                        device.Parse(element);
-                        devicelist.AddDevice(device);
-                    }
-                }
+                MainPage.devicelist.LoadXDocument(xdoc);
                 Debug.WriteLine("Seite 2 fertig");
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("SeiteEinlesen2 " + ex.Message.ToString());
             }
+            SeiteEinlesen3("addons/xmlapi/roomlist.cgi");
+        }
+
+        public async Task SeiteEinlesen3(string page)
+        {
+            await Frage_ob_Online();
+            try
+            {
+                XDocument xdoc;
+                if (online == true)
+                {
+                    // Daten von der HomeMatic laden
+                    Uri uri = new Uri(HMIP + ":" + HMPO.ToString() + "/" + page);
+                    HttpWebRequest request = WebRequest.Create(uri) as HttpWebRequest;
+                    HttpWebResponse response = (HttpWebResponse)await request.GetResponseAsync() as HttpWebResponse;
+                    StreamReader reader = new StreamReader(response.GetResponseStream());
+                    xdoc = XDocument.Load(reader);
+                }
+                else
+                {
+                    // Lokales File laden
+                    xdoc = XDocument.Load("z_roomlist.xml");
+                }
+                MainPage.devicelist.LoadXDocument(xdoc);
+                Debug.WriteLine("Seite 3 fertig");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("SeiteEinlesen3 " + ex.Message.ToString());
+            }
+            ///////////
+            /*foreach (Device device in MainPage.devicelist.Devicelist)
+            {
+                Debug.WriteLine($"Device {device.Name}");
+                foreach (Channel channel in device.Channellist.Channellist)
+                {
+                    Debug.WriteLine($"   Channel {channel.Name}");
+                    foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
+                    {
+                        Debug.WriteLine($"      Datapoint {datapoint.Name}");
+                    }
+                }
+            }*/
+            ///////////
         }
 
 
