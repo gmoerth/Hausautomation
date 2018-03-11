@@ -38,13 +38,7 @@ namespace Hausautomation.Model
 
         public RoomList Roomlist;
 
-        private List<Function> functionlist;
-
-        public List<Function> Functionslist
-        {
-            get { return functionlist; }
-            set { functionlist = value; }
-        }
+        public FunctionList Functionlist;
 
         private string name;
 
@@ -137,36 +131,14 @@ namespace Hausautomation.Model
             get { return operate; }
             set { operate = value; }
         }
-
-        public string Room { get; set; }
-
-        public string Function { get; set; }
         #endregion
 
-        #region Konstruktoren
+        #region Konstruktor
         public Channel()
         {
             Datapointlist = new DatapointList();
-        }
-
-        public Channel(DatapointList datapointlist, RoomList roomlist, List<Function> functionslist, string name, int type, string address, int ise_id, string direction, int parent_Device, int index, string group_partner, bool aes_available, string transmission_mode, bool visible, bool ready_config, bool operate)
-        {
-            Datapointlist = datapointlist ?? throw new ArgumentNullException(nameof(datapointlist));
-            Roomlist = roomlist ?? throw new ArgumentNullException(nameof(roomlist));
-            Functionslist = functionslist ?? throw new ArgumentNullException(nameof(functionslist));
-            Name = name ?? throw new ArgumentNullException(nameof(name));
-            Type = type;
-            Address = address ?? throw new ArgumentNullException(nameof(address));
-            Ise_id = ise_id;
-            Direction = direction ?? throw new ArgumentNullException(nameof(direction));
-            Parent_Device = parent_Device;
-            Index = index;
-            Group_partner = group_partner ?? throw new ArgumentNullException(nameof(group_partner));
-            Aes_available = aes_available;
-            Transmission_mode = transmission_mode ?? throw new ArgumentNullException(nameof(transmission_mode));
-            Visible = visible;
-            Ready_config = ready_config;
-            Operate = operate;
+            Roomlist = new RoomList();
+            Functionlist = new FunctionList();
         }
         #endregion
 

@@ -10,7 +10,7 @@ namespace Hausautomation.Model
 {
     public class RoomList
     {
-        private List<Room> Roomlist { get; set; }
+        public List<Room> Roomlist { get; set; }
 
         public RoomList()
         {

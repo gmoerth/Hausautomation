@@ -12,14 +12,18 @@ namespace Hausautomation.Model
     {
         public List<Device> Devicelist { get; set; }
 
-        public RoomList Roomlist { get; set; } // diese Liste ist eigentlich redundant aber hilfreich
+        public RoomList Roomlist { get; set; } // diese Liste ist redundant aber hilfreich
+
+        public FunctionList Functionlist { get; set; } // diese Liste ist redundant aber hilfreich
 
         public DeviceList()
         {
             Devicelist = new List<Device>();
             Roomlist = new RoomList();
+            Functionlist = new FunctionList();
         }
 
+        #region Methoden
         public Device GetDevice(int ise_id)
         {
             foreach (Device device in Devicelist)
@@ -35,7 +39,7 @@ namespace Hausautomation.Model
 
         public void LoadXDocument(XDocument xDocument)
         {
-            // device parsen
+            // device parsen (devicelist + statelist)
             foreach (XElement element in xDocument.Descendants("device")/*.Descendants("channel")*/)
             {
                 //Debug.WriteLine(element);
@@ -54,7 +58,7 @@ namespace Hausautomation.Model
                     AddDevice(device);
                 }
             }
-            // room parsen
+            // room parsen (roomlist)
             foreach (XElement element in xDocument.Descendants("room"))
             {
                 //Debug.WriteLine(element);
@@ -73,7 +77,27 @@ namespace Hausautomation.Model
                     room.Parse(element);
                     InsertRoomInChannel(element);
                     Roomlist.AddRoom(room);
-
+                }
+            }
+            // funtion parsen (functionlist)
+            foreach (XElement element in xDocument.Descendants("function"))
+            {
+                //Debug.WriteLine(element);
+                bool ok = int.TryParse(element.Attribute("ise_id").Value.ToString(), out int ise_id);
+                Function function = Functionlist.GetFunction(ise_id);
+                if (function != null)
+                {
+                    //Debug.WriteLine($"GetFunction - Parse\n{element}");
+                    function.Parse(element);
+                    InsertFunctionInChannel(element);
+                }
+                else
+                {
+                    //Debug.WriteLine($"AddFunction - Parse\n{element}");
+                    function = new Function();
+                    function.Parse(element);
+                    InsertFunctionInChannel(element);
+                    Functionlist.AddFunction(function);
                 }
             }
         }
@@ -92,13 +116,60 @@ namespace Hausautomation.Model
                     foreach (Channel channel in device.Channellist.Channellist)
                         if (channel.Ise_id == ise_id)
                         {
-                            channel.Room = xElement.Attribute("name").Value.ToString();
-                            Debug.WriteLine($"{channel.Name} {channel.Room}");
+                            bool ok2 = int.TryParse(xElement.Attribute("ise_id").Value.ToString(), out int ise_id2);
+                            Room room = channel.Roomlist.GetRoom(ise_id2);
+                            if (room != null)
+                            {
+                                //Debug.WriteLine($"{channel.Name} {room.Name}");
+                            }
+                            else
+                            {
+                                room = new Room();
+                                room.Ise_id = ise_id2;
+                                room.Name = xElement.Attribute("name").Value.ToString();
+                                channel.Roomlist.AddRoom(room);
+                                //Debug.WriteLine($"{channel.Name} {room.Name}");
+                            }
+                        }
+            }
+
+        }
+
+        public void InsertFunctionInChannel(XElement xElement)
+        {
+            // Room Name zu Channel hinzufügen
+            foreach (XNode xnode in xElement.Nodes())
+            {
+                //Debug.WriteLine(xnode);
+                XElement xNodeElement = Channel.ToXElement(xnode);
+                if (xNodeElement == null)
+                    throw new InvalidOperationException();
+                bool ok = int.TryParse(xNodeElement.Attribute("ise_id").Value.ToString(), out int ise_id);
+                foreach (Device device in Devicelist)
+                    foreach (Channel channel in device.Channellist.Channellist)
+                        if (channel.Ise_id == ise_id)
+                        {
+                            bool ok2 = int.TryParse(xElement.Attribute("ise_id").Value.ToString(), out int ise_id2);
+                            Function function = channel.Functionlist.GetFunction(ise_id2);
+                            if (function != null)
+                            {
+                                //Debug.WriteLine($"{channel.Name} {function.Name} {function.Description}");
+                            }
+                            else
+                            {
+                                function = new Function();
+                                function.Ise_id = ise_id2;
+                                function.Name = xElement.Attribute("name").Value.ToString();
+                                function.Description = xElement.Attribute("description").Value.ToString();
+                                channel.Functionlist.AddFunction(function);
+                                //Debug.WriteLine($"{channel.Name} {function.Name} {function.Description}");
+                            }
                         }
             }
 
         }
     }
+    #endregion
 
     public class Device
     {
@@ -170,24 +241,10 @@ namespace Hausautomation.Model
         }
         #endregion
 
-        #region Konstruktoren
+        #region Konstruktor
         public Device()
         {
             Channellist = new ChannelList();
-        }
-
-        public Device(ChannelList channellist, string name, string address, int ise_id, string @interface, string device_type, bool ready_config, bool config_pending, bool sticky_unreach, bool unreach)
-        {
-            Channellist = channellist ?? throw new ArgumentNullException(nameof(channellist));
-            Name = name ?? throw new ArgumentNullException(nameof(name));
-            Address = address ?? throw new ArgumentNullException(nameof(address));
-            Ise_id = ise_id;
-            Interface = @interface ?? throw new ArgumentNullException(nameof(@interface));
-            Device_type = device_type ?? throw new ArgumentNullException(nameof(device_type));
-            Ready_config = ready_config;
-            Config_pending = config_pending;
-            Sticky_unreach = sticky_unreach;
-            Unreach = unreach;
         }
         #endregion
 

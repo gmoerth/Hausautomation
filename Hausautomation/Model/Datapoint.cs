@@ -92,25 +92,6 @@ namespace Hausautomation.Model
         }
         #endregion
 
-        #region Konstruktoren
-        public Datapoint()
-        {
-            // keine Subliste mehr
-        }
-
-        public Datapoint(int ise_id, string name, int operations, DateTime timestamp, string valueunit, int valuetype, double value, string type)
-        {
-            Ise_id = ise_id;
-            Name = name ?? throw new ArgumentNullException(nameof(name));
-            Operations = operations;
-            Timestamp = timestamp;
-            Valueunit = valueunit ?? throw new ArgumentNullException(nameof(valueunit));
-            Valuetype = valuetype;
-            Value = value;
-            Type = type ?? throw new ArgumentNullException(nameof(type));
-        }
-        #endregion
-
         #region Methoden
         public static DateTime UnixTimeStampToDateTime(double unixTimeStamp)
         {

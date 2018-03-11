@@ -25,7 +25,6 @@ namespace Hausautomation.Model
 #pragma warning disable 4014
             SeiteEinlesen("addons/xmlapi/devicelist.cgi");
             //SeiteEinlesen2("addons/xmlapi/statelist.cgi");
-#pragma warning restore 4014
         }
 
         public async Task Frage_ob_Online()
@@ -129,22 +128,59 @@ namespace Hausautomation.Model
             {
                 Debug.WriteLine("SeiteEinlesen3 " + ex.Message.ToString());
             }
+            SeiteEinlesen4("addons/xmlapi/functionlist.cgi");
+        }
+
+        public async Task SeiteEinlesen4(string page)
+        {
+            await Frage_ob_Online();
+            try
+            {
+                XDocument xdoc;
+                if (online == true)
+                {
+                    // Daten von der HomeMatic laden
+                    Uri uri = new Uri(HMIP + ":" + HMPO.ToString() + "/" + page);
+                    HttpWebRequest request = WebRequest.Create(uri) as HttpWebRequest;
+                    HttpWebResponse response = (HttpWebResponse)await request.GetResponseAsync() as HttpWebResponse;
+                    StreamReader reader = new StreamReader(response.GetResponseStream());
+                    xdoc = XDocument.Load(reader);
+                }
+                else
+                {
+                    // Lokales File laden
+                    xdoc = XDocument.Load("z_functionlist.xml");
+                }
+                MainPage.devicelist.LoadXDocument(xdoc);
+                Debug.WriteLine("Seite 4 fertig");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("SeiteEinlesen4 " + ex.Message.ToString());
+            }
             ///////////
-            /*foreach (Device device in MainPage.devicelist.Devicelist)
+            foreach (Device device in MainPage.devicelist.Devicelist)
             {
                 Debug.WriteLine($"Device {device.Name}");
                 foreach (Channel channel in device.Channellist.Channellist)
                 {
-                    Debug.WriteLine($"   Channel {channel.Name}");
+                    foreach (Room room in channel.Roomlist.Roomlist)
+                    {
+                        Debug.WriteLine($"   Channel {channel.Name} {room.Name} ");
+                    }
+                    foreach (Function function in channel.Functionlist.Functionlist)
+                    {
+                        Debug.WriteLine($"   Channel {channel.Name} {function.Name} {function.Description}");
+                    }
                     foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
                     {
                         Debug.WriteLine($"      Datapoint {datapoint.Name}");
                     }
                 }
-            }*/
+            }
             ///////////
         }
-
+#pragma warning restore 4014
 
     }
 }
