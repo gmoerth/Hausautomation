@@ -108,6 +108,7 @@
     </Compile>
     <Compile Include="Model\ReadXDoc.cs" />
     <Compile Include="Model\Room.cs" />
+    <Compile Include="Model\SendMail.cs" />
     <Compile Include="Pages\SamplePage1.xaml.cs">
       <DependentUpon>SamplePage1.xaml</DependentUpon>
     </Compile>

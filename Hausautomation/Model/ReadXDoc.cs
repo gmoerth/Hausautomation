@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using System.Xml.Serialization;
 using Windows.Storage;
 using Windows.UI.Popups;
 
@@ -22,24 +23,26 @@ namespace Hausautomation.Model
 
         public ReadXDoc()
         {
-            //LoadSettings();
             HMIP = "192.168.178.15";
             HMPO = 80;
             online = true;
-#pragma warning disable 4014
+            if (MainPage.settingsPage != null)
+            {
+                HMIP = MainPage.settingsPage.xdoc.HMIP;
+                HMPO = MainPage.settingsPage.xdoc.HMPO;
+                online = MainPage.settingsPage.xdoc.online;
+            }
             online = false; // schneller
-            //ReadAllXDocument();
+        }
+
+        public void ReadAllXDocuments()
+        {
+#pragma warning disable 4014
+            ReadAllXDocumentsAsync();
 #pragma warning restore 4014
         }
 
-        public void LoadSettings()
-        {
-            HMIP = MainPage.settingsPage.xdoc.HMIP;
-            //SettingsPage page = new SettingsPage();
-            //page.ReadXDoc();
-        }
-
-        public async Task ReadAllXDocument()
+        public async Task ReadAllXDocumentsAsync()
         {
 
             await ReadXDocument("addons/xmlapi/statelist.cgi", "statelist.xml");
@@ -140,6 +143,7 @@ namespace Hausautomation.Model
             if ((int)result.Id == 0)
                 online = false;
         }
+
 
     }
 }

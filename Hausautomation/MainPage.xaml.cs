@@ -8,6 +8,7 @@ using Hausautomation.Model;
 using Hausautomation.Pages;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -25,18 +26,32 @@ namespace Hausautomation
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        public static DeviceList Devicelist; // Die Liste die alles enthält!!!
-        public static SettingsPage settingsPage;
+        public static DeviceList Devicelist; // Die Liste die alle Geräte enthält
+        public static SettingsPage settingsPage; // Enthält alle gespeicherten Einstellungen
 
         public MainPage()
         {
             this.InitializeComponent();
+            Window.Current.VisibilityChanged += Window_VisibilityChanged;
 
             Devicelist = new DeviceList();
             settingsPage = new SettingsPage();
             
-            ReadXDoc readXDoc = new ReadXDoc();
+            ReadXDoc readXDoc = new ReadXDoc(); 
+            readXDoc.ReadAllXDocuments(); // Lese alle Dokumente von der HomeMatic ein und speicher sie in der Devicelist
+
             Debug.WriteLine("Main fertig\r\n");
+        }
+
+        private void Window_VisibilityChanged(object sender, VisibilityChangedEventArgs e)
+        {
+            if (!e.Visible)
+            {
+                Debug.WriteLine("Window Hidden");
+                //settingsPage.SaveSettingsXML();
+            }
+            else
+                Debug.WriteLine("Window Visible");
         }
 
         private void NavigationView_Loaded(object sender, RoutedEventArgs e)

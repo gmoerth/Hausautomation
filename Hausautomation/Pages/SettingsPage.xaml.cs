@@ -26,32 +26,31 @@ namespace Hausautomation.Pages
     /// </summary>
     public sealed partial class SettingsPage : Page
     {
-        public bool bLoaded = false;
         public ReadXDoc xdoc;
-
 
         public SettingsPage()
         {
             this.InitializeComponent();
-            if (MainPage.settingsPage == null)
-            {
-                LoadEmailXML();
-                bLoaded = true;
-            }
+            xdoc = new ReadXDoc();
+            LoadSettingsXML();
+            MainPage.settingsPage = this;
         }
 
-        public void LoadEmailXML()
+        public void LoadSettingsXML()
         {
-            Debug.WriteLine("LoadXML");
+            Debug.WriteLine("LoadSettingsXML");
             try
             {
                 XmlSerializer serializer = new XmlSerializer(typeof(ReadXDoc));
                 StorageFolder localFolder = ApplicationData.Current.LocalFolder;
-                using (var reader = new StreamReader(File.Open(localFolder.Path + @"/ReadXDoc.xml", FileMode.Open, FileAccess.Read)))
+                // C:\Users\Gerhard\AppData\Local\Packages\7e54ccaa-a3c0-48e3-8ded-b0c43979c189_b0ckz6vx689s4\LocalState
+                using (var reader = new StreamReader(File.Open(localFolder.Path + @"/settings.xml", FileMode.Open, FileAccess.Read)))
                 {
                     xdoc = (ReadXDoc)serializer.Deserialize(reader);
+                    reader.Close();
                 }
                 tbHMIP.Text = xdoc.HMIP;
+                tbHMPO.Text = xdoc.HMPO.ToString();
                 /*SMTPServer.Text = sm.SMTPHost;
                 SMTPPort.Text = sm.SMTPPort.ToString();
                 SMTPName.Text = sm.NCUsername;
@@ -62,61 +61,91 @@ namespace Hausautomation.Pages
             catch (FileNotFoundException)
             {
                 // First Start Save File with Default Values
-                SaveEmailXML();
+                SaveSettingsXML();
             }
             catch (Exception ex)
             {
-                //MessageBox.Show(ex.ToString(), "Error Deserialize SendMail");
-                Debug.WriteLine(ex.ToString(), "Error Deserialize SendMail");
+                Debug.WriteLine(ex.ToString(), "Error Deserialize settings.xml");
             }
         }
 
-        public void SaveEmailXML()
+        public void SaveSettingsXML()
         {
-            Debug.WriteLine("SaveEmailXML");
+            Debug.WriteLine("SaveSettingsXML");
             try
             {
-                XmlSerializer serializerSM = new XmlSerializer(typeof(ReadXDoc));
-                //using (StreamWriter writer = new StreamWriter(@"../../Email.xml"))
+                XmlSerializer serializer = new XmlSerializer(typeof(ReadXDoc));
                 StorageFolder localFolder = ApplicationData.Current.LocalFolder;
-                using (StreamWriter writer = new StreamWriter(File.Open(localFolder.Path + @"/ReadXDoc.xml", FileMode.Create, FileAccess.Write)))
+                // C:\Users\Gerhard\AppData\Local\Packages\7e54ccaa-a3c0-48e3-8ded-b0c43979c189_b0ckz6vx689s4\LocalState
+                using (StreamWriter writer = new StreamWriter(File.Open(localFolder.Path + @"/settings.xml", FileMode.Create, FileAccess.Write)))
                 {
-                    /*TextBox_TextChanged_SMTPServer(null, null);
-                    TextBox_TextChanged_SMTPPort(null, null);
-                    TextBox_TextChanged_SMTPName(null, null);
-                    TextBox_TextChanged_SMTPPass(null, null);
-                    AUT_Click(null, null);
-                    SSL_Click(null, null);*/
-                    xdoc = new ReadXDoc();
-                    serializerSM.Serialize(writer, xdoc);
+                    tbHMIP_TextChanged(null, null);
+                    tbHMPO_TextChanged(null, null);
+                    tbSMTPServer_TextChanged(null, null);
+                    tbSMTPPort_TextChanged(null, null);
+                    cbSSL_Click(null, null);
+                    tbSMTPName_TextChanged(null, null);
+                    pbSMTPPass_TextChanged(null, null);
+                    cbAUT_Click(null, null);
+                    serializer.Serialize(writer, xdoc);
                 }
             }
             catch (Exception ex)
             {
-                //MessageBox.Show(ex.ToString(), "Error Serialize SendMail");
-                Debug.WriteLine(ex.ToString(), "Error Serialize SendMail");
+                Debug.WriteLine(ex.ToString(), "Error Serialize settings.xml");
             }
         }
 
-
-        //public string tbHMIP { get; set; }
-
-        //public string MyProperty { get; set; }
-
-        public void ReadXDoc()
-        {
-            //tbHMIP 
-        }
-
-
         private void tbHMIP_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            xdoc.HMIP = tbHMIP.Text;
         }
 
         private void tbHMPO_TextChanged(object sender, TextChangedEventArgs e)
         {
+            int.TryParse(tbHMPO.Text, out int port);
+            xdoc.HMPO = port;
+        }
 
+        private void tbSMTPServer_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void tbSMTPPort_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+         private void cbSSL_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+       private void tbSMTPName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void pbSMTPPass_TextChanged(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btTestEmail_Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void cbAUT_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Page_LostFocus(object sender, RoutedEventArgs e)
+        {
+            Debug.WriteLine($"LostFocus {sender.GetType().ToString()} {e.OriginalSource.GetType().Name}");
+            SaveSettingsXML();
         }
     }
 }

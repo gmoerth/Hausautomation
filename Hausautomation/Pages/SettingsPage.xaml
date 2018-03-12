@@ -5,13 +5,26 @@
     xmlns:local="using:Hausautomation.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d" LostFocus="Page_LostFocus">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBlock HorizontalAlignment="Left" Margin="10,16,0,0" Text="HomeMatic IP:" VerticalAlignment="Top"/>
+    <!--<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">-->
+    <Grid Background="#FFB4BBFF">
+            <TextBlock HorizontalAlignment="Left" Margin="10,16,0,0" Text="HomeMatic IP:" VerticalAlignment="Top"/>
         <TextBox x:Name="tbHMIP" HorizontalAlignment="Left" Height="20" Margin="120,10,0,0" Text="192.168.178.15" VerticalAlignment="Top" Width="145" TextChanged="tbHMIP_TextChanged"/>
         <TextBlock HorizontalAlignment="Left" Margin="300,16,0,0" Text="Port:" VerticalAlignment="Top"/>
         <TextBox x:Name="tbHMPO" HorizontalAlignment="Left" Height="20" Margin="340,10,0,0" Text="2010" VerticalAlignment="Top" Width="64" TextChanged="tbHMPO_TextChanged"/>
+
+        <TextBlock HorizontalAlignment="Left" Margin="10,276,0,0" Text="SMTPServer" VerticalAlignment="Top"/>
+        <TextBox x:Name="SMTPServer" HorizontalAlignment="Left" Height="20" Margin="95,270,0,0" Text="smtp.server.at" VerticalAlignment="Top" Width="145" TextChanged="tbSMTPServer_TextChanged"/>
+        <TextBlock HorizontalAlignment="Left" Margin="255,276,0,0" Text="Port" VerticalAlignment="Top"/>
+        <TextBox x:Name="SMTPPort" HorizontalAlignment="Left" Height="20" Margin="290,270,0,0" Text="25" VerticalAlignment="Top" TextChanged="tbSMTPPort_TextChanged"/>
+        <CheckBox x:Name="SSL" Content="SSL" HorizontalAlignment="Left" Margin="396,270,0,0" VerticalAlignment="Top" Click="cbSSL_Click" MinWidth="60"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,307,0,0" Text="SMTPName" VerticalAlignment="Top"/>
+        <TextBox x:Name="SMTPName" HorizontalAlignment="Left" Height="20" Margin="95,300,0,0" Text="email@host.at" VerticalAlignment="Top" Width="145" TextChanged="tbSMTPName_TextChanged"/>
+        <TextBlock HorizontalAlignment="Left" Margin="255,306,0,0" Text="Pass" VerticalAlignment="Top"/>
+        <PasswordBox x:Name="SMTPPass" HorizontalAlignment="Left" Height="20" Margin="290,300,0,0" PlaceholderText="Password" VerticalAlignment="Top" Width="140" PasswordChanged="pbSMTPPass_TextChanged"/>
+        <Button Content="Send Test Email" HorizontalAlignment="Left" Margin="95,333,0,0" VerticalAlignment="Top" Width="144" Click="btTestEmail_Button_Click"/>
+        <CheckBox x:Name="AUT" Content="Authentification" HorizontalAlignment="Left" Margin="290,333,0,0" VerticalAlignment="Top" Click="cbAUT_Click"/>
 
     </Grid>
 </Page>
