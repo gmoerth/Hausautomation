@@ -25,17 +25,17 @@ namespace Hausautomation
     /// </summary>
     public sealed partial class MainPage : Page
     {
-
-        public static DeviceList devicelist; // Die Liste die alles enthält!!!
+        public static DeviceList Devicelist; // Die Liste die alles enthält!!!
+        public static SettingsPage settingsPage;
 
         public MainPage()
         {
             this.InitializeComponent();
 
-            devicelist = new DeviceList();
+            Devicelist = new DeviceList();
+            settingsPage = new SettingsPage();
+            
             ReadXDoc readXDoc = new ReadXDoc();
-
-
             Debug.WriteLine("Main fertig\r\n");
         }
 
