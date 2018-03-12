@@ -198,6 +198,12 @@
       <Version>2.0.0</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\SMTP-WinRT\LightBuzz.SMTP\LightBuzz.SMTP\LightBuzz.SMTP.csproj">
+      <Project>{4ad41344-ec85-41e4-81ab-29e5e45785f8}</Project>
+      <Name>LightBuzz.SMTP</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

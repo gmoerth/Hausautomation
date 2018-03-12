@@ -23,16 +23,12 @@ namespace Hausautomation.Model
 
         public ReadXDoc()
         {
-            HMIP = "192.168.178.15";
-            HMPO = 80;
-            online = true;
             if (MainPage.settingsPage != null)
             {
                 HMIP = MainPage.settingsPage.xdoc.HMIP;
                 HMPO = MainPage.settingsPage.xdoc.HMPO;
                 online = MainPage.settingsPage.xdoc.online;
             }
-            online = false; // schneller
         }
 
         public void ReadAllXDocuments()
@@ -44,14 +40,13 @@ namespace Hausautomation.Model
 
         public async Task ReadAllXDocumentsAsync()
         {
-
             await ReadXDocument("addons/xmlapi/statelist.cgi", "statelist.xml");
             await ReadXDocument("addons/xmlapi/devicelist.cgi", "devicelist.xml");
             await ReadXDocument("addons/xmlapi/roomlist.cgi", "roomlist.xml");
             await ReadXDocument("addons/xmlapi/functionlist.cgi", "functionlist.xml");
 
             // Demo debug Ausgabe der kompletten Liste
-            foreach (Device device in MainPage.Devicelist.Devicelist)
+            /*foreach (Device device in MainPage.Devicelist.Devicelist)
             {
                 Debug.WriteLine($"Device {device.Name}");
                 foreach (Channel channel in device.Channellist.Channellist)
@@ -71,7 +66,7 @@ namespace Hausautomation.Model
                         Debug.WriteLine($"        Datapoint {datapoint.Name}");
                     }
                 }
-            }
+            }*/
         }
 
         public async Task Frage_ob_Online()
@@ -143,7 +138,6 @@ namespace Hausautomation.Model
             if ((int)result.Id == 0)
                 online = false;
         }
-
 
     }
 }

@@ -2,26 +2,33 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
+using LightBuzz.SMTP;
 using Windows.ApplicationModel.Email;
 
 namespace Hausautomation.Model
 {
-    class SendMail
+    public class SendMail
     {
-        public string SMTPHost { get; set; }
+        public string SMTPServer { get; set; }
         public int SMTPPort { get; set; }
         public string NCUsername { get; set; }
         public string NCPassword { get; set; }
         public bool Authentification { get; set; }
         public bool SSL { get; set; }
 
-        private static MainPage MainWindow;
-        public void SetMainWindow(MainPage value)
+        public SendMail()
         {
-            MainWindow = value;
+            if (MainPage.settingsPage != null)
+            {
+                SMTPServer = MainPage.settingsPage.sm.SMTPServer;
+                SMTPPort = MainPage.settingsPage.sm.SMTPPort;
+                NCUsername = MainPage.settingsPage.sm.NCUsername;
+                NCPassword = MainPage.settingsPage.sm.NCPassword;
+                Authentification = MainPage.settingsPage.sm.Authentification;
+                SSL = MainPage.settingsPage.sm.SSL;
+            }
         }
 
         public async void SendEmail(string mailto, string subject, string body)
@@ -35,7 +42,7 @@ namespace Hausautomation.Model
                     Password = NCPassword;
                 }
                 // SMTPPort = 25 ohne SSL || 465 mit SSL || 587 ohne SSL
-                using (@SmtpClient client = new SmtpClient(SMTPHost, SMTPPort, SSL, Username, Password))
+                using (SmtpClient client = new SmtpClient(SMTPServer, SMTPPort, SSL, Username, Password))
                 {
                     EmailMessage emailMessage = new EmailMessage();
                     if (mailto.Contains(',') == true)
@@ -54,12 +61,10 @@ namespace Hausautomation.Model
                     }
                     emailMessage.Subject = subject;
                     emailMessage.Body = body;
-                    emailMessage.Sender.Address = "noreply@fwm.at";
-                    emailMessage.Sender.Name = "Fritz_WLAN_Monitoring";
+                    emailMessage.Sender.Address = "noreply@gmc.at";
+                    emailMessage.Sender.Name = "Hausautomation";
                     await client.SendMailAsync(emailMessage);
                     Debug.WriteLine("Message sent. " + subject + " " + DateTime.Now.ToString());
-                    if (MainWindow != null)
-                        await MainWindow.UpdateTitle("Mail sent. " + subject);
                 }
             }
             catch (Exception ex)

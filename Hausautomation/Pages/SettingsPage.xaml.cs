@@ -27,11 +27,13 @@ namespace Hausautomation.Pages
     public sealed partial class SettingsPage : Page
     {
         public ReadXDoc xdoc;
+        public SendMail sm;
 
         public SettingsPage()
         {
             this.InitializeComponent();
             xdoc = new ReadXDoc();
+            sm = new SendMail();
             LoadSettingsXML();
             MainPage.settingsPage = this;
         }
@@ -41,22 +43,27 @@ namespace Hausautomation.Pages
             Debug.WriteLine("LoadSettingsXML");
             try
             {
-                XmlSerializer serializer = new XmlSerializer(typeof(ReadXDoc));
                 StorageFolder localFolder = ApplicationData.Current.LocalFolder;
                 // C:\Users\Gerhard\AppData\Local\Packages\7e54ccaa-a3c0-48e3-8ded-b0c43979c189_b0ckz6vx689s4\LocalState
-                using (var reader = new StreamReader(File.Open(localFolder.Path + @"/settings.xml", FileMode.Open, FileAccess.Read)))
+                XmlSerializer serializer = new XmlSerializer(typeof(ReadXDoc)); // Ausnahme ausgelöst: "System.NotSupportedException" in System.Private.CoreLib.dll
+                using (var reader = new StreamReader(File.Open(localFolder.Path + @"/readxdoc.xml", FileMode.Open, FileAccess.Read)))
                 {
                     xdoc = (ReadXDoc)serializer.Deserialize(reader);
-                    reader.Close();
                 }
                 tbHMIP.Text = xdoc.HMIP;
                 tbHMPO.Text = xdoc.HMPO.ToString();
-                /*SMTPServer.Text = sm.SMTPHost;
-                SMTPPort.Text = sm.SMTPPort.ToString();
-                SMTPName.Text = sm.NCUsername;
-                SMTPPass.Password = sm.NCPassword;
-                AUT.IsChecked = sm.Authentification;
-                SSL.IsChecked = sm.SSL;*/
+                cbOnline.IsChecked = xdoc.online;
+                XmlSerializer serializer2 = new XmlSerializer(typeof(SendMail)); // Ausnahme ausgelöst: "System.NotSupportedException" in System.Private.CoreLib.dll
+                using (var reader2 = new StreamReader(File.Open(localFolder.Path + @"/sendmail.xml", FileMode.Open, FileAccess.Read)))
+                {
+                    sm = (SendMail)serializer2.Deserialize(reader2);
+                }
+                tbSMTPServer.Text = sm.SMTPServer;
+                tbSMTPPort.Text = sm.SMTPPort.ToString();
+                tbSMTPName.Text = sm.NCUsername;
+                pbSMTPPass.Password = sm.NCPassword;
+                cbAUT.IsChecked = sm.Authentification;
+                cbSSL.IsChecked = sm.SSL;
             }
             catch (FileNotFoundException)
             {
@@ -74,26 +81,38 @@ namespace Hausautomation.Pages
             Debug.WriteLine("SaveSettingsXML");
             try
             {
-                XmlSerializer serializer = new XmlSerializer(typeof(ReadXDoc));
                 StorageFolder localFolder = ApplicationData.Current.LocalFolder;
                 // C:\Users\Gerhard\AppData\Local\Packages\7e54ccaa-a3c0-48e3-8ded-b0c43979c189_b0ckz6vx689s4\LocalState
-                using (StreamWriter writer = new StreamWriter(File.Open(localFolder.Path + @"/settings.xml", FileMode.Create, FileAccess.Write)))
+                XmlSerializer serializer = new XmlSerializer(typeof(ReadXDoc));
+                using (StreamWriter writer = new StreamWriter(File.Open(localFolder.Path + @"/readxdoc.xml", FileMode.Create, FileAccess.Write)))
                 {
                     tbHMIP_TextChanged(null, null);
                     tbHMPO_TextChanged(null, null);
+                    cbOnline_Click(null, null);
+                    serializer.Serialize(writer, xdoc);
+                }
+                XmlSerializer serializer2 = new XmlSerializer(typeof(SendMail));
+                using (StreamWriter writer = new StreamWriter(File.Open(localFolder.Path + @"/sendmail.xml", FileMode.Create, FileAccess.Write)))
+                {
                     tbSMTPServer_TextChanged(null, null);
                     tbSMTPPort_TextChanged(null, null);
                     cbSSL_Click(null, null);
                     tbSMTPName_TextChanged(null, null);
                     pbSMTPPass_TextChanged(null, null);
                     cbAUT_Click(null, null);
-                    serializer.Serialize(writer, xdoc);
+                    serializer2.Serialize(writer, sm);
                 }
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.ToString(), "Error Serialize settings.xml");
             }
+        }
+
+        private void Page_LostFocus(object sender, RoutedEventArgs e)
+        {
+            Debug.WriteLine($"LostFocus {sender.GetType().ToString()} {e.OriginalSource.GetType().Name}");
+            SaveSettingsXML();
         }
 
         private void tbHMIP_TextChanged(object sender, TextChangedEventArgs e)
@@ -107,45 +126,46 @@ namespace Hausautomation.Pages
             xdoc.HMPO = port;
         }
 
+        private void cbOnline_Click(object sender, RoutedEventArgs e)
+        {
+            xdoc.online = (bool)cbOnline.IsChecked;
+        }
+
         private void tbSMTPServer_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            sm.SMTPServer = tbSMTPServer.Text;
         }
 
         private void tbSMTPPort_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            int.TryParse(tbSMTPPort.Text, out int port);
+            sm.SMTPPort = port;
         }
 
-         private void cbSSL_Click(object sender, RoutedEventArgs e)
+        private void cbSSL_Click(object sender, RoutedEventArgs e)
         {
-
+            sm.SSL = (bool)cbSSL.IsChecked;
         }
 
-       private void tbSMTPName_TextChanged(object sender, TextChangedEventArgs e)
+        private void tbSMTPName_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            sm.NCUsername = tbSMTPName.Text;
         }
 
         private void pbSMTPPass_TextChanged(object sender, RoutedEventArgs e)
         {
-
+            sm.NCPassword = pbSMTPPass.Password;
         }
 
         private void btTestEmail_Button_Click(object sender, RoutedEventArgs e)
         {
-
+            sm.SendEmail("gmc@chello.at", "Test Betreff", "Test Mail");
         }
 
         private void cbAUT_Click(object sender, RoutedEventArgs e)
         {
-
+            sm.Authentification = (bool)cbAUT.IsChecked;
         }
 
-        private void Page_LostFocus(object sender, RoutedEventArgs e)
-        {
-            Debug.WriteLine($"LostFocus {sender.GetType().ToString()} {e.OriginalSource.GetType().Name}");
-            SaveSettingsXML();
-        }
     }
 }

@@ -40,7 +40,7 @@ namespace Hausautomation
             ReadXDoc readXDoc = new ReadXDoc(); 
             readXDoc.ReadAllXDocuments(); // Lese alle Dokumente von der HomeMatic ein und speicher sie in der Devicelist
 
-            Debug.WriteLine("Main fertig\r\n");
+            Debug.WriteLine("Main fertig");
         }
 
         private void Window_VisibilityChanged(object sender, VisibilityChangedEventArgs e)
