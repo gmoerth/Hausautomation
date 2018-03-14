@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace Hausautomation.Model
 {
     public class DeviceList
     {
-        public List<Device> Devicelist { get; set; }
+        public ObservableCollection<Device> Devicelist { get; set; }
 
         public RoomList Roomlist { get; set; } // diese Liste ist redundant aber hilfreich
 
@@ -18,7 +20,7 @@ namespace Hausautomation.Model
 
         public DeviceList()
         {
-            Devicelist = new List<Device>();
+            Devicelist = new ObservableCollection<Device>();
             Roomlist = new RoomList();
             Functionlist = new FunctionList();
         }
@@ -239,12 +241,38 @@ namespace Hausautomation.Model
             get { return unreach; }
             set { unreach = value; }
         }
+
+        public string Textblock1 { get; set; }
+        public string Textblock2 { get; set; }
+        public string Textblock3 { get; set; }
+        public string Textblock4 { get; set; }
+        public string Textblock5 { get; set; }
+        private static List<BitmapImage> sources;
+        public BitmapImage Image { get; set; }
         #endregion
 
         #region Konstruktor
         public Device()
         {
             Channellist = new ChannelList();
+            Image = new BitmapImage();
+            sources = new List<BitmapImage>()
+            {
+                new BitmapImage(new Uri("ms-appx:///Assets/CCU2_thumb.png")),               // 0
+                new BitmapImage(new Uri("ms-appx:///Assets/112_hmip-wrc2_thumb.png")),      // 1 
+                new BitmapImage(new Uri("ms-appx:///Assets/113_hmip-psm_thumb.png")),       // 2 
+                new BitmapImage(new Uri("ms-appx:///Assets/124_hm-sec-mdir_thumb.png")),    // 3
+                new BitmapImage(new Uri("ms-appx:///Assets/4_hm-lc-sw1-fm_thumb.png")),     // 4
+                new BitmapImage(new Uri("ms-appx:///Assets/5_hm-lc-sw2-fm_thumb.png")),     // 5        
+                new BitmapImage(new Uri("ms-appx:///Assets/70_hm-pb-4dis-wm_thumb.png")),   // 6
+                new BitmapImage(new Uri("ms-appx:///Assets/75_hm-pb-2-wm55_thumb.png")),    // 7
+                new BitmapImage(new Uri("ms-appx:///Assets/93_hm-es-pmsw1-pl_thumb.png")),  // 8 
+                new BitmapImage(new Uri("ms-appx:///Assets/98_hm-sec-sco_thumb.png")),      // 9
+                new BitmapImage(new Uri("ms-appx:///Assets/PushButton-2ch-wm_thumb.png")),  // 10
+                new BitmapImage(new Uri("ms-appx:///Assets/HmIP-Wandtaster-V.jpg")),
+                new BitmapImage(new Uri("ms-appx:///Assets/HmIP-Schaltsteckdose-V-oS.jpg"))
+            };
+            Image = sources[0]; // Zentrale hat kein "device_type"
         }
         #endregion
 
@@ -272,6 +300,7 @@ namespace Hausautomation.Model
                         break;
                     case "device_type":
                         Device_type = xattribute.Value;
+                        ParseImage();
                         break;
                     case "ready_config":
                         bool.TryParse(xattribute.Value, out bool rc);
@@ -314,6 +343,94 @@ namespace Hausautomation.Model
                     Channellist.AddChannel(channel);
                 }
             }
+        }
+
+        private void ParseImage()
+        {
+            switch (Device_type)
+            {
+                case "HM-ES-PMSw1-Pl-DN-R1":
+                    Image = sources[8];
+                    break;
+                case "HM-LC-Sw1PBU-FM":
+                    Image = sources[10];
+                    break;
+                case "HM-LC-Sw1-FM":
+                    Image = sources[4];
+                    break;
+                case "HM-LC-Sw2-FM":
+                    Image = sources[5];
+                    break;
+                case "HM-PB-2-WM55-2":
+                    Image = sources[7];
+                    break;
+                case "HM-PB-4Dis-WM":
+                    Image = sources[6];
+                    break;
+                case "HM-Sec-MDIR-3":
+                    Image = sources[3];
+                    break;
+                case "HM-Sec-SCo":
+                    Image = sources[9];
+                    break;
+                case "HmIP-BROLL":
+                    Image = sources[10];
+                    break;
+                case "HmIP-BSM":
+                    Image = sources[10];
+                    break;
+                case "HMIP-PSM":
+                    Image = sources[12];//2
+                    break;
+                case "HMIP-WRC2":
+                    Image = sources[11];//1
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+
+        // Für alle Devices gleich
+        public void PrepareTextblock1()
+        {
+            Textblock1 = "ID: " + Ise_id.ToString();
+            Textblock1 += "\nName: " + Name;
+            string strRoom = "";
+            string strFunc = "";
+            string strData = "";
+            foreach (Channel channel in Channellist.Channellist)
+            {
+                //Debug.Write($"    Channel {channel.Name}");
+                foreach (Room room in channel.Roomlist.Roomlist)
+                {
+                    //Debug.Write($", Room {room.Name}");
+                    if (strRoom.Contains(room.Name) == false)
+                        strRoom += "\nRaum: " + room.Name;
+                }
+                foreach (Function function in channel.Functionlist.Functionlist)
+                {
+                    //Debug.Write($", Function {function.Name}");
+                    if (strFunc.Contains(function.Name) == false)
+                        strFunc += "\nFunktion: " + function.Name;
+                }
+                //Debug.Write("\n");
+                foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
+                {
+                    //Debug.WriteLine($"        Datapoint {datapoint.Name}");
+                    if (channel.Index == 0 && datapoint.Type == "RSSI_DEVICE")
+                        if (datapoint.Value > 100)
+                        {
+                            strData += "\nRSSI Gerät: " + datapoint.Value.ToString();
+                        }
+                    if (channel.Index == 0 && datapoint.Type == "RSSI_PEER")
+                        if (datapoint.Value > 100)
+                        {
+                            strData += "\nRSSI Zentrale: " + datapoint.Value.ToString();
+                            break;
+                        }
+                }
+            }
+            Textblock1 += (strRoom + strFunc + strData);
         }
         #endregion
     }

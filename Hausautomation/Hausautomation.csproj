@@ -106,6 +106,7 @@
     <Compile Include="MainPageHeader.xaml.cs">
       <DependentUpon>MainPageHeader.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\PageAll.cs" />
     <Compile Include="Model\ReadXDoc.cs" />
     <Compile Include="Model\Room.cs" />
     <Compile Include="Model\SendMail.cs" />
@@ -140,6 +141,21 @@
     <Content Include="Assets\75_hm-pb-2-wm55_thumb.png" />
     <Content Include="Assets\93_hm-es-pmsw1-pl_thumb.png" />
     <Content Include="Assets\98_hm-sec-sco_thumb.png" />
+    <Content Include="Assets\CCU2_thumb.png" />
+    <Content Include="Assets\HM-Funk-Bewegungsmelder-innen-V-oS.jpg" />
+    <Content Include="Assets\HM-Funk-Display-Wandtaster-V.jpg" />
+    <Content Include="Assets\HM-Funk-Fensterkontakt-optisch-schraeg-oS.jpg" />
+    <Content Include="Assets\HM-Funk-LAN-Gateway-V.jpg" />
+    <Content Include="Assets\HM-Funk-Schaltaktor-1-fach-fuer-MS-V-oS.jpg" />
+    <Content Include="Assets\HM-Funk-Schaltaktor-1-fach-UP-V-oS.jpg" />
+    <Content Include="Assets\HM-Funk-Schaltaktor-1-fach-Zwischenstecker-V-oS.jpg" />
+    <Content Include="Assets\HM-Funk-Schaltaktor-2-fach-UP-V-oS.jpg" />
+    <Content Include="Assets\HM-Funk-Wandtaster-2-fach-Aufputz-V.jpg" />
+    <Content Include="Assets\HM-Zentrale-CCU2-V.jpg" />
+    <Content Include="Assets\HmIP-Rollladenaktor-fuer-MS-V.jpg" />
+    <Content Include="Assets\HmIP-Schalt-Mess-Aktor-fuer-Markenschalter_V.jpg" />
+    <Content Include="Assets\HmIP-Schaltsteckdose-V-oS.jpg" />
+    <Content Include="Assets\HmIP-Wandtaster-V.jpg" />
     <Content Include="Assets\PushButton-2ch-wm_thumb.png" />
     <Content Include="Assets\Speedy.jpg" />
     <Content Include="z_functionlist.xml" />

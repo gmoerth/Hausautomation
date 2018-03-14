@@ -17,10 +17,10 @@
             <NavigationView.MenuItems>
                 <!--<NavigationViewItemSeparator/>
                 <NavigationViewItemSeparator/>-->
-                <AutoSuggestBox x:Name="ASB" QueryIcon="Find" Width="290"/>
-                <NavigationViewItemHeader Content="Hauptseite" />
+                <AutoSuggestBox x:Name="ASB" QueryIcon="Find" Width="290" Visibility="{x:Bind nvSample.IsPaneOpen, Mode=OneWay}" />
+                <NavigationViewItemHeader Content="Hauptseite" Visibility="{x:Bind nvSample.IsPaneOpen, Mode=OneWay}" />
                 <NavigationViewItem Icon="Play" Content="Favoriten" Tag="SamplePage1" />
-                <NavigationViewItemHeader Content="Unterseiten"/>
+                <NavigationViewItemHeader Content="Unterseiten" Visibility="{x:Bind nvSample.IsPaneOpen, Mode=OneWay}" />
                 <NavigationViewItem Icon="Save" Content="Geräte" Tag="SamplePage2" />
                 <NavigationViewItem Icon="Refresh" Content="Räume" Tag="SamplePage3" />
                 <NavigationViewItem Icon="Refresh" Content="Gewerke" Tag="SamplePage3" />

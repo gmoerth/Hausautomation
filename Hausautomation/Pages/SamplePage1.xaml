@@ -36,8 +36,9 @@
             <!--ContainerContentChanging="ItemsListView_ContainerContentChanging"
                   ItemClick="ItemsListView_ItemClick">-->
             <ListView.ItemTemplate>
-                <DataTemplate x:DataType="data:Item">
-                    <RelativePanel>
+                <!--<DataTemplate x:DataType="data:Item">-->
+                <DataTemplate x:DataType="data:Device">
+                        <RelativePanel>
                         <TextBlock x:Name="IdLabel"
                                    Margin="0,12,5,12" 
                                    Style="{ThemeResource BaseTextBlockStyle}"
@@ -45,16 +46,18 @@
                         <TextBlock RelativePanel.RightOf="IdLabel"
                                    Style="{ThemeResource BaseTextBlockStyle}"
                                    Margin="0,12,0,12" 
-                                   Text="{x:Bind Id}"/>
+                                   Text="{x:Bind Ise_id}"/>
                         <Image RelativePanel.Below="IdLabel"
-                               Source="{x:Bind ImageSource}" 
-                               MaxWidth="50"
+                               Source="{x:Bind Image}" 
+                               MaxWidth="150"
                                Stretch="Uniform"
                                Margin="0,0,0,24" />
                         <TextBlock RelativePanel.RightOf="IdLabel"
                                    Style="{ThemeResource BaseTextBlockStyle}"
-                                   Margin="50,12,0,12" 
-                                   Text="{x:Bind Description}" />
+                                   Margin="150,12,0,12" 
+                                   Text="{x:Bind Textblock1}" />
+                        <Button RelativePanel.RightOf="IdLabel" Margin="550,0,20,0" Content="Ein/Aus" 
+                                Visibility="{x:Bind Sticky_unreach, Mode=OneWay}"/>
                     </RelativePanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
