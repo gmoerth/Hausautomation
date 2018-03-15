@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -103,6 +104,8 @@ namespace Hausautomation.Model
 
         public void Parse(XNode xnode)
         {
+            NumberStyles style = NumberStyles.Number | NumberStyles.AllowCurrencySymbol;
+            CultureInfo culture = CultureInfo.CreateSpecificCulture("en-US"); // Punkt als Koma
             XElement xElement = Channel.ToXElement(xnode);
             if (xElement == null)
                 throw new InvalidOperationException();
@@ -135,8 +138,12 @@ namespace Hausautomation.Model
                         Valuetype = vt;
                         break;
                     case "value":
-                        double.TryParse(xattribute.Value, out double va);
+                        double.TryParse(xattribute.Value, style, culture, out double va);
                         Value = va;
+                        if (xattribute.Value == "true")
+                            Value = Double.PositiveInfinity;
+                        if (xattribute.Value == "false")
+                            Value = Double.NegativeInfinity;
                         break;
                     case "type":
                         Type = xattribute.Value;

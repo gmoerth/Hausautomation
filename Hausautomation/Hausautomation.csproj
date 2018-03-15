@@ -106,7 +106,6 @@
     <Compile Include="MainPageHeader.xaml.cs">
       <DependentUpon>MainPageHeader.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\PageAll.cs" />
     <Compile Include="Model\ReadXDoc.cs" />
     <Compile Include="Model\Room.cs" />
     <Compile Include="Model\SendMail.cs" />
@@ -142,6 +141,7 @@
     <Content Include="Assets\93_hm-es-pmsw1-pl_thumb.png" />
     <Content Include="Assets\98_hm-sec-sco_thumb.png" />
     <Content Include="Assets\CCU2_thumb.png" />
+    <Content Include="Assets\Hausautomation.jpg" />
     <Content Include="Assets\HM-Funk-Bewegungsmelder-innen-V-oS.jpg" />
     <Content Include="Assets\HM-Funk-Display-Wandtaster-V.jpg" />
     <Content Include="Assets\HM-Funk-Fensterkontakt-optisch-schraeg-oS.jpg" />

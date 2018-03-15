@@ -16,10 +16,13 @@
             Padding="24,0,0,0"
             AutomationProperties.AutomationId="ItemGridView"
             AutomationProperties.Name="Items In Group"
-            --><!--ContainerContentChanging="OnItemGridViewContainerContentChanging"--><!--
+            -->
+            <!--ContainerContentChanging="OnItemGridViewContainerContentChanging"-->
+            <!--
             IsItemClickEnabled="True"
             IsSwipeEnabled="False">
-            --><!--ItemClick="OnItemGridViewItemClick"
+            -->
+            <!--ItemClick="OnItemGridViewItemClick"
             ItemContainerStyle="{StaticResource GridViewItemStyle}"
             ItemTemplate="{StaticResource ControlItemTemplate}"
             ItemsSource="{x:Bind Items, Mode=OneWay}"
@@ -43,13 +46,15 @@
                     <Image
                         x:Name="headerImage"
                         HorizontalAlignment="Center"
-                        Source="Assets/Speedy.jpg"
+                        Source="Assets/Hausautomation.jpg"
                         Stretch="UniformToFill" />
+
                 </ParallaxView>
             </GridView.Header>
 
-
         </GridView>
+        <TextBlock x:Name="tbStart" Text="Lade Dokumente" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Margin="0,-200,0,0" Foreground="Yellow" />
+        <ProgressRing IsActive="True" Height="100" Width="100" />
 
     </Grid>
 </Page>

@@ -247,6 +247,10 @@ namespace Hausautomation.Model
         public string Textblock3 { get; set; }
         public string Textblock4 { get; set; }
         public string Textblock5 { get; set; }
+        public bool bSlider1 { get; set; }
+        public bool bButton1 { get; set; }
+        public bool bTextblock2 { get; set; }
+        public int iSlider1 { get; set; }
         private static List<BitmapImage> sources;
         public BitmapImage Image { get; set; }
         #endregion
@@ -394,43 +398,138 @@ namespace Hausautomation.Model
         public void PrepareTextblock1()
         {
             Textblock1 = "ID: " + Ise_id.ToString();
-            Textblock1 += "\nName: " + Name;
+            if (Address != null)
+                Textblock1 += "\nSNr.: " + Address;
+            if (Device_type != null)
+                Textblock1 += "\nName: " + Device_type;
+            else
+                Textblock1 += "\nName: HM-RCV-50"; // Zentrale
             string strRoom = "";
             string strFunc = "";
             string strData = "";
             foreach (Channel channel in Channellist.Channellist)
             {
-                //Debug.Write($"    Channel {channel.Name}");
                 foreach (Room room in channel.Roomlist.Roomlist)
                 {
-                    //Debug.Write($", Room {room.Name}");
                     if (strRoom.Contains(room.Name) == false)
                         strRoom += "\nRaum: " + room.Name;
                 }
                 foreach (Function function in channel.Functionlist.Functionlist)
                 {
-                    //Debug.Write($", Function {function.Name}");
                     if (strFunc.Contains(function.Name) == false)
                         strFunc += "\nFunktion: " + function.Name;
                 }
-                //Debug.Write("\n");
-                foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
+                if (channel.Index == 0)
                 {
-                    //Debug.WriteLine($"        Datapoint {datapoint.Name}");
-                    if (channel.Index == 0 && datapoint.Type == "RSSI_DEVICE")
-                        if (datapoint.Value > 100)
+                    foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
+                    {
+                        if (datapoint.Type == "RSSI_DEVICE")
                         {
-                            strData += "\nRSSI Gerät: " + datapoint.Value.ToString();
+                            if (datapoint.Value > 100)
+                            {
+                                strData += "\nRSSI Gerät: " + datapoint.Value.ToString();
+                                //strData += "\n" + datapoint.Timestamp.ToString();
+                            }
                         }
-                    if (channel.Index == 0 && datapoint.Type == "RSSI_PEER")
-                        if (datapoint.Value > 100)
+                        if (datapoint.Type == "RSSI_PEER")
                         {
-                            strData += "\nRSSI Zentrale: " + datapoint.Value.ToString();
-                            break;
+                            if (datapoint.Value > 100)
+                            {
+                                strData += "\nRSSI Zentrale: " + datapoint.Value.ToString();
+                                //strData += "\n" + datapoint.Timestamp.ToString();
+                                break;
+                            }
                         }
+                    }
                 }
             }
             Textblock1 += (strRoom + strFunc + strData);
+        }
+
+        public void PrepareSlider()
+        {
+            string temp = "";
+            string ts = "";
+            if (device_type == "HmIP-BROLL")
+                bSlider1 = true;
+            else
+                bSlider1 = false;
+            if (device_type == "HMIP-WRC2")
+                bButton1 = true;
+            else
+                bButton1 = false;
+            if (device_type == "HmIP-BROLL" || device_type == "HM-Sec-SCo")
+                bTextblock2 = true;
+            else
+                bTextblock2 = false;
+
+            if (device_type == "HmIP-BROLL")
+            {
+                foreach (Channel channel in Channellist.Channellist)
+                {
+                    if (channel.Index == 0)
+                    {
+                        foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
+                        {
+                            if (datapoint.Type == "ACTUAL_TEMPERATURE")
+                            {
+                                temp = (datapoint.Value - 4).ToString();
+                                temp += "°C\n" + datapoint.Timestamp.ToString();
+                            }
+                        }
+                    }
+                    if (channel.Index == 4)
+                    {
+                        foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
+                        {
+                            if (datapoint.Type == "LEVEL")
+                            {
+                                iSlider1 = (int)(datapoint.Value * 100 + 0.5);
+                                ts = datapoint.Timestamp.ToString();
+                            }
+                        }
+                    }
+                }
+                Textblock2 = "Letze Aktualisierung:\n" + ts + "\nTemperatur: " + temp;
+            }
+            if (device_type == "HM-Sec-SCo")
+            {
+                foreach (Channel channel in Channellist.Channellist)
+                {
+                    if (channel.Index == 1)
+                    {
+                        foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
+                        {
+                            if (datapoint.Type == "STATE")
+                            {
+                                Textblock2 = "Letze Aktualisierung:\n";
+                                Textblock2 += datapoint.Timestamp.ToString();
+                                Textblock2 += "\nTüre: ";
+                                if (datapoint.Value == double.NegativeInfinity)
+                                    Textblock2 += "geschlossen";
+                                else if (datapoint.Value == double.PositiveInfinity)
+                                    Textblock2 += "offen";
+                            }
+                            if (datapoint.Type == "ERROR")
+                            {
+                                Textblock2 += "\nSabotage: ";
+                                if (datapoint.Value == 0)
+                                    Textblock2 += "nein";
+                                else if (datapoint.Value == 1)
+                                    Textblock2 += "ja";
+                            }
+                            if (datapoint.Type == "LOWBAT")
+                            {
+                                Textblock2 += "\nBatterie: ";
+                                if (datapoint.Value == double.NegativeInfinity)
+                                    Textblock2 += "OK";
+                                else if (datapoint.Value == double.PositiveInfinity)
+                                    Textblock2 += "tauschen!";
+                            }
+                        }
+                    }
+                }
+            }
         }
         #endregion
     }

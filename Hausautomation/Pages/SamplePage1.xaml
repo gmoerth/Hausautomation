@@ -38,26 +38,47 @@
             <ListView.ItemTemplate>
                 <!--<DataTemplate x:DataType="data:Item">-->
                 <DataTemplate x:DataType="data:Device">
-                        <RelativePanel>
-                        <TextBlock x:Name="IdLabel"
+                    <RelativePanel>
+                        <!--<TextBlock x:Name="IdLabel"
                                    Margin="0,12,5,12" 
                                    Style="{ThemeResource BaseTextBlockStyle}"
                                    Text="Id :"/>
                         <TextBlock RelativePanel.RightOf="IdLabel"
                                    Style="{ThemeResource BaseTextBlockStyle}"
                                    Margin="0,12,0,12" 
-                                   Text="{x:Bind Ise_id}"/>
-                        <Image RelativePanel.Below="IdLabel"
+                                   Text="{x:Bind Ise_id}"/>-->
+                        <!--<Image RelativePanel.Below="IdLabel"-->
+                        <Image x:Name="bmImage"
                                Source="{x:Bind Image}" 
                                MaxWidth="150"
                                Stretch="Uniform"
-                               Margin="0,0,0,24" />
-                        <TextBlock RelativePanel.RightOf="IdLabel"
+                               Margin="0,24,0,24" />
+                        <!--<TextBlock RelativePanel.RightOf="IdLabel"-->
+                        <TextBlock x:Name="tbTextblock1"
+                                    RelativePanel.RightOf="bmImage"
                                    Style="{ThemeResource BaseTextBlockStyle}"
-                                   Margin="150,12,0,12" 
+                                   Margin="24,24,24,24" 
                                    Text="{x:Bind Textblock1}" />
-                        <Button RelativePanel.RightOf="IdLabel" Margin="550,0,20,0" Content="Ein/Aus" 
-                                Visibility="{x:Bind Sticky_unreach, Mode=OneWay}"/>
+                        <!--<Button RelativePanel.RightOf="IdLabel"-->
+                        <Slider x:Name="slSlider1"
+                                RelativePanel.RightOf="tbTextblock1"
+                                Orientation="Vertical" TickFrequency="10" Margin="24,24,24,24" Height="150"
+                                TickPlacement="Outside"
+                                Value="{x:Bind iSlider1}"
+                                Visibility="{x:Bind bSlider1, Mode=OneWay}" />
+                        <Button x:Name="btButton1"
+                                Margin="57,60,0,0" Content="Ein"
+                                Visibility="{x:Bind bButton1, Mode=OneWay}"/>
+                        <Button x:Name="btButton2"
+                                Margin="55,110,0,0" Content="Aus"
+                                Visibility="{x:Bind bButton1, Mode=OneWay}"/>
+                        <TextBlock x:Name="tbTextblock2" 
+                                   RelativePanel.RightOf="slSlider1"
+                                   Style="{ThemeResource BaseTextBlockStyle}"
+                                   Margin="24,24,24,24" 
+                                   Text="{x:Bind Textblock2}" 
+                                   Visibility="{x:Bind bTextblock2, Mode=OneWay}" />
+
                     </RelativePanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
