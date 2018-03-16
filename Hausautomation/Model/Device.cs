@@ -265,14 +265,14 @@ namespace Hausautomation.Model
                 new BitmapImage(new Uri("ms-appx:///Assets/CCU2_thumb.png")),               // 0
                 new BitmapImage(new Uri("ms-appx:///Assets/112_hmip-wrc2_thumb.png")),      // 1 
                 new BitmapImage(new Uri("ms-appx:///Assets/113_hmip-psm_thumb.png")),       // 2 
-                new BitmapImage(new Uri("ms-appx:///Assets/124_hm-sec-mdir_thumb.png")),    // 3
+                new BitmapImage(new Uri("ms-appx:///Assets/HM-Funk-Bewegungsmelder-innen-V-oS.jpg")),    // 3
                 new BitmapImage(new Uri("ms-appx:///Assets/4_hm-lc-sw1-fm_thumb.png")),     // 4
                 new BitmapImage(new Uri("ms-appx:///Assets/5_hm-lc-sw2-fm_thumb.png")),     // 5        
                 new BitmapImage(new Uri("ms-appx:///Assets/70_hm-pb-4dis-wm_thumb.png")),   // 6
                 new BitmapImage(new Uri("ms-appx:///Assets/75_hm-pb-2-wm55_thumb.png")),    // 7
                 new BitmapImage(new Uri("ms-appx:///Assets/93_hm-es-pmsw1-pl_thumb.png")),  // 8 
-                new BitmapImage(new Uri("ms-appx:///Assets/98_hm-sec-sco_thumb.png")),      // 9
-                new BitmapImage(new Uri("ms-appx:///Assets/PushButton-2ch-wm_thumb.png")),  // 10
+                new BitmapImage(new Uri("ms-appx:///Assets/HM-Funk-Fensterkontakt-optisch-schraeg-oS.jpg")),      // 9
+                new BitmapImage(new Uri("ms-appx:///Assets/HmIP-Rollladenaktor-fuer-MS-V.jpg")),  // 10
                 new BitmapImage(new Uri("ms-appx:///Assets/HmIP-Wandtaster-V.jpg")),
                 new BitmapImage(new Uri("ms-appx:///Assets/HmIP-Schaltsteckdose-V-oS.jpg"))
             };
@@ -395,6 +395,49 @@ namespace Hausautomation.Model
         }
 
         // Für alle Devices gleich
+        public void PrepareAllDevices()
+        {
+            bButton1 = false;
+            bSlider1 = false;
+            bTextblock2 = false;
+            PrepareTextblock1();
+            switch (Device_type)
+            {
+                case "HM-ES-PMSw1-Pl-DN-R1":
+                    break;
+                case "HM-LC-Sw1PBU-FM":
+                    break;
+                case "HM-LC-Sw1-FM":
+                    break;
+                case "HM-LC-Sw2-FM":
+                    break;
+                case "HM-PB-2-WM55-2":
+                    break;
+                case "HM-PB-4Dis-WM":
+                    break;
+                case "HM-Sec-MDIR-3":
+                    PrepareHMSecMDIR3();
+                    break;
+                case "HM-Sec-SCo":
+                    PrepareHMSecSCo();
+                    break;
+                case "HmIP-BROLL":
+                    PrepareHmIPBROLL();
+                    break;
+                case "HmIP-BSM":
+                    break;
+                case "HMIP-PSM":
+                    break;
+                case "HMIP-WRC2":
+                    PrepareHMIPWRC2();
+                    break;
+                case null: // HM-RCV-50 Zentrale
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+
         public void PrepareTextblock1()
         {
             Textblock1 = "ID: " + Ise_id.ToString();
@@ -443,93 +486,125 @@ namespace Hausautomation.Model
                     }
                 }
             }
-            Textblock1 += (strRoom + strFunc + strData);
+            Textblock1 += strRoom + strFunc + strData;
         }
 
-        public void PrepareSlider()
+        public void PrepareHMSecSCo()
         {
-            string temp = "";
-            string ts = "";
-            if (device_type == "HmIP-BROLL")
-                bSlider1 = true;
-            else
-                bSlider1 = false;
-            if (device_type == "HMIP-WRC2")
-                bButton1 = true;
-            else
-                bButton1 = false;
-            if (device_type == "HmIP-BROLL" || device_type == "HM-Sec-SCo")
-                bTextblock2 = true;
-            else
-                bTextblock2 = false;
+            bTextblock2 = true;
+            foreach (Channel channel in Channellist.Channellist)
+            {
+                if (channel.Index == 1)
+                {
+                    foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
+                    {
+                        if (datapoint.Type == "STATE")
+                        {
+                            Textblock2 = "Letze Aktualisierung:\n";
+                            Textblock2 += datapoint.Timestamp.ToString();
+                            Textblock2 += "\nTüre: ";
+                            if (datapoint.Value == double.NegativeInfinity)
+                                Textblock2 += "geschlossen";
+                            else if (datapoint.Value == double.PositiveInfinity)
+                                Textblock2 += "offen";
+                        }
+                        if (datapoint.Type == "ERROR")
+                        {
+                            Textblock2 += "\nSabotage: ";
+                            if (datapoint.Value == 0)
+                                Textblock2 += "nein";
+                            else if (datapoint.Value == 1)
+                                Textblock2 += "ja";
+                        }
+                        if (datapoint.Type == "LOWBAT")
+                        {
+                            Textblock2 += "\nBatterie: ";
+                            if (datapoint.Value == double.NegativeInfinity)
+                                Textblock2 += "OK";
+                            else if (datapoint.Value == double.PositiveInfinity)
+                                Textblock2 += "tauschen!";
+                        }
+                    }
+                }
+            }
+        }
 
-            if (device_type == "HmIP-BROLL")
+        public void PrepareHMSecMDIR3()
+        {
+            bTextblock2 = true;
+            foreach (Channel channel in Channellist.Channellist)
             {
-                foreach (Channel channel in Channellist.Channellist)
+                if (channel.Index == 1)
                 {
-                    if (channel.Index == 0)
+                    foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
                     {
-                        foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
+                        if (datapoint.Type == "BRIGHTNESS")
                         {
-                            if (datapoint.Type == "ACTUAL_TEMPERATURE")
-                            {
-                                temp = (datapoint.Value - 4).ToString();
-                                temp += "°C\n" + datapoint.Timestamp.ToString();
-                            }
+                            Textblock2 = "Letze Aktualisierung:\n";
+                            Textblock2 += datapoint.Timestamp.ToString();
+                            Textblock2 += "\nHelligkeit: ";
+                            Textblock2 += datapoint.Value.ToString();
                         }
-                    }
-                    if (channel.Index == 4)
-                    {
-                        foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
+                        if (datapoint.Type == "MOTION")
                         {
-                            if (datapoint.Type == "LEVEL")
-                            {
-                                iSlider1 = (int)(datapoint.Value * 100 + 0.5);
-                                ts = datapoint.Timestamp.ToString();
-                            }
+                            Textblock2 += "\nBewegung: ";
+                            if (datapoint.Value == double.NegativeInfinity)
+                                Textblock2 += "keine";
+                            else if (datapoint.Value == double.PositiveInfinity)
+                                Textblock2 += "erkannt";
                         }
-                    }
-                }
-                Textblock2 = "Letze Aktualisierung:\n" + ts + "\nTemperatur: " + temp;
-            }
-            if (device_type == "HM-Sec-SCo")
-            {
-                foreach (Channel channel in Channellist.Channellist)
-                {
-                    if (channel.Index == 1)
-                    {
-                        foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
+                        if (datapoint.Type == "ERROR")
                         {
-                            if (datapoint.Type == "STATE")
-                            {
-                                Textblock2 = "Letze Aktualisierung:\n";
-                                Textblock2 += datapoint.Timestamp.ToString();
-                                Textblock2 += "\nTüre: ";
-                                if (datapoint.Value == double.NegativeInfinity)
-                                    Textblock2 += "geschlossen";
-                                else if (datapoint.Value == double.PositiveInfinity)
-                                    Textblock2 += "offen";
-                            }
-                            if (datapoint.Type == "ERROR")
-                            {
-                                Textblock2 += "\nSabotage: ";
-                                if (datapoint.Value == 0)
-                                    Textblock2 += "nein";
-                                else if (datapoint.Value == 1)
-                                    Textblock2 += "ja";
-                            }
-                            if (datapoint.Type == "LOWBAT")
-                            {
-                                Textblock2 += "\nBatterie: ";
-                                if (datapoint.Value == double.NegativeInfinity)
-                                    Textblock2 += "OK";
-                                else if (datapoint.Value == double.PositiveInfinity)
-                                    Textblock2 += "tauschen!";
-                            }
+                            Textblock2 += "\nSabotage: ";
+                            if (datapoint.Value == 0)
+                                Textblock2 += "nein";
+                            else if (datapoint.Value == 1)
+                                Textblock2 += "ja";
                         }
                     }
                 }
             }
+        }
+
+        public void PrepareHmIPBROLL()
+        {
+            bSlider1 = true;
+            bTextblock2 = true;
+            string str0 = "";
+            string str4 = "";
+            foreach (Channel channel in Channellist.Channellist)
+            {
+                if (channel.Index == 0)
+                {
+                    foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
+                    {
+                        if (datapoint.Type == "ACTUAL_TEMPERATURE")
+                        {
+                            str0 = "\nTemperatur: ";
+                            str0 += (datapoint.Value - 4).ToString();
+                            str0 += "°C\n" + datapoint.Timestamp.ToString();
+                        }
+                    }
+                }
+                if (channel.Index == 4)
+                {
+                    foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
+                    {
+                        if (datapoint.Type == "LEVEL")
+                        {
+                            iSlider1 = (int)(datapoint.Value * 100 + 0.5);
+                            str4 = "Letze Aktualisierung:\n";
+                            str4 += datapoint.Timestamp.ToString();
+                        }
+                    }
+                }
+            }
+            Textblock2 = str4 + str0;
+        }
+
+        public void PrepareHMIPWRC2()
+        {
+            bButton1 = true;
         }
         #endregion
     }

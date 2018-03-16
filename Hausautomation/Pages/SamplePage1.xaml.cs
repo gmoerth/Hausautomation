@@ -45,8 +45,7 @@ namespace Hausautomation.Pages
 
             foreach (Device device in MainPage.Devicelist.Devicelist)
             {
-                device.PrepareTextblock1();
-                device.PrepareSlider();
+                device.PrepareAllDevices();
             }
 
 

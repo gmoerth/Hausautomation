@@ -47,13 +47,13 @@
                         x:Name="headerImage"
                         HorizontalAlignment="Center"
                         Source="Assets/Hausautomation.jpg"
-                        Stretch="UniformToFill" />
+                        Stretch="None" />
 
                 </ParallaxView>
             </GridView.Header>
 
         </GridView>
-        <TextBlock x:Name="tbStart" Text="Lade Dokumente" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Margin="0,-200,0,0" Foreground="Yellow" />
+        <TextBlock x:Name="tbStart" Text="Lade Dokumente" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="36" Margin="0,-200,0,0" Foreground="Black" FontWeight="Bold" />
         <ProgressRing IsActive="True" Height="100" Width="100" />
 
     </Grid>

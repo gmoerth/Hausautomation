@@ -11,7 +11,7 @@
   <Class Name="Hausautomation.MainPage" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="1" Y="5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ABAAQAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>ABAAAAACAEAAAAAAAAAABAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>MainPage.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -27,35 +27,35 @@
   <Class Name="Hausautomation.Model.Channel" Collapsed="true">
     <Position X="10.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAgIAAAACAAMhEgQCABAASAAAIFwACKAUGAiBABAYA=</HashCode>
+      <HashCode>AAAgIAAAAAAAMhEAACABIASAAAIFwACKAUGAiBABAYA=</HashCode>
       <FileName>Model\Channel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Hausautomation.Model.Datapoint" Collapsed="true">
     <Position X="15" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAACAAAAAgAAAAACAAQAAgAFQCEAAUAxAAAAEAA=</HashCode>
+      <HashCode>AAAgAAACAAAAAgAAAAACAAQAAgEFQCEAAUAxAAAAEAA=</HashCode>
       <FileName>Model\Datapoint.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Hausautomation.Model.DeviceList" Collapsed="true">
     <Position X="3.75" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAQAAAAAEAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAQIAAQAEAQAAAAAgAAIAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
       <FileName>Model\Device.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Hausautomation.Model.Device" Collapsed="true">
     <Position X="6" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAgACAIAAAAAAAAAABCwCSAAgIEwAICAEAAgAAAAAA=</HashCode>
+      <HashCode>AAAgACAIAAIAAAAAAABC8P2AAgIEwBMCAUgAgABAAAA=</HashCode>
       <FileName>Model\Device.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Hausautomation.Model.Function" Collapsed="true">
     <Position X="19.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAEQAAAAEAAAAAAAAA=</HashCode>
+      <HashCode>AAAgAAAAAAAgAAAAAAAAAAQAAAAEQAAAAEAAAAAAAAA=</HashCode>
       <FileName>Model\Function.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -69,14 +69,14 @@
   <Class Name="Hausautomation.Model.ReadXDoc" Collapsed="true">
     <Position X="1.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAQAAAAAAABAAAIAAAAAAAABAAAAQAAAAAAQAAACA=</HashCode>
+      <HashCode>AAAAAAAAAAAABAAAIAAAAAAAAFAAAAAAIAAAAAAAICg=</HashCode>
       <FileName>Model\ReadXDoc.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Hausautomation.Model.Room" Collapsed="true">
     <Position X="17.25" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAEQAAAAEAAAAAAAAA=</HashCode>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAQAAAAEQAAAAEAAAAAAAAA=</HashCode>
       <FileName>Model\Room.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -107,7 +107,7 @@
   <Class Name="Hausautomation.Pages.SettingsPage" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="5.5" Y="5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAABAAAAAAAAAAAgAAAAAIAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>CAAIAQAAAhJMAAAAAEAAAAAAAAAAIAEAAAiAAAAAAEA=</HashCode>
       <FileName>Pages\SettingsPage.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
