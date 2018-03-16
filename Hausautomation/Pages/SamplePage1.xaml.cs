@@ -29,27 +29,21 @@ namespace Hausautomation.Pages
     /// </summary>
     public sealed partial class SamplePage1 : Page
     {
-
-        //private ObservableCollection<Item> _items;
         private ObservableCollection<Device> _items;
 
         //private SolidColorBrush InvalidFormat = new SolidColorBrush(Colors.Red);
         //private SolidColorBrush ValidFormat = new SolidColorBrush(Colors.Green);
 
-
         public SamplePage1()
         {
             this.InitializeComponent();
-            //_items = Item.GetItems(100);
+
             _items = MainPage.Devicelist.Devicelist;
 
             foreach (Device device in MainPage.Devicelist.Devicelist)
             {
                 device.PrepareAllDevices();
             }
-
-
-
         }
 
 
