@@ -26,8 +26,6 @@
                    Style="{ThemeResource BodyTextBlockStyle}"
                    Text="Klicke auf die Listeneinträge um sie als Favoriten zu markieren"
                        Margin="12" />
-        <Button Grid.Row="1" Margin="450,0,0,0" Content="Ein/Aus" />
-        <Slider Grid.Row="1" TickPlacement="Outside" Margin="550,0,20,0" Value="10" TickFrequency="10"/>
 
         <ListView x:Name="ItemsListView" Grid.Row="2" 
                   ItemsSource="{x:Bind _items}" 
@@ -39,27 +37,16 @@
                 <!--<DataTemplate x:DataType="data:Item">-->
                 <DataTemplate x:DataType="data:Device">
                     <RelativePanel>
-                        <!--<TextBlock x:Name="IdLabel"
-                                   Margin="0,12,5,12" 
-                                   Style="{ThemeResource BaseTextBlockStyle}"
-                                   Text="Id :"/>
-                        <TextBlock RelativePanel.RightOf="IdLabel"
-                                   Style="{ThemeResource BaseTextBlockStyle}"
-                                   Margin="0,12,0,12" 
-                                   Text="{x:Bind Ise_id}"/>-->
-                        <!--<Image RelativePanel.Below="IdLabel"-->
                         <Image x:Name="bmImage"
                                Source="{x:Bind Image}" 
                                MaxWidth="150"
                                Stretch="Uniform"
                                Margin="0,24,0,24" />
-                        <!--<TextBlock RelativePanel.RightOf="IdLabel"-->
                         <TextBlock x:Name="tbTextblock1"
                                     RelativePanel.RightOf="bmImage"
                                    Style="{ThemeResource BaseTextBlockStyle}"
                                    Margin="24,24,24,24" 
                                    Text="{x:Bind Textblock1}" />
-                        <!--<Button RelativePanel.RightOf="IdLabel"-->
                         <Slider x:Name="slSlider1"
                                 RelativePanel.RightOf="tbTextblock1"
                                 Orientation="Vertical" TickFrequency="10" Margin="24,24,24,24" Height="150"
@@ -67,18 +54,42 @@
                                 Value="{x:Bind iSlider1}"
                                 Visibility="{x:Bind bSlider1, Mode=OneWay}" />
                         <Button x:Name="btButton1"
-                                Margin="57,60,0,0" Content="Ein"
+                                RelativePanel.RightOf="tbTextblock1"
+                                Margin="27,60,24,24" Content="Ein"
                                 Visibility="{x:Bind bButton1, Mode=OneWay}"/>
                         <Button x:Name="btButton2"
-                                Margin="55,110,0,0" Content="Aus"
+                                RelativePanel.RightOf="tbTextblock1"
+                                Margin="25,110,24,24" Content="Aus"
                                 Visibility="{x:Bind bButton1, Mode=OneWay}"/>
+                        <ToggleSwitch x:Name="tgSwitch1"
+                                Margin="20,145,-80,24" 
+                                RelativePanel.RightOf="tbTextblock1"
+                                OffContent="Aus"
+                                OnContent="Ein"
+                                IsOn="{x:Bind bSwitch1State}"
+                                Visibility="{x:Bind bSwitch1, Mode=OneWay}">
+                        <ToggleSwitch.RenderTransform>
+                        <CompositeTransform Rotation="-90"/>
+                        </ToggleSwitch.RenderTransform>
+                        </ToggleSwitch>
                         <TextBlock x:Name="tbTextblock2" 
                                    RelativePanel.RightOf="slSlider1"
                                    Style="{ThemeResource BaseTextBlockStyle}"
                                    Margin="24,24,24,24" 
                                    Text="{x:Bind Textblock2}" 
                                    Visibility="{x:Bind bTextblock2, Mode=OneWay}" />
-
+                        <TextBlock x:Name="tbTextblock3" 
+                                   RelativePanel.RightOf="btButton1"
+                                   Style="{ThemeResource BaseTextBlockStyle}"
+                                   Margin="24,24,24,24" 
+                                   Text="{x:Bind Textblock3}" 
+                                   Visibility="{x:Bind bTextblock3, Mode=OneWay}" />
+                        <TextBlock x:Name="tbTextblock4" 
+                                   RelativePanel.RightOf="tgSwitch1"
+                                   Style="{ThemeResource BaseTextBlockStyle}"
+                                   Margin="24,24,24,24" 
+                                   Text="{x:Bind Textblock4}" 
+                                   Visibility="{x:Bind bTextblock4, Mode=OneWay}" />
                     </RelativePanel>
                 </DataTemplate>
             </ListView.ItemTemplate>

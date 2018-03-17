@@ -157,6 +157,7 @@
     <Content Include="Assets\HmIP-Schaltsteckdose-V-oS.jpg" />
     <Content Include="Assets\HmIP-Wandtaster-V.jpg" />
     <Content Include="Assets\PushButton-2ch-wm_thumb.png" />
+    <Content Include="Assets\Rolladen.jpg" />
     <Content Include="Assets\Speedy.jpg" />
     <Content Include="z_functionlist.xml" />
     <Content Include="Properties\Default.rd.xml" />

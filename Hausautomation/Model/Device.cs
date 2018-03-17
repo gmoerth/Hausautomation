@@ -242,15 +242,18 @@ namespace Hausautomation.Model
             set { unreach = value; }
         }
 
-        public string Textblock1 { get; set; }
+        public string Textblock1 { get; set; } // Inhalt des Textblock1
         public string Textblock2 { get; set; }
         public string Textblock3 { get; set; }
         public string Textblock4 { get; set; }
-        public string Textblock5 { get; set; }
-        public bool bSlider1 { get; set; }
-        public bool bButton1 { get; set; }
-        public bool bTextblock2 { get; set; }
-        public int iSlider1 { get; set; }
+        public bool bSlider1 { get; set; } // sichtbarkeit
+        public bool bButton1 { get; set; } // sichtbarkeit
+        public bool bSwitch1 { get; set; } // sichtbarkeit
+        public bool bSwitch1State { get; set; } // Status des Switch1
+        public bool bTextblock2 { get; set; } // sichtbarkeit
+        public bool bTextblock3 { get; set; } // sichtbarkeit
+        public bool bTextblock4 { get; set; } // sichtbarkeit
+        public int iSlider1 { get; set; } // Wert des Slider
         private static List<BitmapImage> sources;
         public BitmapImage Image { get; set; }
         #endregion
@@ -272,7 +275,8 @@ namespace Hausautomation.Model
                 new BitmapImage(new Uri("ms-appx:///Assets/75_hm-pb-2-wm55_thumb.png")),    // 7
                 new BitmapImage(new Uri("ms-appx:///Assets/93_hm-es-pmsw1-pl_thumb.png")),  // 8 
                 new BitmapImage(new Uri("ms-appx:///Assets/HM-Funk-Fensterkontakt-optisch-schraeg-oS.jpg")),      // 9
-                new BitmapImage(new Uri("ms-appx:///Assets/HmIP-Rollladenaktor-fuer-MS-V.jpg")),  // 10
+                //new BitmapImage(new Uri("ms-appx:///Assets/HmIP-Rollladenaktor-fuer-MS-V.jpg")),  // 10
+                new BitmapImage(new Uri("ms-appx:///Assets/Rolladen.jpg")),  // 10
                 new BitmapImage(new Uri("ms-appx:///Assets/HmIP-Wandtaster-V.jpg")),
                 new BitmapImage(new Uri("ms-appx:///Assets/HmIP-Schaltsteckdose-V-oS.jpg"))
             };
@@ -381,7 +385,7 @@ namespace Hausautomation.Model
                     Image = sources[10];
                     break;
                 case "HmIP-BSM":
-                    Image = sources[10];
+                    Image = sources[1];
                     break;
                 case "HMIP-PSM":
                     Image = sources[12];//2
@@ -397,9 +401,6 @@ namespace Hausautomation.Model
         // Für alle Devices gleich
         public void PrepareAllDevices()
         {
-            bButton1 = false;
-            bSlider1 = false;
-            bTextblock2 = false;
             PrepareTextblock1();
             switch (Device_type)
             {
@@ -425,8 +426,10 @@ namespace Hausautomation.Model
                     PrepareHmIPBROLL();
                     break;
                 case "HmIP-BSM":
+                    PrepareHmIPBSM();
                     break;
                 case "HMIP-PSM":
+                    PrepareHMIPPSM();
                     break;
                 case "HMIP-WRC2":
                     PrepareHMIPWRC2();
@@ -602,9 +605,195 @@ namespace Hausautomation.Model
             Textblock2 = str4 + str0;
         }
 
+        public void PrepareHmIPBSM()
+        {
+            bSwitch1 = true;
+            bTextblock4 = true;
+            string strvo = "";
+            string strcu = "";
+            string strfr = "";
+            string strpo = "";
+            string stren = "";
+            foreach (Channel channel in Channellist.Channellist)
+            {
+                if (channel.Index == 4)
+                {
+                    foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
+                    {
+                        if (datapoint.Type == "STATE")
+                        {
+                            if (datapoint.Value == double.NegativeInfinity)
+                                bSwitch1State = false;
+                            else if (datapoint.Value == double.PositiveInfinity)
+                                bSwitch1State = true;
+                            Textblock4 = "Letze Aktualisierung:\n";
+                            Textblock4 += datapoint.Timestamp.ToString();
+                        }
+                    }
+                }
+                if (channel.Index == 7)
+                {
+                    foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
+                    {
+                        if (datapoint.Type == "VOLTAGE")
+                        {
+                            strvo += "\nSpannung: ";
+                            strvo += datapoint.Value.ToString();
+                            strvo += " " + datapoint.Valueunit.ToString();
+                        }
+                        if (datapoint.Type == "CURRENT")
+                        {
+                            strcu += "\nStrom: ";
+                            strcu += datapoint.Value.ToString();
+                            strcu += " " + datapoint.Valueunit.ToString();
+                        }
+                        if (datapoint.Type == "FREQUENCY")
+                        {
+                            strfr += "\nFrequenz: ";
+                            strfr += datapoint.Value.ToString();
+                            strfr += " " + datapoint.Valueunit.ToString();
+                        }
+                        if (datapoint.Type == "POWER")
+                        {
+                            strpo += "\nLeistung: ";
+                            strpo += datapoint.Value.ToString();
+                            strpo += " " + datapoint.Valueunit.ToString();
+                        }
+                        if (datapoint.Type == "ENERGY_COUNTER")
+                        {
+                            stren += "\nEnergieverb.: ";
+                            stren += datapoint.Value.ToString();
+                            stren += " " + datapoint.Valueunit.ToString();
+                        }
+                    }
+                }
+            }
+            Textblock4 += strvo + strcu + strfr + strpo + stren;
+        }
+
+        public void PrepareHMIPPSM()
+        {
+            bSwitch1 = true;
+            bTextblock4 = true;
+            string strvo = "";
+            string strcu = "";
+            string strfr = "";
+            string strpo = "";
+            string stren = "";
+            foreach (Channel channel in Channellist.Channellist)
+            {
+                if (channel.Index == 3)
+                {
+                    foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
+                    {
+                        if (datapoint.Type == "STATE")
+                        {
+                            if (datapoint.Value == double.NegativeInfinity)
+                                bSwitch1State = false;
+                            else if (datapoint.Value == double.PositiveInfinity)
+                                bSwitch1State = true;
+                            Textblock4 = "Letze Aktualisierung:\n";
+                            Textblock4 += datapoint.Timestamp.ToString();
+                        }
+                    }
+                }
+                if (channel.Index == 6)
+                {
+                    foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
+                    {
+                        if (datapoint.Type == "VOLTAGE")
+                        {
+                            strvo += "\nSpannung: ";
+                            strvo += datapoint.Value.ToString();
+                            strvo += " " + datapoint.Valueunit.ToString();
+                        }
+                        if (datapoint.Type == "CURRENT")
+                        {
+                            strcu += "\nStrom: ";
+                            strcu += datapoint.Value.ToString();
+                            strcu += " " + datapoint.Valueunit.ToString();
+                        }
+                        if (datapoint.Type == "FREQUENCY")
+                        {
+                            strfr += "\nFrequenz: ";
+                            strfr += datapoint.Value.ToString();
+                            strfr += " " + datapoint.Valueunit.ToString();
+                        }
+                        if (datapoint.Type == "POWER")
+                        {
+                            strpo += "\nLeistung: ";
+                            strpo += datapoint.Value.ToString();
+                            strpo += " " + datapoint.Valueunit.ToString();
+                        }
+                        if (datapoint.Type == "ENERGY_COUNTER")
+                        {
+                            stren += "\nEnergieverb.: ";
+                            stren += datapoint.Value.ToString();
+                            stren += " " + datapoint.Valueunit.ToString();
+                        }
+                    }
+                }
+            }
+            Textblock4 += strvo + strcu + strfr + strpo + stren;
+        }
+
         public void PrepareHMIPWRC2()
         {
             bButton1 = true;
+            bTextblock3 = true;
+            foreach (Channel channel in Channellist.Channellist)
+            {
+                if (channel.Index == 0)
+                {
+                    foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
+                    {
+                        if (datapoint.Type == "LOW_BAT")
+                        {
+                            Textblock3 = "Letze Aktualisierung:\n";
+                            Textblock3 += datapoint.Timestamp.ToString();
+                            Textblock3 += "\nBatterie: ";
+                            if (datapoint.Value == double.NegativeInfinity)
+                                Textblock3 += "OK";
+                            else if (datapoint.Value == double.PositiveInfinity)
+                                Textblock3 += "tauschen!";
+                        }
+                        if (datapoint.Type == "OPERATING_VOLTAGE")
+                        {
+                            Textblock3 += "\nSpannung: ";
+                            Textblock3 += datapoint.Value.ToString();
+                            Textblock3 += "V\n";
+                        }
+                    }
+                }
+                if (channel.Index == 1)
+                {
+                    foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
+                    {
+                        if (datapoint.Type == "PRESS_LONG")
+                        {
+                        }
+                        if (datapoint.Type == "PRESS_SHORT")
+                        {
+                            Textblock3 += "Letzter Tastendruck:\nEin: ";
+                            Textblock3 += datapoint.Timestamp.ToString();
+                        }
+                    }
+                }
+                if (channel.Index == 2)
+                {
+                    foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
+                    {
+                        if (datapoint.Type == "PRESS_LONG")
+                        {
+                        }
+                        if (datapoint.Type == "PRESS_SHORT")
+                        {
+                            Textblock3 += "\nAus: ";
+                            Textblock3 += datapoint.Timestamp.ToString();
+                        }
+                    }
+                }
+            }
         }
         #endregion
     }
