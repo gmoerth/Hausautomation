@@ -246,13 +246,17 @@ namespace Hausautomation.Model
         public string Textblock2 { get; set; }
         public string Textblock3 { get; set; }
         public string Textblock4 { get; set; }
+        public string Textblock5 { get; set; }
         public bool bSlider1 { get; set; } // sichtbarkeit
         public bool bButton1 { get; set; } // sichtbarkeit
         public bool bSwitch1 { get; set; } // sichtbarkeit
+        public bool bSwitch2 { get; set; } // sichtbarkeit
         public bool bSwitch1State { get; set; } // Status des Switch1
+        public bool bSwitch2State { get; set; } // Status des Switch1
         public bool bTextblock2 { get; set; } // sichtbarkeit
         public bool bTextblock3 { get; set; } // sichtbarkeit
         public bool bTextblock4 { get; set; } // sichtbarkeit
+        public bool bTextblock5 { get; set; } // sichtbarkeit
         public int iSlider1 { get; set; } // Wert des Slider
         private static List<BitmapImage> sources;
         public BitmapImage Image { get; set; }
@@ -265,20 +269,18 @@ namespace Hausautomation.Model
             Image = new BitmapImage();
             sources = new List<BitmapImage>()
             {
-                new BitmapImage(new Uri("ms-appx:///Assets/CCU2_thumb.png")),               // 0
-                new BitmapImage(new Uri("ms-appx:///Assets/112_hmip-wrc2_thumb.png")),      // 1 
-                new BitmapImage(new Uri("ms-appx:///Assets/113_hmip-psm_thumb.png")),       // 2 
-                new BitmapImage(new Uri("ms-appx:///Assets/HM-Funk-Bewegungsmelder-innen-V-oS.jpg")),    // 3
-                new BitmapImage(new Uri("ms-appx:///Assets/4_hm-lc-sw1-fm_thumb.png")),     // 4
-                new BitmapImage(new Uri("ms-appx:///Assets/5_hm-lc-sw2-fm_thumb.png")),     // 5        
-                new BitmapImage(new Uri("ms-appx:///Assets/70_hm-pb-4dis-wm_thumb.png")),   // 6
-                new BitmapImage(new Uri("ms-appx:///Assets/75_hm-pb-2-wm55_thumb.png")),    // 7
-                new BitmapImage(new Uri("ms-appx:///Assets/93_hm-es-pmsw1-pl_thumb.png")),  // 8 
-                new BitmapImage(new Uri("ms-appx:///Assets/HM-Funk-Fensterkontakt-optisch-schraeg-oS.jpg")),      // 9
-                //new BitmapImage(new Uri("ms-appx:///Assets/HmIP-Rollladenaktor-fuer-MS-V.jpg")),  // 10
-                new BitmapImage(new Uri("ms-appx:///Assets/Rolladen.jpg")),  // 10
-                new BitmapImage(new Uri("ms-appx:///Assets/HmIP-Wandtaster-V.jpg")),
-                new BitmapImage(new Uri("ms-appx:///Assets/HmIP-Schaltsteckdose-V-oS.jpg"))
+                new BitmapImage(new Uri("ms-appx:///Assets/HM-Cen-O-TW-x-x-2.png")),    // 0
+                new BitmapImage(new Uri("ms-appx:///Assets/HM-Sec-MDIR-3.png")),        // 1
+                new BitmapImage(new Uri("ms-appx:///Assets/HM-Sec-SCo.png")),           // 2
+                new BitmapImage(new Uri("ms-appx:///Assets/HM-LC-Sw1PBU-FM.jpg")),      // 3 
+                new BitmapImage(new Uri("ms-appx:///Assets/HM-LC-Sw1-FM.png")),         // 4
+                new BitmapImage(new Uri("ms-appx:///Assets/HM-LC-Sw2-FM.png")),         // 5        
+                new BitmapImage(new Uri("ms-appx:///Assets/HM-PB-4Dis-WM.jpg")),        // 6
+                new BitmapImage(new Uri("ms-appx:///Assets/HM-PB-2-WM55-2.jpg")),       // 7
+                new BitmapImage(new Uri("ms-appx:///Assets/HM-ES-PMSw1-Pl-DN-R1.png")), // 8 
+                new BitmapImage(new Uri("ms-appx:///Assets/HMIP-PSM.png")),             // 9 
+                new BitmapImage(new Uri("ms-appx:///Assets/HmIP-BROLL.jpg")),           // 10
+                new BitmapImage(new Uri("ms-appx:///Assets/HMIP-WRC2.jpg")),            // 11
             };
             Image = sources[0]; // Zentrale hat kein "device_type"
         }
@@ -361,7 +363,7 @@ namespace Hausautomation.Model
                     Image = sources[8];
                     break;
                 case "HM-LC-Sw1PBU-FM":
-                    Image = sources[10];
+                    Image = sources[3];
                     break;
                 case "HM-LC-Sw1-FM":
                     Image = sources[4];
@@ -376,22 +378,22 @@ namespace Hausautomation.Model
                     Image = sources[6];
                     break;
                 case "HM-Sec-MDIR-3":
-                    Image = sources[3];
+                    Image = sources[1];
                     break;
                 case "HM-Sec-SCo":
-                    Image = sources[9];
+                    Image = sources[2];
                     break;
                 case "HmIP-BROLL":
                     Image = sources[10];
                     break;
                 case "HmIP-BSM":
-                    Image = sources[1];
+                    Image = sources[3];
                     break;
                 case "HMIP-PSM":
-                    Image = sources[12];//2
+                    Image = sources[9];
                     break;
                 case "HMIP-WRC2":
-                    Image = sources[11];//1
+                    Image = sources[11];
                     break;
                 default:
                     throw new NotImplementedException();
@@ -405,12 +407,16 @@ namespace Hausautomation.Model
             switch (Device_type)
             {
                 case "HM-ES-PMSw1-Pl-DN-R1":
+                    PrepareHMESPMSw1PlDNR1();
                     break;
                 case "HM-LC-Sw1PBU-FM":
+                    PrepareHMLCSw1PBUFM();
                     break;
                 case "HM-LC-Sw1-FM":
+                    PrepareHMLCSw1FM();
                     break;
                 case "HM-LC-Sw2-FM":
+                    PrepareHMLCSw2FM();
                     break;
                 case "HM-PB-2-WM55-2":
                     break;
@@ -490,6 +496,195 @@ namespace Hausautomation.Model
                 }
             }
             Textblock1 += strRoom + strFunc + strData;
+        }
+
+        public void PrepareHMESPMSw1PlDNR1()
+        {
+            bSwitch1 = true;
+            bTextblock4 = true;
+            string strvo = "";
+            string strcu = "";
+            string strfr = "";
+            string strpo = "";
+            string stren = "";
+            foreach (Channel channel in Channellist.Channellist)
+            {
+                if (channel.Index == 1)
+                {
+                    foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
+                    {
+                        if (datapoint.Type == "STATE")
+                        {
+                            if (datapoint.Value == double.NegativeInfinity)
+                                bSwitch1State = false;
+                            else if (datapoint.Value == double.PositiveInfinity)
+                                bSwitch1State = true;
+                            Textblock4 = "Letzer Schaltbefehl:\n";
+                            Textblock4 += datapoint.Timestamp.ToString();
+                        }
+                    }
+                }
+                if (channel.Index == 2)
+                {
+                    foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
+                    {
+                        if (datapoint.Type == "VOLTAGE")
+                        {
+                            strvo += "\nLetze Messwerte:\n";
+                            strvo += datapoint.Timestamp.ToString();
+                            strvo += "\nSpannung: ";
+                            strvo += datapoint.Value.ToString();
+                            strvo += " " + datapoint.Valueunit.ToString();
+                        }
+                        if (datapoint.Type == "CURRENT")
+                        {
+                            strcu += "\nStrom: ";
+                            strcu += datapoint.Value.ToString();
+                            strcu += " " + datapoint.Valueunit.ToString();
+                        }
+                        if (datapoint.Type == "FREQUENCY")
+                        {
+                            strfr += "\nFrequenz: ";
+                            strfr += datapoint.Value.ToString();
+                            strfr += " " + datapoint.Valueunit.ToString();
+                        }
+                        if (datapoint.Type == "POWER")
+                        {
+                            strpo += "\nLeistung: ";
+                            strpo += datapoint.Value.ToString();
+                            strpo += " " + datapoint.Valueunit.ToString();
+                        }
+                        if (datapoint.Type == "ENERGY_COUNTER")
+                        {
+                            stren += "\nEnergieverb.: ";
+                            stren += datapoint.Value.ToString();
+                            stren += " " + datapoint.Valueunit.ToString();
+                        }
+                    }
+                }
+            }
+            Textblock4 += strvo + strcu + strfr + strpo + stren;
+        }
+
+        public void PrepareHMLCSw1PBUFM()
+        {
+            bSwitch1 = true;
+            bTextblock4 = true;
+            foreach (Channel channel in Channellist.Channellist)
+            {
+                if (channel.Index == 0)
+                {
+                    foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
+                    {
+                        if (datapoint.Type == "RSSI_PEER")
+                        {
+                            Textblock4 = "Letze Aktualisierung:\n";
+                            Textblock4 += datapoint.Timestamp.ToString();
+                        }
+                    }
+                }
+                if (channel.Index == 1)
+                {
+                    foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
+                    {
+                        if (datapoint.Type == "STATE")
+                        {
+                            //if (datapoint.Value == double.NegativeInfinity)
+                            //    bSwitch1State = false;
+                            if (datapoint.Value == double.PositiveInfinity)
+                                bSwitch1State = true;
+                            Textblock4 += "\nLetzer Schaltbefehl:\n";
+                            Textblock4 += datapoint.Timestamp.ToString();
+                        }
+                    }
+                }
+            }
+        }
+
+        public void PrepareHMLCSw1FM()
+        {
+            bSwitch1 = true;
+            bTextblock4 = true;
+            foreach (Channel channel in Channellist.Channellist)
+            {
+                if (channel.Index == 0)
+                {
+                    foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
+                    {
+                        if (datapoint.Type == "RSSI_PEER")
+                        {
+                            Textblock4 = "Letze Aktualisierung:\n";
+                            Textblock4 += datapoint.Timestamp.ToString();
+                        }
+                    }
+                }
+                if (channel.Index == 1)
+                {
+                    foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
+                    {
+                        if (datapoint.Type == "STATE")
+                        {
+                            //if (datapoint.Value == double.NegativeInfinity)
+                            //    bSwitch1State = false;
+                            if (datapoint.Value == double.PositiveInfinity)
+                                bSwitch1State = true;
+                            Textblock4 += "\nLetzer Schaltbefehl:\n";
+                            Textblock4 += datapoint.Timestamp.ToString();
+                        }
+                    }
+                }
+            }
+        }
+
+        public void PrepareHMLCSw2FM()
+        {
+            bSwitch1 = true;
+            bSwitch2 = true;
+            bTextblock5 = true;
+            foreach (Channel channel in Channellist.Channellist)
+            {
+                if (channel.Index == 0)
+                {
+                    foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
+                    {
+                        if (datapoint.Type == "RSSI_PEER")
+                        {
+                            Textblock5 = "Letze Aktualisierung:\n";
+                            Textblock5 += datapoint.Timestamp.ToString();
+                        }
+                    }
+                }
+                if (channel.Index == 1)
+                {
+                    foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
+                    {
+                        if (datapoint.Type == "STATE")
+                        {
+                            //if (datapoint.Value == double.NegativeInfinity)
+                            //    bSwitch1State = false;
+                            if (datapoint.Value == double.PositiveInfinity)
+                                bSwitch1State = true;
+                            Textblock5 += "\nLetzer Schaltbefehl 1:\n";
+                            Textblock5 += datapoint.Timestamp.ToString();
+                        }
+                    }
+                }
+                if (channel.Index == 2)
+                {
+                    foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
+                    {
+                        if (datapoint.Type == "STATE")
+                        {
+                            //if (datapoint.Value == double.NegativeInfinity)
+                            //    bSwitch2State = false;
+                            if (datapoint.Value == double.PositiveInfinity)
+                                bSwitch2State = true;
+                            Textblock5 += "\nLetzer Schaltbefehl 2:\n";
+                            Textblock5 += datapoint.Timestamp.ToString();
+                        }
+                    }
+                }
+            }
         }
 
         public void PrepareHMSecSCo()
@@ -622,9 +817,9 @@ namespace Hausautomation.Model
                     {
                         if (datapoint.Type == "STATE")
                         {
-                            if (datapoint.Value == double.NegativeInfinity)
-                                bSwitch1State = false;
-                            else if (datapoint.Value == double.PositiveInfinity)
+                            //if (datapoint.Value == double.NegativeInfinity)
+                            //    bSwitch1State = false;
+                            if (datapoint.Value == double.PositiveInfinity)
                                 bSwitch1State = true;
                             Textblock4 = "Letze Aktualisierung:\n";
                             Textblock4 += datapoint.Timestamp.ToString();
@@ -688,9 +883,9 @@ namespace Hausautomation.Model
                     {
                         if (datapoint.Type == "STATE")
                         {
-                            if (datapoint.Value == double.NegativeInfinity)
-                                bSwitch1State = false;
-                            else if (datapoint.Value == double.PositiveInfinity)
+                            //if (datapoint.Value == double.NegativeInfinity)
+                            //    bSwitch1State = false;
+                            if (datapoint.Value == double.PositiveInfinity)
                                 bSwitch1State = true;
                             Textblock4 = "Letze Aktualisierung:\n";
                             Textblock4 += datapoint.Timestamp.ToString();

@@ -62,7 +62,7 @@
                                 Margin="25,110,24,24" Content="Aus"
                                 Visibility="{x:Bind bButton1, Mode=OneWay}"/>
                         <ToggleSwitch x:Name="tgSwitch1"
-                                Margin="20,145,-80,24" 
+                                Margin="20,145,-100,24" 
                                 RelativePanel.RightOf="tbTextblock1"
                                 OffContent="Aus"
                                 OnContent="Ein"
@@ -71,6 +71,17 @@
                         <ToggleSwitch.RenderTransform>
                         <CompositeTransform Rotation="-90"/>
                         </ToggleSwitch.RenderTransform>
+                        </ToggleSwitch>
+                        <ToggleSwitch x:Name="tgSwitch2"
+                                Margin="0,145,-100,24" 
+                                RelativePanel.RightOf="tgSwitch1"
+                                OffContent="Aus"
+                                OnContent="Ein"
+                                IsOn="{x:Bind bSwitch2State}"
+                                Visibility="{x:Bind bSwitch2, Mode=OneWay}">
+                            <ToggleSwitch.RenderTransform>
+                                <CompositeTransform Rotation="-90"/>
+                            </ToggleSwitch.RenderTransform>
                         </ToggleSwitch>
                         <TextBlock x:Name="tbTextblock2" 
                                    RelativePanel.RightOf="slSlider1"
@@ -90,6 +101,12 @@
                                    Margin="24,24,24,24" 
                                    Text="{x:Bind Textblock4}" 
                                    Visibility="{x:Bind bTextblock4, Mode=OneWay}" />
+                        <TextBlock x:Name="tbTextblock5" 
+                                   RelativePanel.RightOf="tgSwitch2"
+                                   Style="{ThemeResource BaseTextBlockStyle}"
+                                   Margin="24,24,24,24" 
+                                   Text="{x:Bind Textblock5}" 
+                                   Visibility="{x:Bind bTextblock5, Mode=OneWay}" />
                     </RelativePanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
