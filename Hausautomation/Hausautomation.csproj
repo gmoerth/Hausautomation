@@ -102,20 +102,23 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainPageHeader.xaml.cs">
+    <Compile Include="Pages\MainPageHeader.xaml.cs">
       <DependentUpon>MainPageHeader.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\ReadXDoc.cs" />
     <Compile Include="Model\Room.cs" />
     <Compile Include="Model\SendMail.cs" />
-    <Compile Include="Pages\SamplePage1.xaml.cs">
-      <DependentUpon>SamplePage1.xaml</DependentUpon>
+    <Compile Include="Pages\PageAll.xaml.cs">
+      <DependentUpon>PageAll.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\SamplePage2.xaml.cs">
-      <DependentUpon>SamplePage2.xaml</DependentUpon>
+    <Compile Include="Pages\PageFav.xaml.cs">
+      <DependentUpon>PageFav.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\SamplePage3.xaml.cs">
-      <DependentUpon>SamplePage3.xaml</DependentUpon>
+    <Compile Include="Pages\PageFunc.xaml.cs">
+      <DependentUpon>PageFunc.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PageRoom.xaml.cs">
+      <DependentUpon>PageRoom.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
@@ -171,19 +174,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="MainPageHeader.xaml">
+    <Page Include="Pages\MainPageHeader.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\SamplePage1.xaml">
+    <Page Include="Pages\PageAll.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\SamplePage2.xaml">
+    <Page Include="Pages\PageFav.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\SamplePage3.xaml">
+    <Page Include="Pages\PageFunc.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\PageRoom.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

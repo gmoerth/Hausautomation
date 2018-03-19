@@ -29,11 +29,11 @@ namespace Hausautomation.Pages
     /// <summary>
     /// Eine leere Seite, die eigenständig verwendet oder zu der innerhalb eines Rahmens navigiert werden kann.
     /// </summary>
-    public sealed partial class SamplePage1 : Page
+    public sealed partial class PageAll : Page
     {
         private ObservableCollection<Device> Devicelist;
 
-        public SamplePage1()
+        public PageAll()
         {
             this.InitializeComponent();
 

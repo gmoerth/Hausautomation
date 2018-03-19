@@ -56,7 +56,7 @@ namespace Hausautomation
 
         private void NavigationView_Loaded(object sender, RoutedEventArgs e)
         {
-            //contentFrame.Navigate(typeof(SamplePage1));
+            //contentFrame.Navigate(typeof(PageAll));
             contentFrame.Navigate(typeof(MainPageHeader));
         }
 

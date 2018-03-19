@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="Hausautomation.Pages.SamplePage3"
+    x:Class="Hausautomation.Pages.PageRoom"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Hausautomation.Pages"
@@ -8,7 +8,7 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBlock HorizontalAlignment="Left" Margin="120,120,0,0" Text="TextBlock3" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="120,120,0,0" Text="PageRoom" TextWrapping="Wrap" VerticalAlignment="Top"/>
 
     </Grid>
 </Page>

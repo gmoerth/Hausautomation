@@ -20,9 +20,9 @@ namespace Hausautomation.Pages
     /// <summary>
     /// Eine leere Seite, die eigenständig verwendet oder zu der innerhalb eines Rahmens navigiert werden kann.
     /// </summary>
-    public sealed partial class SamplePage2 : Page
+    public sealed partial class PageRoom : Page
     {
-        public SamplePage2()
+        public PageRoom()
         {
             this.InitializeComponent();
         }

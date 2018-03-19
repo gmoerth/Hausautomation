@@ -8,11 +8,11 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="Hausautomation.MainPageHeader" BaseTypeListCollapsed="true">
+  <Class Name="Hausautomation.Pages.MainPageHeader" BaseTypeListCollapsed="true">
     <Position X="0.5" Y="3.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>MainPageHeader.xaml.cs</FileName>
+      <FileName>Pages\MainPageHeader.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
@@ -23,37 +23,45 @@
       <FileName>Model\ReadXDoc.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Hausautomation.Pages.SamplePage1" BaseTypeListCollapsed="true">
+  <Class Name="Hausautomation.Pages.PageAll" BaseTypeListCollapsed="true">
     <Position X="2.5" Y="3.25" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Pages\SamplePage1.xaml.cs</FileName>
+      <HashCode>AAAAAAAAAEAAAAAAAAAAAAAAgRgABAAQBAAACAAAAAA=</HashCode>
+      <FileName>Pages\PageAll.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="Hausautomation.Pages.SamplePage2" BaseTypeListCollapsed="true">
-    <Position X="2.5" Y="5.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Pages\SamplePage2.xaml.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
-  <Class Name="Hausautomation.Pages.SamplePage3" BaseTypeListCollapsed="true">
+  <Class Name="Hausautomation.Pages.PageRoom" BaseTypeListCollapsed="true">
     <Position X="0.5" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Pages\SamplePage3.xaml.cs</FileName>
+      <FileName>Pages\PageRoom.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Hausautomation.Pages.SettingsPage" BaseTypeListCollapsed="true">
-    <Position X="0.5" Y="6.75" Width="5" />
+    <Position X="0.5" Y="7.25" Width="5" />
     <TypeIdentifier>
       <HashCode>CAAIAQAAAhJMAAAAAEAAAAAAAAAAIAEAAAiAAAAAAEA=</HashCode>
       <FileName>Pages\SettingsPage.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Hausautomation.Pages.PageFav">
+    <Position X="6" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\PageFav.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Hausautomation.Pages.PageFunc">
+    <Position X="6" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\PageFunc.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

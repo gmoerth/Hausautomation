@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="Hausautomation.MainPageHeader"
+    x:Class="Hausautomation.Pages.MainPageHeader"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Hausautomation"
@@ -46,7 +46,7 @@
                     <Image
                         x:Name="headerImage"
                         HorizontalAlignment="Center"
-                        Source="Assets/Hausautomation.jpg"
+                        Source="../Assets/Hausautomation.jpg"
                         Stretch="None" />
 
                 </ParallaxView>

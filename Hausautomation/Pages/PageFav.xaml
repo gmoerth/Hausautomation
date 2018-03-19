@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="Hausautomation.Pages.SamplePage2"
+    x:Class="Hausautomation.Pages.PageFav"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Hausautomation.Pages"
@@ -28,7 +28,7 @@
                        Margin="12" />
 
 
-        <TextBlock HorizontalAlignment="Left" Margin="184,204,0,-224" Text="TextBlock2" TextWrapping="Wrap" VerticalAlignment="Top" Grid.RowSpan="3"/>
+        <TextBlock HorizontalAlignment="Left" Margin="184,204,0,-224" Text="PageFav" TextWrapping="Wrap" VerticalAlignment="Top" Grid.RowSpan="3"/>
 
     </Grid>
 </Page>

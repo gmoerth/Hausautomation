@@ -19,11 +19,13 @@
                 <NavigationViewItemSeparator/>-->
                 <AutoSuggestBox x:Name="ASB" QueryIcon="Find" Width="290" Visibility="{x:Bind nvSample.IsPaneOpen, Mode=OneWay}" />
                 <NavigationViewItemHeader Content="Hauptseite" Visibility="{x:Bind nvSample.IsPaneOpen, Mode=OneWay}" />
-                <NavigationViewItem Icon="Play" Content="Favoriten" Tag="SamplePage1" />
+                <NavigationViewItem Icon="AllApps" Content="Alle Geräte" Tag="PageAll" />
                 <NavigationViewItemHeader Content="Unterseiten" Visibility="{x:Bind nvSample.IsPaneOpen, Mode=OneWay}" />
-                <NavigationViewItem Icon="Save" Content="Geräte" Tag="SamplePage2" />
-                <NavigationViewItem Icon="Refresh" Content="Räume" Tag="SamplePage3" />
-                <NavigationViewItem Icon="Refresh" Content="Gewerke" Tag="SamplePage3" />
+                <NavigationViewItem Icon="Favorite" Content="Favoriten" Tag="PageFav" />
+                <NavigationViewItem Icon="Home" Content="Räume" Tag="PageRoom" />
+                <NavigationViewItem Icon="MapDrive" Content="Gewerke" Tag="PageFunc" />
+                <NavigationViewItemHeader Content="Hilfe" Visibility="{x:Bind nvSample.IsPaneOpen, Mode=OneWay}" />
+                <NavigationViewItem Icon="Help" Content="Hilfe" Tag="MainPageHeader" />
             </NavigationView.MenuItems>
 
 
