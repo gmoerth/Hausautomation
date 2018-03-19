@@ -39,6 +39,19 @@ namespace Hausautomation.Model
             Devicelist.Add(device);
         }
 
+        public void UpdateDevice(Device dev)
+        {
+            foreach (Device device in Devicelist)
+            {
+                if (device.Ise_id == dev.Ise_id)
+                {
+                    int i = Devicelist.IndexOf(device);
+                    Devicelist.RemoveAt(i);
+                    Devicelist.Insert(i, dev);
+                }
+            }
+        }
+
         public void LoadXDocument(XDocument xDocument)
         {
             // device parsen (devicelist + statelist)
@@ -247,8 +260,10 @@ namespace Hausautomation.Model
         public string Textblock3 { get; set; }
         public string Textblock4 { get; set; }
         public string Textblock5 { get; set; }
+        public string Textblock6 { get; set; }
         public bool bSlider1 { get; set; } // sichtbarkeit
-        public bool bButton1 { get; set; } // sichtbarkeit
+        public bool bButton1 { get; set; } // sichtbarkeit Ein Aus
+        public bool bButton2 { get; set; } // sichtbarkeit Ob Un Li Re
         public bool bSwitch1 { get; set; } // sichtbarkeit
         public bool bSwitch2 { get; set; } // sichtbarkeit
         public bool bSwitch1State { get; set; } // Status des Switch1
@@ -257,7 +272,11 @@ namespace Hausautomation.Model
         public bool bTextblock3 { get; set; } // sichtbarkeit
         public bool bTextblock4 { get; set; } // sichtbarkeit
         public bool bTextblock5 { get; set; } // sichtbarkeit
+        public bool bTextblock6 { get; set; } // sichtbarkeit
         public int iSlider1 { get; set; } // Wert des Slider
+        public int iChannel { get; set; } // Welcher Kanal wird bei HM-PB-4Dis-WM angezeigt
+        public int iStateChangeID { get; set; } // ise_id für StateChange
+        public int iStateChangeID2 { get; set; } // ise_id für StateChange
         private static List<BitmapImage> sources;
         public BitmapImage Image { get; set; }
         #endregion
@@ -419,8 +438,10 @@ namespace Hausautomation.Model
                     PrepareHMLCSw2FM();
                     break;
                 case "HM-PB-2-WM55-2":
+                    PrepareHMPB2WM552();
                     break;
                 case "HM-PB-4Dis-WM":
+                    PrepareHMPB4DisWM();
                     break;
                 case "HM-Sec-MDIR-3":
                     PrepareHMSecMDIR3();
@@ -515,6 +536,7 @@ namespace Hausautomation.Model
                     {
                         if (datapoint.Type == "STATE")
                         {
+                            iStateChangeID = datapoint.Ise_id;
                             if (datapoint.Value == double.NegativeInfinity)
                                 bSwitch1State = false;
                             else if (datapoint.Value == double.PositiveInfinity)
@@ -589,6 +611,7 @@ namespace Hausautomation.Model
                     {
                         if (datapoint.Type == "STATE")
                         {
+                            iStateChangeID = datapoint.Ise_id;
                             //if (datapoint.Value == double.NegativeInfinity)
                             //    bSwitch1State = false;
                             if (datapoint.Value == double.PositiveInfinity)
@@ -624,6 +647,7 @@ namespace Hausautomation.Model
                     {
                         if (datapoint.Type == "STATE")
                         {
+                            iStateChangeID = datapoint.Ise_id;
                             //if (datapoint.Value == double.NegativeInfinity)
                             //    bSwitch1State = false;
                             if (datapoint.Value == double.PositiveInfinity)
@@ -660,6 +684,7 @@ namespace Hausautomation.Model
                     {
                         if (datapoint.Type == "STATE")
                         {
+                            iStateChangeID = datapoint.Ise_id;
                             //if (datapoint.Value == double.NegativeInfinity)
                             //    bSwitch1State = false;
                             if (datapoint.Value == double.PositiveInfinity)
@@ -675,12 +700,133 @@ namespace Hausautomation.Model
                     {
                         if (datapoint.Type == "STATE")
                         {
+                            iStateChangeID2 = datapoint.Ise_id;
                             //if (datapoint.Value == double.NegativeInfinity)
                             //    bSwitch2State = false;
                             if (datapoint.Value == double.PositiveInfinity)
                                 bSwitch2State = true;
                             Textblock5 += "\nLetzer Schaltbefehl 2:\n";
                             Textblock5 += datapoint.Timestamp.ToString();
+                        }
+                    }
+                }
+            }
+        }
+
+        public void PrepareHMPB2WM552()
+        {
+            bButton1 = true;
+            bTextblock3 = true;
+            foreach (Channel channel in Channellist.Channellist)
+            {
+                if (channel.Index == 0)
+                {
+                    foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
+                    {
+                        if (datapoint.Type == "LOWBAT")
+                        {
+                            Textblock3 = "Letze Aktualisierung:\n";
+                            Textblock3 += datapoint.Timestamp.ToString();
+                            Textblock3 += "\nBatterie: ";
+                            if (datapoint.Value == double.NegativeInfinity)
+                                Textblock3 += "OK";
+                            else if (datapoint.Value == double.PositiveInfinity)
+                                Textblock3 += "tauschen!";
+                        }
+                    }
+                }
+                if (channel.Index == 1)
+                {
+                    foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
+                    {
+                        if (datapoint.Type == "PRESS_LONG")
+                        {
+                        }
+                        if (datapoint.Type == "PRESS_SHORT")
+                        {
+                            iStateChangeID = datapoint.Ise_id;
+                            Textblock3 += "\nLetzter Tastendruck:\nEin: ";
+                            Textblock3 += datapoint.Timestamp.ToString();
+                        }
+                    }
+                }
+                if (channel.Index == 2)
+                {
+                    foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
+                    {
+                        if (datapoint.Type == "PRESS_LONG")
+                        {
+                        }
+                        if (datapoint.Type == "PRESS_SHORT")
+                        {
+                            iStateChangeID2 = datapoint.Ise_id;
+                            Textblock3 += "\nAus: ";
+                            Textblock3 += datapoint.Timestamp.ToString();
+                        }
+                    }
+                }
+            }
+        }
+
+        public void PrepareHMPB4DisWM(bool? bnext = null)
+        {
+            bButton2 = true;
+            bTextblock6 = true;
+            if (bnext != null)
+            {
+                if (bnext == true && iChannel < 9)
+                    iChannel++;
+                else if (bnext == false && iChannel > 0)
+                    iChannel--;
+            }
+            foreach (Channel channel in Channellist.Channellist)
+            {
+                if (channel.Index == 0)
+                {
+                    foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
+                    {
+                        if (datapoint.Type == "LOWBAT")
+                        {
+                            Textblock6 = "Letze Aktualisierung:\n";
+                            Textblock6 += datapoint.Timestamp.ToString();
+                            Textblock6 += "\nBatterie: ";
+                            if (datapoint.Value == double.NegativeInfinity)
+                                Textblock6 += "OK";
+                            else if (datapoint.Value == double.PositiveInfinity)
+                                Textblock6 += "tauschen!";
+                        }
+                    }
+                }
+                //if (channel.Index == 1)
+                if (channel.Index == iChannel * 2 + 1)
+                {
+                    foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
+                    {
+                        if (datapoint.Type == "PRESS_LONG")
+                        {
+                        }
+                        if (datapoint.Type == "PRESS_SHORT")
+                        {
+                            iStateChangeID = datapoint.Ise_id;
+                            Textblock6 += "\nAnzeige für Kanal: " + (iChannel + 1).ToString();
+                            Textblock6 += "\nLetzter Tastendruck:\nEin: ";
+                            Textblock6 += datapoint.Timestamp.ToString();
+                        }
+                    }
+                }
+                //if (channel.Index == 2)
+                if (channel.Index == iChannel * 2 + 2)
+                {
+                    foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
+                    {
+                        if (datapoint.Type == "PRESS_LONG")
+                        {
+                        }
+                        if (datapoint.Type == "PRESS_SHORT")
+                        {
+                            iStateChangeID2 = datapoint.Ise_id;
+                            Textblock6 += "\nAus: ";
+                            Textblock6 += datapoint.Timestamp.ToString();
                         }
                     }
                 }
@@ -790,6 +936,7 @@ namespace Hausautomation.Model
                     {
                         if (datapoint.Type == "LEVEL")
                         {
+                            iStateChangeID = datapoint.Ise_id;
                             iSlider1 = (int)(datapoint.Value * 100 + 0.5);
                             str4 = "Letze Aktualisierung:\n";
                             str4 += datapoint.Timestamp.ToString();
@@ -817,6 +964,7 @@ namespace Hausautomation.Model
                     {
                         if (datapoint.Type == "STATE")
                         {
+                            iStateChangeID = datapoint.Ise_id;
                             //if (datapoint.Value == double.NegativeInfinity)
                             //    bSwitch1State = false;
                             if (datapoint.Value == double.PositiveInfinity)
@@ -883,6 +1031,7 @@ namespace Hausautomation.Model
                     {
                         if (datapoint.Type == "STATE")
                         {
+                            iStateChangeID = datapoint.Ise_id;
                             //if (datapoint.Value == double.NegativeInfinity)
                             //    bSwitch1State = false;
                             if (datapoint.Value == double.PositiveInfinity)
@@ -969,6 +1118,7 @@ namespace Hausautomation.Model
                         }
                         if (datapoint.Type == "PRESS_SHORT")
                         {
+                            iStateChangeID = datapoint.Ise_id;
                             Textblock3 += "Letzter Tastendruck:\nEin: ";
                             Textblock3 += datapoint.Timestamp.ToString();
                         }
@@ -983,6 +1133,7 @@ namespace Hausautomation.Model
                         }
                         if (datapoint.Type == "PRESS_SHORT")
                         {
+                            iStateChangeID2 = datapoint.Ise_id;
                             Textblock3 += "\nAus: ";
                             Textblock3 += datapoint.Timestamp.ToString();
                         }
@@ -990,6 +1141,25 @@ namespace Hausautomation.Model
                 }
             }
         }
+
+        public void StateChange(bool bStatus)
+        {
+            ReadXDoc readXDoc = new ReadXDoc();
+            //readXDoc.ReadStateChangeXDoc(iStateChangeID, bStatus);
+        }
+
+        public void StateChange2(bool bStatus)
+        {
+            ReadXDoc readXDoc = new ReadXDoc();
+            //readXDoc.ReadStateChangeXDoc(iStateChangeID2, bStatus);
+        }
+
+        public void StateChange(double dStatus)
+        {
+            ReadXDoc readXDoc = new ReadXDoc();
+            //readXDoc.ReadStateChangeXDoc(iStateChangeID, dStatus / 100.0);
+        }
+
         #endregion
     }
 }
