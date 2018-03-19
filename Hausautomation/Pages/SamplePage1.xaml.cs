@@ -33,9 +33,6 @@ namespace Hausautomation.Pages
     {
         private ObservableCollection<Device> Devicelist;
 
-        //private SolidColorBrush InvalidFormat = new SolidColorBrush(Colors.Red);
-        //private SolidColorBrush ValidFormat = new SolidColorBrush(Colors.Green);
-
         public SamplePage1()
         {
             this.InitializeComponent();
@@ -167,7 +164,6 @@ namespace Hausautomation.Pages
                 Devicelist.Insert(x, device);
             }
         }
-
 
     }
 }

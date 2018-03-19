@@ -65,6 +65,7 @@ namespace Hausautomation
             if (args.IsSettingsSelected)
             {
                 contentFrame.Navigate(typeof(SettingsPage));
+                nvSample.Header = "Einstellungs Seite";
             }
             else
             {
