@@ -8,8 +8,18 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        
-        <TextBlock HorizontalAlignment="Left" Margin="120,120,0,0" Text="PageFunc" TextWrapping="Wrap" VerticalAlignment="Top"/>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Hier kommen die Gewerke hin" VerticalAlignment="Top" Style="{ThemeResource TitleTextBlockStyle}" Margin="12"/>
+
+        <TextBlock Grid.Row="1" Text="Klicke auf die Listeneinträge um sie zu markieren" Style="{ThemeResource BodyTextBlockStyle}" Margin="12"/>
+
+        <TextBlock Grid.Row="2" HorizontalAlignment="Left" Margin="184,204,0,-224" Text="PageFav" TextWrapping="Wrap" VerticalAlignment="Top"/>
 
     </Grid>
     

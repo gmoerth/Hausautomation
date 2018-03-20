@@ -27,5 +27,21 @@ namespace Hausautomation.Pages
             this.InitializeComponent();
         }
 
+        private static readonly MainPageHeader instance = new MainPageHeader();
+
+        public static MainPageHeader Instance
+        {
+            get
+            {
+                return instance;
+            }
+        }
+
+        public void Stop()
+        {
+            prStart.IsActive = false;
+            tbStart.Text = "";
+        }
+
     }
 }

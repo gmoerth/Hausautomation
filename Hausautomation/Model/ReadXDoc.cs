@@ -44,7 +44,8 @@ namespace Hausautomation.Model
             await ReadXDocument("addons/xmlapi/devicelist.cgi", "devicelist.xml");
             await ReadXDocument("addons/xmlapi/roomlist.cgi", "roomlist.xml");
             await ReadXDocument("addons/xmlapi/functionlist.cgi", "functionlist.xml");
-
+            MainPageHeader mph = MainPageHeader.Instance;
+            mph.Stop();
             // Demo debug Ausgabe der kompletten Liste
             /*foreach (Device device in MainPage.Devicelist.Devicelist)
             {

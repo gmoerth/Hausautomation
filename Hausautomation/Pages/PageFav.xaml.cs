@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Hausautomation.Model;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -22,9 +24,68 @@ namespace Hausautomation.Pages
     /// </summary>
     public sealed partial class PageFav : Page
     {
+        private ObservableCollection<Device> Devicelist;
+
         public PageFav()
         {
             this.InitializeComponent();
+
+            Devicelist = MainPage.Devicelist.Devicelist;
+
+            foreach (Device device in Devicelist)
+            {
+                device.PrepareAllDevices();
+            }
+        }
+
+        private void slSlider1_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+        {
+
+        }
+
+        private void btButton1_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btButton2_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btButtonOb_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btButtonUn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btButtonLi_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btButtonRe_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void tgSwitch1_Toggled(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void tgSwitch2_Toggled(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void lvDevices_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
         }
     }
 }

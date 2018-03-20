@@ -65,7 +65,7 @@ namespace Hausautomation
             if (args.IsSettingsSelected)
             {
                 contentFrame.Navigate(typeof(SettingsPage));
-                nvSample.Header = "Einstellungs Seite";
+                nvHausautomation.Header = "Einstellungen";
             }
             else
             {
@@ -73,7 +73,27 @@ namespace Hausautomation
                 string pageName = "Hausautomation.Pages." + ((string)selectedItem.Tag);
                 Type pageType = Type.GetType(pageName);
                 contentFrame.Navigate(pageType);
-                nvSample.Header = ((string)selectedItem.Tag);
+                switch ((string)selectedItem.Tag)
+                {
+                    case "PageAll":
+                        nvHausautomation.Header = "Alle Geräte";
+                        break;
+                    case "PageFav":
+                        nvHausautomation.Header = "Favoriten";
+                        break;
+                    case "PageRoom":
+                        nvHausautomation.Header = "Räume";
+                        break;
+                    case "PageFunc":
+                        nvHausautomation.Header = "Gewerke";
+                        break;
+                    case "MainPageHeader":
+                        nvHausautomation.Header = "Hilfe";
+                        break;
+                    default:
+                        throw new NotImplementedException();
+                }
+                //nvHausautomation.Header = ((string)selectedItem.Tag);
             }
         }
 

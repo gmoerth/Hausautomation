@@ -16,19 +16,19 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" Margin="12" Style="{ThemeResource BodyTextBlockStyle}"
-                   Text="Klicke auf die Listeneinträge um sie als Favoriten zu markieren" />
+                   Text="Klicke auf die Listeneinträge um sie als Favoriten zu markieren"/>
 
-        <ListView x:Name="ItemsListView" Grid.Row="1" ItemsSource="{x:Bind Devicelist}" IsItemClickEnabled="True" 
-                  SelectionMode="Multiple" ItemClick="ItemsListView_ItemClick" >
+        <ListView x:Name="lvDevices" Grid.Row="1" ItemsSource="{x:Bind Devicelist}" IsItemClickEnabled="True" 
+                  SelectionMode="Multiple" ItemClick="lvDevices_ItemClick">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="data:Device">
                     <RelativePanel>
-                        <Image x:Name="bmImage" Source="{x:Bind Image}" MaxWidth="150" Stretch="Uniform" Margin="0,24,0,24" />
+                        <Image x:Name="bmImage" Source="{x:Bind Image}" MaxWidth="150" Stretch="Uniform" Margin="0,24,0,24"/>
                         <TextBlock x:Name="tbTextblock1" RelativePanel.RightOf="bmImage" Style="{ThemeResource BaseTextBlockStyle}"
-                                   Margin="24,24,24,24" Text="{x:Bind Textblock1}" />
+                                   Margin="24,24,24,24" Text="{x:Bind Textblock1}"/>
                         <Slider x:Name="slSlider1" RelativePanel.RightOf="tbTextblock1" Orientation="Vertical" TickFrequency="10"
                                 Margin="24,24,24,24" Height="150" TickPlacement="Outside" Value="{x:Bind iSlider1}"
-                                Visibility="{x:Bind bSlider1, Mode=OneWay}" ValueChanged="slSlider1_ValueChanged" />
+                                Visibility="{x:Bind bSlider1, Mode=OneWay}" ValueChanged="slSlider1_ValueChanged"/>
                         <Button x:Name="btButton1" RelativePanel.RightOf="tbTextblock1" Margin="27,60,24,24" Content="Ein"
                                 Visibility="{x:Bind bButton1, Mode=OneWay}" Click="btButton1_Click"/>
                         <Button x:Name="btButton2" RelativePanel.RightOf="tbTextblock1" Margin="25,110,24,24" Content="Aus"

@@ -45,9 +45,9 @@ namespace Hausautomation.Pages
             }
         }
 
-        private void ItemsListView_ItemClick(object sender, ItemClickEventArgs e)
+        private void lvDevices_ItemClick(object sender, ItemClickEventArgs e)
         {
-            Debug.WriteLine("ItemsListView_ItemClick");
+            Debug.WriteLine("lvDevices_ItemClick");
         }
 
         private void btButton1_Click(object sender, RoutedEventArgs e)
@@ -116,7 +116,7 @@ namespace Hausautomation.Pages
             Debug.WriteLine("btButtonOb_Click");
             Button btn = (Button)sender;
             Device device = (Device)btn.DataContext;
-            if(device != null)
+            if (device != null)
             {
                 Debug.WriteLine(device.Ise_id + " " + device.Name);
                 device.StateChange(true);

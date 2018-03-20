@@ -9,20 +9,21 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-        <NavigationView x:Name="nvSample" Loaded="NavigationView_Loaded" Grid.Row="1" SelectionChanged="NavigationView_SelectionChanged"
-                        IsSettingsVisible="{Binding ElementName=settingsCheck,Path=IsChecked}" IsTabStop="False" Header="Das ist die Willkommens Seite">
+        <NavigationView x:Name="nvHausautomation" Loaded="NavigationView_Loaded" SelectionChanged="NavigationView_SelectionChanged"
+                        IsSettingsVisible="{Binding ElementName=settingsCheck,Path=IsChecked}" IsTabStop="False" Header="Willkommen bei Hausautomation V.0.7beta">
             <NavigationView.MenuItems>
                 <!--<NavigationViewItemSeparator/>
                 <NavigationViewItemSeparator/>-->
-                <AutoSuggestBox x:Name="asbSuche" QueryIcon="Find" Width="290" Visibility="{x:Bind nvSample.IsPaneOpen, Mode=OneWay}"/>
-                <NavigationViewItemHeader Content="Hauptseite" Visibility="{x:Bind nvSample.IsPaneOpen, Mode=OneWay}"/>
-                <NavigationViewItem Icon="AllApps" Content="Alle Geräte" Tag="PageAll"/>
-                <NavigationViewItemHeader Content="Unterseiten" Visibility="{x:Bind nvSample.IsPaneOpen, Mode=OneWay}"/>
-                <NavigationViewItem Icon="Favorite" Content="Favoriten" Tag="PageFav"/>
-                <NavigationViewItem Icon="Home" Content="Räume" Tag="PageRoom"/>
-                <NavigationViewItem Icon="MapDrive" Content="Gewerke" Tag="PageFunc"/>
-                <NavigationViewItemHeader Content="Hilfe" Visibility="{x:Bind nvSample.IsPaneOpen, Mode=OneWay}"/>
-                <NavigationViewItem Icon="Help" Content="Hilfe" Tag="MainPageHeader"/>
+                <AutoSuggestBox x:Name="asbSuche" QueryIcon="Find" Width="290" Visibility="{x:Bind nvHausautomation.IsPaneOpen, Mode=OneWay}"
+                                PlaceholderText="Suche" ToolTipService.ToolTip="Suche"/>
+                <NavigationViewItemHeader Content="Hauptseite" Visibility="{x:Bind nvHausautomation.IsPaneOpen, Mode=OneWay}"/>
+                <NavigationViewItem Icon="AllApps" Content="Alle Geräte" Tag="PageAll" ToolTipService.ToolTip="Alle Geräte"/>
+                <NavigationViewItemHeader Content="Unterseiten" Visibility="{x:Bind nvHausautomation.IsPaneOpen, Mode=OneWay}"/>
+                <NavigationViewItem Icon="Favorite" Content="Favoriten" Tag="PageFav" ToolTipService.ToolTip="Favoriten"/>
+                <NavigationViewItem Icon="Home" Content="Räume" Tag="PageRoom" ToolTipService.ToolTip="Räume"/>
+                <NavigationViewItem Icon="MapDrive" Content="Gewerke" Tag="PageFunc" ToolTipService.ToolTip="Gewerke"/>
+                <NavigationViewItemHeader Content="Hilfe" Visibility="{x:Bind nvHausautomation.IsPaneOpen, Mode=OneWay}"/>
+                <NavigationViewItem Icon="Help" Content="Hilfe" Tag="MainPageHeader" ToolTipService.ToolTip="Hilfe"/>
             </NavigationView.MenuItems>
             <Frame x:Name="contentFrame">
                 <Frame.ContentTransitions>
