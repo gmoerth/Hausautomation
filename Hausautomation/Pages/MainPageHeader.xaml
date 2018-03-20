@@ -10,51 +10,17 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
         <GridView>
-
-
-            <!--x:Name="itemGridView"
-            Padding="24,0,0,0"
-            AutomationProperties.AutomationId="ItemGridView"
-            AutomationProperties.Name="Items In Group"
-            -->
-            <!--ContainerContentChanging="OnItemGridViewContainerContentChanging"-->
-            <!--
-            IsItemClickEnabled="True"
-            IsSwipeEnabled="False">
-            -->
-            <!--ItemClick="OnItemGridViewItemClick"
-            ItemContainerStyle="{StaticResource GridViewItemStyle}"
-            ItemTemplate="{StaticResource ControlItemTemplate}"
-            ItemsSource="{x:Bind Items, Mode=OneWay}"
-            KeyDown="OnItemGridViewKeyDown"
-            Loaded="OnItemGridViewLoaded"
-            SizeChanged="OnItemGridViewSizeChanged"
-            SelectionMode="None">-->
-
-            <!--<interactivity:Interaction.Behaviors>
-                <behavior:ImageScrollBehavior TargetControl="{Binding ElementName=pageHeader}" />
-            </interactivity:Interaction.Behaviors>-->
-
-
             <GridView.Header>
-                <ParallaxView
-                    x:Name="headerImageView"
-                    Height="1080"
-                    Margin="-24,0,0,24">
-                    <!--Source="{x:Bind itemGridView}"-->
-                    <!--VerticalShift="350">-->
-                    <Image
-                        x:Name="headerImage"
-                        HorizontalAlignment="Center"
-                        Source="../Assets/Hausautomation.jpg"
-                        Stretch="None" />
-
+                <ParallaxView x:Name="headerImageView" Height="1080" Margin="-24,0,0,24">
+                    <Image x:Name="headerImage" HorizontalAlignment="Center" Source="../Assets/Hausautomation.jpg" Stretch="None"/>
                 </ParallaxView>
             </GridView.Header>
-
         </GridView>
-        <TextBlock x:Name="tbStart" Text="Lade Dokumente" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="36" Margin="0,-200,0,0" Foreground="Black" FontWeight="Bold" />
-        <ProgressRing IsActive="True" Height="100" Width="100" />
+        
+        <TextBlock x:Name="tbStart" Text="Lade Dokumente" TextWrapping="Wrap" HorizontalAlignment="Center"
+                   FontSize="36" Margin="0,150,0,0" Foreground="Black" FontWeight="Bold" />
+  
+        <ProgressRing x:Name="prStart" IsActive="True" Height="100" Width="100" />
 
     </Grid>
 </Page>

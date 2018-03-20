@@ -9,6 +9,7 @@
 
     <!--<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">-->
     <Grid Background="#FFB4BBFF">
+        
         <TextBlock HorizontalAlignment="Left" Margin="10,16,0,0" Text="HomeMatic IP:" VerticalAlignment="Top"/>
         <TextBox x:Name="tbHMIP" HorizontalAlignment="Left" Height="20" Margin="120,10,0,0" Text="192.168.178.15" VerticalAlignment="Top" Width="145" TextChanged="tbHMIP_TextChanged"/>
         <TextBlock HorizontalAlignment="Left" Margin="280,16,0,0" Text="Port:" VerticalAlignment="Top"/>
@@ -28,4 +29,5 @@
         <CheckBox x:Name="cbAUT" Content="Authentification" HorizontalAlignment="Left" Margin="290,333,0,0" VerticalAlignment="Top" Click="cbAUT_Click"/>
 
     </Grid>
+    
 </Page>

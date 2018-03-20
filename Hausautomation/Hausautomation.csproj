@@ -134,7 +134,6 @@
     <None Include="Hausautomation_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Hausautomation.jpg" />
     <Content Include="Assets\HM-Sec-MDIR-3.png" />
     <Content Include="Assets\HM-PB-4Dis-WM.jpg" />
     <Content Include="Assets\HM-Sec-SCo.png" />
@@ -147,6 +146,7 @@
     <Content Include="Assets\HmIP-BROLL.jpg" />
     <Content Include="Assets\HM-LC-Sw2-FM.png" />
     <Content Include="Assets\HM-Cen-O-TW-x-x-2.png" />
+    <Content Include="Assets\Hausautomation.jpg" />
     <Content Include="z_functionlist.xml" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
