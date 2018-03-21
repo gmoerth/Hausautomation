@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading;
 using Hausautomation.Model;
 using Hausautomation.Pages;
 using Windows.Foundation;
@@ -36,9 +37,13 @@ namespace Hausautomation
 
             Devicelist = new DeviceList();
             settingsPage = new SettingsPage();
-            
+
             ReadXDoc readXDoc = new ReadXDoc(); 
             readXDoc.ReadAllXDocuments(); // Lese alle Dokumente von der HomeMatic ein und speicher sie in der Devicelist
+            //Thread t = new Thread(readXDoc.ReadAllXDocuments);
+            //t.IsBackground = true;
+            //t.Start();
+
 
             Debug.WriteLine("Main fertig");
         }

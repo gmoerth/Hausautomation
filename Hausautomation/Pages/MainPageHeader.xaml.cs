@@ -24,10 +24,11 @@ namespace Hausautomation.Pages
     {
         public MainPageHeader()
         {
+            instance = this;
             this.InitializeComponent();
         }
 
-        private static readonly MainPageHeader instance = new MainPageHeader();
+        private static MainPageHeader instance;
 
         public static MainPageHeader Instance
         {
@@ -40,7 +41,7 @@ namespace Hausautomation.Pages
         public void Stop()
         {
             prStart.IsActive = false;
-            tbStart.Text = "";
+            tbStart.Text = "Fertig geladen";
         }
 
     }

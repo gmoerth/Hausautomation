@@ -17,7 +17,7 @@
             </GridView.Header>
         </GridView>
         
-        <TextBlock x:Name="tbStart" Text="Lade Dokumente" TextWrapping="Wrap" HorizontalAlignment="Center"
+        <TextBlock x:Name="tbStart" Text="Lade Dokumente..." TextWrapping="Wrap" HorizontalAlignment="Center"
                    FontSize="36" Margin="0,150,0,0" Foreground="Black" FontWeight="Bold" />
   
         <ProgressRing x:Name="prStart" IsActive="True" Height="100" Width="100" />

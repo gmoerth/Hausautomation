@@ -24,18 +24,18 @@ namespace Hausautomation.Pages
     /// </summary>
     public sealed partial class PageFav : Page
     {
-        private ObservableCollection<Device> Devicelist;
+        private IEnumerable<Device> Devicelist;
 
         public PageFav()
         {
             this.InitializeComponent();
 
-            Devicelist = MainPage.Devicelist.Devicelist;
+            Devicelist = MainPage.Devicelist.Favoriten;
 
-            foreach (Device device in Devicelist)
+            /*foreach (Device device in Devicelist)
             {
                 device.PrepareAllDevices();
-            }
+            }*/
         }
 
         private void slSlider1_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)

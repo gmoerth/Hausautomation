@@ -1,5 +1,6 @@
 ﻿using Hausautomation.Model;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -39,15 +40,22 @@ namespace Hausautomation.Pages
 
             Devicelist = MainPage.Devicelist.Devicelist;
 
-            foreach (Device device in Devicelist)
+            /*foreach (Device device in Devicelist)
             {
                 device.PrepareAllDevices();
-            }
+            }*/
         }
 
-        private void lvDevices_ItemClick(object sender, ItemClickEventArgs e)
+        private void cbFavoriten_Click(object sender, RoutedEventArgs e)
         {
-            Debug.WriteLine("lvDevices_ItemClick");
+            Debug.WriteLine("cbFavoriten_Click");
+            CheckBox cb = (CheckBox)sender;
+            Device device = (Device)cb.DataContext;
+            if (device != null)
+            {
+                Debug.WriteLine(device.Ise_id + " " + device.Name);
+                //device.bFavoriten = !device.bFavoriten;
+            }
         }
 
         private void btButton1_Click(object sender, RoutedEventArgs e)
@@ -77,13 +85,13 @@ namespace Hausautomation.Pages
 
         private void slSlider1_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
-            Debug.WriteLine("slSlider1_ValueChanged");
             Slider sli = (Slider)sender;
             Device device = (Device)sli.DataContext;
             if (device != null)
             {
+                Debug.WriteLine("slSlider1_ValueChanged");
                 Debug.WriteLine(device.Ise_id + " " + device.Name + " " + sli.Value.ToString());
-                device.StateChange(sli.Value);
+                //device.StateChange(sli.Value);
             }
         }
 
@@ -95,7 +103,7 @@ namespace Hausautomation.Pages
             {
                 Debug.WriteLine("tgSwitch1_Toggled");
                 Debug.WriteLine(device.Ise_id + " " + device.Name + " " + tgs.IsOn.ToString());
-                device.StateChange(tgs.IsOn);
+                //device.StateChange(tgs.IsOn);
             }
         }
 
@@ -107,7 +115,7 @@ namespace Hausautomation.Pages
             {
                 Debug.WriteLine("tgSwitch2_Toggled");
                 Debug.WriteLine(device.Ise_id + " " + device.Name + " " + tgs.IsOn.ToString());
-                device.StateChange2(tgs.IsOn);
+                //device.StateChange2(tgs.IsOn);
             }
         }
 
@@ -144,9 +152,9 @@ namespace Hausautomation.Pages
             {
                 device.PrepareHMPB4DisWM(false);
                 // Update Notlösung
-                int x = Devicelist.IndexOf(device);
-                Devicelist.RemoveAt(x);
-                Devicelist.Insert(x, device);
+                //int x = Devicelist.IndexOf(device);
+                //Devicelist.RemoveAt(x);
+                //Devicelist.Insert(x, device);
             }
         }
 
@@ -159,9 +167,9 @@ namespace Hausautomation.Pages
             {
                 device.PrepareHMPB4DisWM(true);
                 // Update Notlösung
-                int x = Devicelist.IndexOf(device);
-                Devicelist.RemoveAt(x);
-                Devicelist.Insert(x, device);
+                //int x = Devicelist.IndexOf(device);
+                //Devicelist.RemoveAt(x);
+                //Devicelist.Insert(x, device);
             }
         }
 

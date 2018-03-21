@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -17,6 +19,11 @@ namespace Hausautomation.Model
         public RoomList Roomlist { get; set; } // diese Liste ist redundant aber hilfreich
 
         public FunctionList Functionlist { get; set; } // diese Liste ist redundant aber hilfreich
+
+        public IEnumerable<Device> Favoriten
+        {
+            get { return Devicelist.Where(item => item.bFavoriten); }
+        }
 
         public DeviceList()
         {
@@ -39,16 +46,11 @@ namespace Hausautomation.Model
             Devicelist.Add(device);
         }
 
-        public void UpdateDevice(Device dev)
+        public void PrepareAllDevicesIntheList()
         {
             foreach (Device device in Devicelist)
             {
-                if (device.Ise_id == dev.Ise_id)
-                {
-                    int i = Devicelist.IndexOf(device);
-                    Devicelist.RemoveAt(i);
-                    Devicelist.Insert(i, dev);
-                }
+                device.PrepareAllDevices();
             }
         }
 
@@ -186,7 +188,7 @@ namespace Hausautomation.Model
     }
     #endregion
 
-    public class Device
+    public class Device : INotifyPropertyChanged
     {
         #region Properties
         public ChannelList Channellist;
@@ -260,7 +262,17 @@ namespace Hausautomation.Model
         public string Textblock3 { get; set; }
         public string Textblock4 { get; set; }
         public string Textblock5 { get; set; }
-        public string Textblock6 { get; set; }
+        string _textblock6;
+        public string Textblock6
+        {
+            get { return _textblock6; }
+
+            set
+            {
+                _textblock6 = value;
+                NotifyPropertyChanged();
+            }
+        }
         public bool bSlider1 { get; set; } // sichtbarkeit
         public bool bButton1 { get; set; } // sichtbarkeit Ein Aus
         public bool bButton2 { get; set; } // sichtbarkeit Ob Un Li Re
@@ -273,6 +285,8 @@ namespace Hausautomation.Model
         public bool bTextblock4 { get; set; } // sichtbarkeit
         public bool bTextblock5 { get; set; } // sichtbarkeit
         public bool bTextblock6 { get; set; } // sichtbarkeit
+        protected bool b_favoriten;
+        public bool bFavoriten { get { return b_favoriten; } set { b_favoriten = value; /*NotifyPropertyChanged();*/ } } // Favoriten
         public int iSlider1 { get; set; } // Wert des Slider
         public int iChannel { get; set; } // Welcher Kanal wird bei HM-PB-4Dis-WM angezeigt
         public int iStateChangeID { get; set; } // ise_id für StateChange
@@ -1161,5 +1175,18 @@ namespace Hausautomation.Model
         }
 
         #endregion
+
+        #region INotifyPropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void NotifyPropertyChanged([CallerMemberName] string propName = "")
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propName));
+            }
+        }
+        #endregion
+
     }
 }
