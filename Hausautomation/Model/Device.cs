@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Windows.UI.Popups;
 using Windows.UI.Xaml.Media.Imaging;
 
 namespace Hausautomation.Model
@@ -54,6 +57,13 @@ namespace Hausautomation.Model
             }
         }
 
+        public static double DateTimeToUnixTimeStamp(DateTime date)
+        {
+            DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+            return (date - dtDateTime).TotalSeconds;
+        }
+
+
         public void LoadXDocument(XDocument xDocument)
         {
             // device parsen (devicelist + statelist)
@@ -73,6 +83,51 @@ namespace Hausautomation.Model
                     device = new Device();
                     device.Parse(element);
                     AddDevice(device);
+                }
+            }
+            // result
+            foreach (XElement element in xDocument.Descendants("result"))
+            {
+                //Debug.WriteLine(element);
+                // Einpflegen
+                //MessageDialog showDialog = new MessageDialog(element.ToString(), "Schaltbefehl ausgeführt!");
+                //var result = showDialog.ShowAsync();
+                //bool ok = int.TryParse(element.Attribute("changed id").Value.ToString(), out int changed_id);
+                // funktioniert nicht weil keine Leerzeichen erlaubt sind => XML-API hält sich nicht an Standard
+                // daher selber parsen
+                CultureInfo culture = CultureInfo.CreateSpecificCulture("en-US"); // Punkt als Komma
+                string str = element.Document.ToString(); // "<result>\r\n  <changed id=\"19073\" new_value=\"0.79\" />\r\n</result>"
+                int index1 = str.IndexOf("changed id=\"") + 12;
+                int index2 = str.IndexOf("\"", index1);
+                int changed_id = int.Parse(str.Substring(index1, index2 - index1));
+                index1 = str.IndexOf("new_value=\"") + 11;
+                index2 = str.IndexOf("\"", index1);
+                double new_value;
+                if (str.Substring(index1, index2 - index1).Contains("True") == true)
+                    new_value = Double.PositiveInfinity;
+                else if (str.Substring(index1, index2 - index1).Contains("False") == true)
+                    new_value = Double.NegativeInfinity;
+                else
+                    new_value = double.Parse(str.Substring(index1, index2 - index1), culture);
+                foreach (Device device in Devicelist)
+                {
+                    foreach (Channel channel in device.Channellist.Channellist)
+                    {
+                        foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
+                        {
+                            if (datapoint.Ise_id == changed_id)
+                            {
+                                //Debug.WriteLine(datapoint.Value.ToString());
+                                datapoint.Value = new_value;
+                                datapoint.Timestamp = DateTime.Now;
+                                device.PrepareAllDevices(); // Update Device => Es sollte der Timer Thread in ca. 2 Sekunden gestartet werden damit die Updates von Strom Spannung etc. aktualisiert werden
+                                //Thread.Sleep(2000);
+                                device.bSliderThreadActive = false;
+                                device.StateChange(null);
+                                return;
+                            }
+                        }
+                    }
                 }
             }
             // room parsen (roomlist)
@@ -257,41 +312,46 @@ namespace Hausautomation.Model
             set { unreach = value; }
         }
 
-        public string Textblock1 { get; set; } // Inhalt des Textblock1
-        public string Textblock2 { get; set; }
-        public string Textblock3 { get; set; }
-        public string Textblock4 { get; set; }
-        public string Textblock5 { get; set; }
-        string _textblock6;
-        public string Textblock6
-        {
-            get { return _textblock6; }
-
-            set
-            {
-                _textblock6 = value;
-                NotifyPropertyChanged();
-            }
-        }
-        public bool bSlider1 { get; set; } // sichtbarkeit
+        // Ab hier die Properties welche nur für die Anzeige in der View (Databinding) benötigt werden
+        public string Textblock1 { get { return _textblock1; } set { _textblock1 = value; NotifyPropertyChanged(); } } // Inhalt des Textblock1
+        public string Textblock2 { get { return _textblock2; } set { _textblock2 = value; NotifyPropertyChanged(); } }
+        public string Textblock3 { get { return _textblock3; } set { _textblock3 = value; NotifyPropertyChanged(); } }
+        public string Textblock4 { get { return _textblock4; } set { _textblock4 = value; NotifyPropertyChanged(); } }
+        public string Textblock5 { get { return _textblock5; } set { _textblock5 = value; NotifyPropertyChanged(); } }
+        public string Textblock6 { get { return _textblock6; } set { _textblock6 = value; NotifyPropertyChanged(); } }
+        public bool bSlider1 { get; set; } // sichtbarkeit Slider
         public bool bButton1 { get; set; } // sichtbarkeit Ein Aus
         public bool bButton2 { get; set; } // sichtbarkeit Ob Un Li Re
-        public bool bSwitch1 { get; set; } // sichtbarkeit
-        public bool bSwitch2 { get; set; } // sichtbarkeit
-        public bool bSwitch1State { get; set; } // Status des Switch1
-        public bool bSwitch2State { get; set; } // Status des Switch1
+        public bool bSwitch1 { get; set; } // sichtbarkeit Schalter 1
+        public bool bSwitch2 { get; set; } // sichtbarkeit Schalter 2
+        public bool bSwitch1State { get { return _bSwitch1State; } set { _bSwitch1State = value; /*NotifyPropertyChanged();*/ } } // Status des Switch1
+        public bool bSwitch2State { get { return _bSwitch2State; } set { _bSwitch2State = value; /*NotifyPropertyChanged();*/ } } // Status des Switch1
         public bool bTextblock2 { get; set; } // sichtbarkeit
         public bool bTextblock3 { get; set; } // sichtbarkeit
         public bool bTextblock4 { get; set; } // sichtbarkeit
         public bool bTextblock5 { get; set; } // sichtbarkeit
         public bool bTextblock6 { get; set; } // sichtbarkeit
-        protected bool b_favoriten;
-        public bool bFavoriten { get { return b_favoriten; } set { b_favoriten = value; /*NotifyPropertyChanged();*/ } } // Favoriten
-        public int iSlider1 { get; set; } // Wert des Slider
-        public int iChannel { get; set; } // Welcher Kanal wird bei HM-PB-4Dis-WM angezeigt
-        public int iStateChangeID { get; set; } // ise_id für StateChange
-        public int iStateChangeID2 { get; set; } // ise_id für StateChange
-        private static List<BitmapImage> sources;
+        public bool bFavoriten { get { return _bfavoriten; } set { _bfavoriten = value; NotifyPropertyChanged(); } } // Favoriten
+        public int iSlider1 { get { return _iSlider1; } set { _iSlider1 = value; /*NotifyPropertyChanged();*/ } } // Wert des Slider
+        public int iChannel { get { return _iChannel; } set { _iChannel = value; NotifyPropertyChanged(); } } // Welcher Kanal wird bei HM-PB-4Dis-WM angezeigt
+        public int iStateChangeID { get; set; } // ise_id wird für StateChange benötigt
+        public int iStateChangeID2 { get; set; } // ise_id wird für StateChange benötigt
+        private static List<BitmapImage> sources; // Images der Devices
+        private string _textblock1;
+        private string _textblock2;
+        private string _textblock3;
+        private string _textblock4;
+        private string _textblock5;
+        private string _textblock6;
+        private bool _bSwitch1State;
+        private bool _bSwitch2State;
+        private bool _bfavoriten;
+        private int _iSlider1;
+        private int _iChannel;
+        private double? dLastSliderStatus; // Letzen Slider Wert merken
+        public bool bSliderThreadActive = false; // Thread not active
+        private long lLastSliderMilliseconds; // Ticks seit der letzten Slideränderung
+
         public BitmapImage Image { get; set; }
         #endregion
 
@@ -314,8 +374,22 @@ namespace Hausautomation.Model
                 new BitmapImage(new Uri("ms-appx:///Assets/HMIP-PSM.png")),             // 9 
                 new BitmapImage(new Uri("ms-appx:///Assets/HmIP-BROLL.jpg")),           // 10
                 new BitmapImage(new Uri("ms-appx:///Assets/HMIP-WRC2.jpg")),            // 11
+                new BitmapImage(new Uri("ms-appx:///Assets/HM-OU-LED16.png")),          // 12
+                new BitmapImage(new Uri("ms-appx:///Assets/HM-RC-Key4-2.jpg")),          // 12
             };
             Image = sources[0]; // Zentrale hat kein "device_type"
+        }
+        #endregion
+
+        #region INotifyPropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void NotifyPropertyChanged([CallerMemberName] string propName = "")
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propName));
+            }
         }
         #endregion
 
@@ -428,6 +502,12 @@ namespace Hausautomation.Model
                 case "HMIP-WRC2":
                     Image = sources[11];
                     break;
+                case "HM-OU-LED16":
+                    Image = sources[12];
+                    break;
+                case "HM-RC-Key4-2":
+                    Image = sources[13];
+                    break;
                 default:
                     throw new NotImplementedException();
             }
@@ -475,10 +555,15 @@ namespace Hausautomation.Model
                 case "HMIP-WRC2":
                     PrepareHMIPWRC2();
                     break;
+                case "HM-OU-LED16":
+                    break;
+                case "HM-RC-Key4-2":
+                    break;
                 case null: // HM-RCV-50 Zentrale
                     break;
                 default:
-                    throw new NotImplementedException();
+                    break;
+                    //throw new NotImplementedException();
             }
         }
 
@@ -593,7 +678,7 @@ namespace Hausautomation.Model
                         if (datapoint.Type == "ENERGY_COUNTER")
                         {
                             stren += "\nEnergieverb.: ";
-                            stren += datapoint.Value.ToString();
+                            stren += datapoint.Value.ToString("F");
                             stren += " " + datapoint.Valueunit.ToString();
                         }
                     }
@@ -731,6 +816,8 @@ namespace Hausautomation.Model
         {
             bButton1 = true;
             bTextblock3 = true;
+            string strein = "";
+            string straus = "";
             foreach (Channel channel in Channellist.Channellist)
             {
                 if (channel.Index == 0)
@@ -759,8 +846,8 @@ namespace Hausautomation.Model
                         if (datapoint.Type == "PRESS_SHORT")
                         {
                             iStateChangeID = datapoint.Ise_id;
-                            Textblock3 += "\nLetzter Tastendruck:\nEin: ";
-                            Textblock3 += datapoint.Timestamp.ToString();
+                            straus = "\nAus: ";
+                            straus += datapoint.Timestamp.ToString();
                         }
                     }
                 }
@@ -774,18 +861,21 @@ namespace Hausautomation.Model
                         if (datapoint.Type == "PRESS_SHORT")
                         {
                             iStateChangeID2 = datapoint.Ise_id;
-                            Textblock3 += "\nAus: ";
-                            Textblock3 += datapoint.Timestamp.ToString();
+                            strein = "\nLetzter Tastendruck:\nEin: ";
+                            strein += datapoint.Timestamp.ToString();
                         }
                     }
                 }
             }
+            Textblock3 += strein + straus;
         }
 
         public void PrepareHMPB4DisWM(bool? bnext = null)
         {
             bButton2 = true;
             bTextblock6 = true;
+            string strein = "";
+            string straus = "";
             if (bnext != null)
             {
                 if (bnext == true && iChannel < 9)
@@ -822,9 +912,8 @@ namespace Hausautomation.Model
                         if (datapoint.Type == "PRESS_SHORT")
                         {
                             iStateChangeID = datapoint.Ise_id;
-                            Textblock6 += "\nAnzeige für Kanal: " + (iChannel + 1).ToString();
-                            Textblock6 += "\nLetzter Tastendruck:\nEin: ";
-                            Textblock6 += datapoint.Timestamp.ToString();
+                            straus = "\nAus: ";
+                            straus += datapoint.Timestamp.ToString();
                         }
                     }
                 }
@@ -839,12 +928,14 @@ namespace Hausautomation.Model
                         if (datapoint.Type == "PRESS_SHORT")
                         {
                             iStateChangeID2 = datapoint.Ise_id;
-                            Textblock6 += "\nAus: ";
-                            Textblock6 += datapoint.Timestamp.ToString();
+                            strein = "\nAnzeige für Kanal: " + (iChannel + 1).ToString();
+                            strein += "\nLetzter Tastendruck:\nEin: ";
+                            strein += datapoint.Timestamp.ToString();
                         }
                     }
                 }
             }
+            Textblock6 += strein + straus;
         }
 
         public void PrepareHMSecSCo()
@@ -871,7 +962,7 @@ namespace Hausautomation.Model
                             Textblock2 += "\nSabotage: ";
                             if (datapoint.Value == 0)
                                 Textblock2 += "nein";
-                            else if (datapoint.Value == 1)
+                            else if (datapoint.Value != 0)
                                 Textblock2 += "ja";
                         }
                         if (datapoint.Type == "LOWBAT")
@@ -916,7 +1007,7 @@ namespace Hausautomation.Model
                             Textblock2 += "\nSabotage: ";
                             if (datapoint.Value == 0)
                                 Textblock2 += "nein";
-                            else if (datapoint.Value == 1)
+                            else if (datapoint.Value != 0)
                                 Textblock2 += "ja";
                         }
                     }
@@ -1019,7 +1110,7 @@ namespace Hausautomation.Model
                         if (datapoint.Type == "ENERGY_COUNTER")
                         {
                             stren += "\nEnergieverb.: ";
-                            stren += datapoint.Value.ToString();
+                            stren += datapoint.Value.ToString("F");
                             stren += " " + datapoint.Valueunit.ToString();
                         }
                     }
@@ -1086,7 +1177,7 @@ namespace Hausautomation.Model
                         if (datapoint.Type == "ENERGY_COUNTER")
                         {
                             stren += "\nEnergieverb.: ";
-                            stren += datapoint.Value.ToString();
+                            stren += datapoint.Value.ToString("F");
                             stren += " " + datapoint.Valueunit.ToString();
                         }
                     }
@@ -1099,6 +1190,8 @@ namespace Hausautomation.Model
         {
             bButton1 = true;
             bTextblock3 = true;
+            string strein = "";
+            string straus = "";
             foreach (Channel channel in Channellist.Channellist)
             {
                 if (channel.Index == 0)
@@ -1119,7 +1212,7 @@ namespace Hausautomation.Model
                         {
                             Textblock3 += "\nSpannung: ";
                             Textblock3 += datapoint.Value.ToString();
-                            Textblock3 += "V\n";
+                            Textblock3 += "V";
                         }
                     }
                 }
@@ -1133,8 +1226,8 @@ namespace Hausautomation.Model
                         if (datapoint.Type == "PRESS_SHORT")
                         {
                             iStateChangeID = datapoint.Ise_id;
-                            Textblock3 += "Letzter Tastendruck:\nEin: ";
-                            Textblock3 += datapoint.Timestamp.ToString();
+                            straus = "\nAus: ";
+                            straus += datapoint.Timestamp.ToString();
                         }
                     }
                 }
@@ -1148,43 +1241,50 @@ namespace Hausautomation.Model
                         if (datapoint.Type == "PRESS_SHORT")
                         {
                             iStateChangeID2 = datapoint.Ise_id;
-                            Textblock3 += "\nAus: ";
-                            Textblock3 += datapoint.Timestamp.ToString();
+                            strein = "\nLetzter Tastendruck:\nEin: ";
+                            strein += datapoint.Timestamp.ToString();
                         }
                     }
                 }
             }
+            Textblock3 += strein + straus;
         }
 
         public void StateChange(bool bStatus)
         {
             ReadXDoc readXDoc = new ReadXDoc();
-            //readXDoc.ReadStateChangeXDoc(iStateChangeID, bStatus);
+            string NewIdAndValue = "?ise_id=" + iStateChangeID.ToString() + "&new_value=" + bStatus.ToString();  //bSwitch1State.ToString();
+            readXDoc.NewIdAndValue = NewIdAndValue;
+            readXDoc.ReadStateChangeXDoc();
         }
 
         public void StateChange2(bool bStatus)
         {
             ReadXDoc readXDoc = new ReadXDoc();
-            //readXDoc.ReadStateChangeXDoc(iStateChangeID2, bStatus);
+            string NewIdAndValue = "?ise_id=" + iStateChangeID2.ToString() + "&new_value=" + bStatus.ToString();
+            readXDoc.NewIdAndValue = NewIdAndValue;
+            readXDoc.ReadStateChangeXDoc();
         }
 
-        public void StateChange(double dStatus)
+        public void StateChange(double? dStatus)
         {
-            ReadXDoc readXDoc = new ReadXDoc();
-            //readXDoc.ReadStateChangeXDoc(iStateChangeID, dStatus / 100.0);
-        }
-
-        #endregion
-
-        #region INotifyPropertyChanged
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void NotifyPropertyChanged([CallerMemberName] string propName = "")
-        {
-            if (PropertyChanged != null)
+            if (dStatus != null)
+                dLastSliderStatus = dStatus;
+            //if (bSliderThreadActive == false && dLastSliderStatus != null)
+            if (DateTime.Now.Ticks - lLastSliderMilliseconds > 20000000 && dLastSliderStatus != null)
             {
-                PropertyChanged(this, new PropertyChangedEventArgs(propName));
+                //bSliderThreadActive = true;
+                lLastSliderMilliseconds = DateTime.Now.Ticks;
+                CultureInfo culture = CultureInfo.CreateSpecificCulture("en-US"); // Punkt als Komma
+                ReadXDoc readXDoc = new ReadXDoc();
+                string NewIdAndValue = "?ise_id=" + iStateChangeID.ToString() + "&new_value=" + ((double)(dLastSliderStatus / 100)).ToString("F", culture);
+                readXDoc.NewIdAndValue = NewIdAndValue;
+                dLastSliderStatus = null;
+                //Thread thread = new Thread(readXDoc.ReadStateChangeXDoc); // Absturz bei PropertyChanged() weil anderer Thread
+                //thread.Start();
+                readXDoc.ReadStateChangeXDoc();
             }
+
         }
         #endregion
 

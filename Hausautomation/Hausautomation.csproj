@@ -147,6 +147,8 @@
     <Content Include="Assets\HM-LC-Sw2-FM.png" />
     <Content Include="Assets\HM-Cen-O-TW-x-x-2.png" />
     <Content Include="Assets\Hausautomation.jpg" />
+    <Content Include="Assets\HM-OU-LED16.png" />
+    <Content Include="Assets\HM-RC-Key4-2.jpg" />
     <Content Include="z_functionlist.xml" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />

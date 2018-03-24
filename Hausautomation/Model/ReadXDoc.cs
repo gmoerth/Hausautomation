@@ -20,6 +20,8 @@ namespace Hausautomation.Model
         public string HMIP { get; set; }
         public int HMPO { get; set; }
         public bool online { get; set; } // Modus zum entwickeln und testen ... geht schneller
+        private string _NewIdAndValue;
+        public string NewIdAndValue { set { _NewIdAndValue = value; } }
 
         public ReadXDoc()
         {
@@ -36,6 +38,14 @@ namespace Hausautomation.Model
 #pragma warning disable 4014
             ReadAllXDocumentsAsync();
 #pragma warning restore 4014
+        }
+
+        public void ReadStateChangeXDoc(/*string NewIdAndValue*/)
+        {
+#pragma warning disable 4014
+            ReadXDocument("addons/xmlapi/statechange.cgi" + _NewIdAndValue, "statechange.xml");
+#pragma warning restore 4014
+            MainPage.Devicelist.PrepareAllDevicesIntheList(); // Updaten eigentlich unnötig - nur wenn Schaltbefehl versagt
         }
 
         public async Task ReadAllXDocumentsAsync()

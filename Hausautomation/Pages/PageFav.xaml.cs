@@ -31,11 +31,6 @@ namespace Hausautomation.Pages
             this.InitializeComponent();
 
             Devicelist = MainPage.Devicelist.Favoriten;
-
-            /*foreach (Device device in Devicelist)
-            {
-                device.PrepareAllDevices();
-            }*/
         }
 
         private void slSlider1_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)

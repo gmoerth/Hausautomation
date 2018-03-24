@@ -29,9 +29,9 @@
                         <Slider x:Name="slSlider1" RelativePanel.RightOf="tbTextblock1" Orientation="Vertical" TickFrequency="10"
                                 Margin="24,24,24,24" Height="150" TickPlacement="Outside" Value="{x:Bind iSlider1, Mode=TwoWay}"
                                 Visibility="{x:Bind bSlider1, Mode=OneWay}" ValueChanged="slSlider1_ValueChanged"/>
-                        <Button x:Name="btButton1" RelativePanel.RightOf="tbTextblock1" Margin="27,60,24,24" Content="Ein"
+                        <Button x:Name="btButton1" RelativePanel.RightOf="tbTextblock1" Margin="25,110,24,24" Content="Aus"
                                 Visibility="{x:Bind bButton1, Mode=OneWay}" Click="btButton1_Click"/>
-                        <Button x:Name="btButton2" RelativePanel.RightOf="tbTextblock1" Margin="25,110,24,24" Content="Aus"
+                        <Button x:Name="btButton2" RelativePanel.RightOf="tbTextblock1" Margin="27,60,24,24" Content="Ein"
                                 Visibility="{x:Bind bButton1, Mode=OneWay}" Click="btButton2_Click"/>
                         <Button x:Name="btButtonOb" RelativePanel.RightOf="tbTextblock1" Margin="40,40,15,24" Content="O"
                                 Visibility="{x:Bind bButton2, Mode=OneWay}" Click="btButtonOb_Click"/>
