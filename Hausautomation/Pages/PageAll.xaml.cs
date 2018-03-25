@@ -50,32 +50,12 @@ namespace Hausautomation.Pages
             if (device != null)
             {
                 Debug.WriteLine(device.Ise_id + " " + device.Name);
-                //device.bFavoriten = !device.bFavoriten;
-            }
-        }
-
-        private void btButton1_Click(object sender, RoutedEventArgs e)
-        {
-            Debug.WriteLine("btButton1_Click");
-            Button btn = (Button)sender;
-            Device device = (Device)btn.DataContext;
-            if (device != null)
-            {
-                Debug.WriteLine(device.Ise_id + " " + device.Name);
-                device.StateChange(false);
-            }
-        }
-
-
-        private void btButton2_Click(object sender, RoutedEventArgs e)
-        {
-            Debug.WriteLine("btButton2_Click");
-            Button btn = (Button)sender;
-            Device device = (Device)btn.DataContext;
-            if (device != null)
-            {
-                Debug.WriteLine(device.Ise_id + " " + device.Name);
-                device.StateChange2(false);
+                //device.bFavoriten = !device.bFavoriten
+                Favoriten fav = new Favoriten();
+                if (device.bFavoriten == true)
+                    fav.AddFavoriten(device.Ise_id);
+                else
+                    fav.RemoveFavoriten(device.Ise_id);
             }
         }
 
@@ -91,27 +71,27 @@ namespace Hausautomation.Pages
             }
         }
 
-        private void tgSwitch1_Toggled(object sender, RoutedEventArgs e)
+        private void btButton1_Click(object sender, RoutedEventArgs e)
         {
-            ToggleSwitch tgs = (ToggleSwitch)sender;
-            Device device = (Device)tgs.DataContext;
+            Debug.WriteLine("btButton1_Click");
+            Button btn = (Button)sender;
+            Device device = (Device)btn.DataContext;
             if (device != null)
             {
-                Debug.WriteLine("tgSwitch1_Toggled");
-                Debug.WriteLine(device.Ise_id + " " + device.Name + " " + tgs.IsOn.ToString());
-                device.StateChange(tgs.IsOn);
+                Debug.WriteLine(device.Ise_id + " " + device.Name);
+                device.StateChange(false);
             }
         }
 
-        private void tgSwitch2_Toggled(object sender, RoutedEventArgs e)
+        private void btButton2_Click(object sender, RoutedEventArgs e)
         {
-            ToggleSwitch tgs = (ToggleSwitch)sender;
-            Device device = (Device)tgs.DataContext;
+            Debug.WriteLine("btButton2_Click");
+            Button btn = (Button)sender;
+            Device device = (Device)btn.DataContext;
             if (device != null)
             {
-                Debug.WriteLine("tgSwitch2_Toggled");
-                Debug.WriteLine(device.Ise_id + " " + device.Name + " " + tgs.IsOn.ToString());
-                device.StateChange2(tgs.IsOn);
+                Debug.WriteLine(device.Ise_id + " " + device.Name);
+                device.StateChange2(false);
             }
         }
 
@@ -161,5 +141,28 @@ namespace Hausautomation.Pages
             }
         }
 
+        private void tgSwitch1_Toggled(object sender, RoutedEventArgs e)
+        {
+            ToggleSwitch tgs = (ToggleSwitch)sender;
+            Device device = (Device)tgs.DataContext;
+            if (device != null)
+            {
+                Debug.WriteLine("tgSwitch1_Toggled");
+                Debug.WriteLine(device.Ise_id + " " + device.Name + " " + tgs.IsOn.ToString());
+                device.StateChange(tgs.IsOn);
+            }
+        }
+
+        private void tgSwitch2_Toggled(object sender, RoutedEventArgs e)
+        {
+            ToggleSwitch tgs = (ToggleSwitch)sender;
+            Device device = (Device)tgs.DataContext;
+            if (device != null)
+            {
+                Debug.WriteLine("tgSwitch2_Toggled");
+                Debug.WriteLine(device.Ise_id + " " + device.Name + " " + tgs.IsOn.ToString());
+                device.StateChange2(tgs.IsOn);
+            }
+        }
     }
 }

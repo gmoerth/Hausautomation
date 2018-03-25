@@ -28,12 +28,14 @@ namespace Hausautomation.Pages
     {
         public ReadXDoc xdoc;
         public SendMail sm;
+        public Favoriten fa;
 
         public SettingsPage()
         {
             this.InitializeComponent();
             xdoc = new ReadXDoc();
             sm = new SendMail();
+            fa = new Favoriten();
             LoadSettingsXML();
             MainPage.settingsPage = this;
         }
@@ -64,6 +66,11 @@ namespace Hausautomation.Pages
                 pbSMTPPass.Password = sm.NCPassword;
                 cbAUT.IsChecked = sm.Authentification;
                 cbSSL.IsChecked = sm.SSL;
+                XmlSerializer serializer3 = new XmlSerializer(typeof(Favoriten)); // Ausnahme ausgelöst: "System.NotSupportedException" in System.Private.CoreLib.dll
+                using (var reader3 = new StreamReader(File.Open(localFolder.Path + @"/favoriten.xml", FileMode.Open, FileAccess.Read)))
+                {
+                    fa = (Favoriten)serializer3.Deserialize(reader3);
+                }
             }
             catch (FileNotFoundException)
             {
@@ -101,6 +108,11 @@ namespace Hausautomation.Pages
                     pbSMTPPass_TextChanged(null, null);
                     cbAUT_Click(null, null);
                     serializer2.Serialize(writer, sm);
+                }
+                XmlSerializer serializer3 = new XmlSerializer(typeof(Favoriten));
+                using (StreamWriter writer = new StreamWriter(File.Open(localFolder.Path + @"/favoriten.xml", FileMode.Create, FileAccess.Write)))
+                {
+                    serializer3.Serialize(writer, fa);
                 }
             }
             catch (Exception ex)
