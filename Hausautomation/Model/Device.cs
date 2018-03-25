@@ -1253,16 +1253,16 @@ namespace Hausautomation.Model
         public void StateChange(bool bStatus)
         {
             ReadXDoc readXDoc = new ReadXDoc();
-            string NewIdAndValue = "?ise_id=" + iStateChangeID.ToString() + "&new_value=" + bStatus.ToString();  //bSwitch1State.ToString();
-            readXDoc.NewIdAndValue = NewIdAndValue;
+            readXDoc.NewId = iStateChangeID;
+            readXDoc.NewValue = bStatus ? Double.PositiveInfinity : Double.NegativeInfinity;
             readXDoc.ReadStateChangeXDoc();
         }
 
         public void StateChange2(bool bStatus)
         {
             ReadXDoc readXDoc = new ReadXDoc();
-            string NewIdAndValue = "?ise_id=" + iStateChangeID2.ToString() + "&new_value=" + bStatus.ToString();
-            readXDoc.NewIdAndValue = NewIdAndValue;
+            readXDoc.NewId = iStateChangeID2;
+            readXDoc.NewValue = bStatus ? Double.PositiveInfinity : Double.NegativeInfinity;
             readXDoc.ReadStateChangeXDoc();
         }
 
@@ -1275,10 +1275,9 @@ namespace Hausautomation.Model
             {
                 //bSliderThreadActive = true;
                 lLastSliderMilliseconds = DateTime.Now.Ticks;
-                CultureInfo culture = CultureInfo.CreateSpecificCulture("en-US"); // Punkt als Komma
                 ReadXDoc readXDoc = new ReadXDoc();
-                string NewIdAndValue = "?ise_id=" + iStateChangeID.ToString() + "&new_value=" + ((double)(dLastSliderStatus / 100)).ToString("F", culture);
-                readXDoc.NewIdAndValue = NewIdAndValue;
+                readXDoc.NewId = iStateChangeID;
+                readXDoc.NewValue = (double)dStatus / 100;
                 dLastSliderStatus = null;
                 //Thread thread = new Thread(readXDoc.ReadStateChangeXDoc); // Absturz bei PropertyChanged() weil anderer Thread
                 //thread.Start();

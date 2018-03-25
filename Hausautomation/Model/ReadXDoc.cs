@@ -2,11 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.Serialization;
@@ -20,8 +22,10 @@ namespace Hausautomation.Model
         public string HMIP { get; set; }
         public int HMPO { get; set; }
         public bool online { get; set; } // Modus zum entwickeln und testen ... geht schneller
-        private string _NewIdAndValue;
-        public string NewIdAndValue { set { _NewIdAndValue = value; } }
+        private int _NewId;
+        public int NewId { set { _NewId = value; } }
+        private double _NewValue;
+        public double NewValue { set { _NewValue = value; } }
 
         public ReadXDoc()
         {
@@ -42,6 +46,14 @@ namespace Hausautomation.Model
 
         public void ReadStateChangeXDoc(/*string NewIdAndValue*/)
         {
+            CultureInfo culture = CultureInfo.CreateSpecificCulture("en-US"); // Punkt als Komma
+            string _NewIdAndValue = "?ise_id=" + _NewId.ToString() + "&new_value=";
+            if (_NewValue == Double.PositiveInfinity)
+                _NewIdAndValue += "True";
+            else if (_NewValue == Double.NegativeInfinity)
+                _NewIdAndValue += "False";
+            else
+                _NewIdAndValue += _NewValue.ToString("F", culture);
 #pragma warning disable 4014
             ReadXDocument("addons/xmlapi/statechange.cgi" + _NewIdAndValue, "statechange.xml");
 #pragma warning restore 4014
@@ -56,7 +68,13 @@ namespace Hausautomation.Model
             await ReadXDocument("addons/xmlapi/functionlist.cgi", "functionlist.xml");
             MainPage.Devicelist.PrepareAllDevicesIntheList();
             MainPageHeader mph = MainPageHeader.Instance;
-            mph.Stop();
+            if (mph == null) // falls null kurz warten und nochmal probieren
+            {                // cache laden geht schneller und die View ist noch gar nicht geladen   
+                await Task.Delay(3000);
+                mph = MainPageHeader.Instance;
+            }
+            if (mph != null)
+                mph.Stop();
             // Demo debug Ausgabe der kompletten Liste
             /*foreach (Device device in MainPage.Devicelist.Devicelist)
             {
@@ -81,7 +99,7 @@ namespace Hausautomation.Model
             }*/
         }
 
-        public async Task Frage_ob_Online()
+        private async Task Frage_ob_Online()
         {
             MessageDialog showDialog = new MessageDialog("Online = JA\nOffline = Nein", "Online Verbindung mit HomeMatic herstellen?");
             showDialog.Commands.Add(new UICommand("Ja") { Id = 0 });
@@ -119,6 +137,9 @@ namespace Hausautomation.Model
                     {
                         // Lokales File laden
                         xdoc = XDocument.Load(localFolder.Path + "/" + xml);
+                        // Für Offline Modus FakeFile in xdoc schreiben
+                        if (xml == "statechange.xml")
+                            xdoc = GenerateOffLineDocument();
                     }
                 }
                 catch (WebException)
@@ -126,6 +147,9 @@ namespace Hausautomation.Model
                     // Fehler bei der Onlinevervindung ... lade Chache
                     await Hinweis_auf_Offline();
                     xdoc = XDocument.Load(localFolder.Path + "/" + xml);
+                    // Für Offline Modus FakeFile in xdoc schreiben
+                    if (xml == "statechange.xml")
+                        xdoc = GenerateOffLineDocument();
                 }
                 catch (Exception ex)
                 {
@@ -142,7 +166,25 @@ namespace Hausautomation.Model
             }
         }
 
-        public async Task Hinweis_auf_Offline()
+        private XDocument GenerateOffLineDocument()
+        {
+            //string xml = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?><result><changed id=\"XXXXX\" new_value=\"z.B.False\"/></result>";
+            CultureInfo culture = CultureInfo.CreateSpecificCulture("en-US"); // Punkt als Komma
+            string xml = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?><result><changed id=\"";
+            xml += _NewId.ToString();
+            xml += "\" new_value=\"";
+            if (_NewValue == Double.PositiveInfinity)
+                xml += "True";
+            else if (_NewValue == Double.NegativeInfinity)
+                xml += "False";
+            else
+                xml += _NewValue.ToString("F", culture);
+            xml += "\"/></result>";
+            XDocument xdoc = XDocument.Parse(xml);
+            return xdoc;
+        }
+
+        private async Task Hinweis_auf_Offline()
         {
             MessageDialog showDialog = new MessageDialog("Lade den Chache von der letzten Verbindung [OK]", "Konnte keine Online Verbindung mit HomeMatic herstellen!");
             showDialog.Commands.Add(new UICommand("OK") { Id = 0 });
