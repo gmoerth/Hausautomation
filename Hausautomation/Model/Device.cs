@@ -54,6 +54,9 @@ namespace Hausautomation.Model
             foreach (Device device in Devicelist)
             {
                 device.PrepareAllDevices();
+                device.NotifyPropertyChanged("bSwitch1State");
+                device.NotifyPropertyChanged("bSwitch2State");
+                device.NotifyPropertyChanged("iSlider1");
             }
         }
 
@@ -384,7 +387,7 @@ namespace Hausautomation.Model
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void NotifyPropertyChanged([CallerMemberName] string propName = "")
+        public virtual void NotifyPropertyChanged([CallerMemberName] string propName = "")
         {
             if (PropertyChanged != null)
             {
@@ -711,8 +714,8 @@ namespace Hausautomation.Model
                         if (datapoint.Type == "STATE")
                         {
                             iStateChangeID = datapoint.Ise_id;
-                            //if (datapoint.Value == double.NegativeInfinity)
-                            //    bSwitch1State = false;
+                            if (datapoint.Value == double.NegativeInfinity)
+                                bSwitch1State = false;
                             if (datapoint.Value == double.PositiveInfinity)
                                 bSwitch1State = true;
                             Textblock4 += "\nLetzer Schaltbefehl:\n";
@@ -747,8 +750,8 @@ namespace Hausautomation.Model
                         if (datapoint.Type == "STATE")
                         {
                             iStateChangeID = datapoint.Ise_id;
-                            //if (datapoint.Value == double.NegativeInfinity)
-                            //    bSwitch1State = false;
+                            if (datapoint.Value == double.NegativeInfinity)
+                                bSwitch1State = false;
                             if (datapoint.Value == double.PositiveInfinity)
                                 bSwitch1State = true;
                             Textblock4 += "\nLetzer Schaltbefehl:\n";
@@ -784,8 +787,8 @@ namespace Hausautomation.Model
                         if (datapoint.Type == "STATE")
                         {
                             iStateChangeID = datapoint.Ise_id;
-                            //if (datapoint.Value == double.NegativeInfinity)
-                            //    bSwitch1State = false;
+                            if (datapoint.Value == double.NegativeInfinity)
+                                bSwitch1State = false;
                             if (datapoint.Value == double.PositiveInfinity)
                                 bSwitch1State = true;
                             Textblock5 += "\nLetzer Schaltbefehl 1:\n";
@@ -800,8 +803,8 @@ namespace Hausautomation.Model
                         if (datapoint.Type == "STATE")
                         {
                             iStateChangeID2 = datapoint.Ise_id;
-                            //if (datapoint.Value == double.NegativeInfinity)
-                            //    bSwitch2State = false;
+                            if (datapoint.Value == double.NegativeInfinity)
+                                bSwitch2State = false;
                             if (datapoint.Value == double.PositiveInfinity)
                                 bSwitch2State = true;
                             Textblock5 += "\nLetzer Schaltbefehl 2:\n";
@@ -1070,8 +1073,8 @@ namespace Hausautomation.Model
                         if (datapoint.Type == "STATE")
                         {
                             iStateChangeID = datapoint.Ise_id;
-                            //if (datapoint.Value == double.NegativeInfinity)
-                            //    bSwitch1State = false;
+                            if (datapoint.Value == double.NegativeInfinity)
+                                bSwitch1State = false;
                             if (datapoint.Value == double.PositiveInfinity)
                                 bSwitch1State = true;
                             Textblock4 = "Letze Aktualisierung:\n";
@@ -1137,8 +1140,8 @@ namespace Hausautomation.Model
                         if (datapoint.Type == "STATE")
                         {
                             iStateChangeID = datapoint.Ise_id;
-                            //if (datapoint.Value == double.NegativeInfinity)
-                            //    bSwitch1State = false;
+                            if (datapoint.Value == double.NegativeInfinity)
+                                bSwitch1State = false;
                             if (datapoint.Value == double.PositiveInfinity)
                                 bSwitch1State = true;
                             Textblock4 = "Letze Aktualisierung:\n";

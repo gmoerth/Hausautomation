@@ -14,6 +14,7 @@ using System.Xml.Linq;
 using System.Xml.Serialization;
 using Windows.Storage;
 using Windows.UI.Popups;
+using Windows.UI.Xaml;
 
 namespace Hausautomation.Model
 {
@@ -26,6 +27,8 @@ namespace Hausautomation.Model
         public int NewId { set { _NewId = value; } }
         private double _NewValue;
         public double NewValue { set { _NewValue = value; } }
+        static private bool _bShortTaskRunning = false;
+        static private bool _bShortTaskAbort = false;
 
         public ReadXDoc()
         {
@@ -35,6 +38,53 @@ namespace Hausautomation.Model
                 HMPO = MainPage.settingsPage.xdoc.HMPO;
                 online = MainPage.settingsPage.xdoc.online;
             }
+        }
+
+        public async void StartStateListTask(object sender, RoutedEventArgs e)
+        {
+            // dauerhaft
+            while (true)
+            {
+                await Task.Run(() => StateListTask());
+                // Update the UI with results
+                MainPage.Devicelist.PrepareAllDevicesIntheList();
+            }
+        }
+
+        public async void StartStateListTaskShort(object sender, RoutedEventArgs e)
+        {
+            if (_bShortTaskRunning == true)
+            {
+                _bShortTaskAbort = true;
+                //return;
+            }
+            _bShortTaskRunning = true;
+            await Task.Delay(2000);
+            // 3 sekunden nach jedem schaltbefehlt abfragen
+            for (int i = 0; i < 3; i++)
+            {
+                await Task.Run(() => StateListTaskShort());
+                // Update the UI with results
+                MainPage.Devicelist.PrepareAllDevicesIntheList();
+            }
+            _bShortTaskRunning = false;
+        }
+
+        private async Task StateListTask()
+        {
+            await Task.Delay(60000);
+            await ReadXDocument("addons/xmlapi/statelist.cgi", "statelist.xml");
+        }
+
+        private async Task StateListTaskShort()
+        {
+            await Task.Delay(1000);
+            while(_bShortTaskAbort == true)
+            {
+                _bShortTaskAbort = false;
+                await Task.Delay(2000);
+            }
+            await ReadXDocument("addons/xmlapi/statelist.cgi", "statelist.xml");
         }
 
         public void ReadAllXDocuments()
@@ -57,7 +107,18 @@ namespace Hausautomation.Model
 #pragma warning disable 4014
             ReadXDocument("addons/xmlapi/statechange.cgi" + _NewIdAndValue, "statechange.xml");
 #pragma warning restore 4014
-            MainPage.Devicelist.PrepareAllDevicesIntheList(); // Updaten eigentlich unnötig - nur wenn Schaltbefehl versagt
+            //Task.Delay(5000);
+            //Thread.Sleep(5000);
+            //UpdateStateListXDoc();
+            StartStateListTaskShort(this, null);
+        }
+
+        public void UpdateStateListXDoc()
+        {
+#pragma warning disable 4014
+            ReadXDocument("addons/xmlapi/statelist.cgi", "statelist.xml");
+#pragma warning restore 4014
+            MainPage.Devicelist.PrepareAllDevicesIntheList();
         }
 
         public async Task ReadAllXDocumentsAsync()
@@ -67,14 +128,15 @@ namespace Hausautomation.Model
             await ReadXDocument("addons/xmlapi/roomlist.cgi", "roomlist.xml");
             await ReadXDocument("addons/xmlapi/functionlist.cgi", "functionlist.xml");
             MainPage.Devicelist.PrepareAllDevicesIntheList();
+            Favoriten favoriten = new Favoriten();
+            favoriten.LoadFavoriten(); // Favoriten einlesen
             MainPageHeader mph = MainPageHeader.Instance;
-            if (mph == null) // falls null kurz warten und nochmal probieren
+            while (mph == null) // falls null kurz warten und nochmal probieren
             {                // cache laden geht schneller und die View ist noch gar nicht geladen   
-                await Task.Delay(3000);
+                await Task.Delay(500);
                 mph = MainPageHeader.Instance;
             }
-            if (mph != null)
-                mph.Stop();
+            mph.Stop();
             // Demo debug Ausgabe der kompletten Liste
             /*foreach (Device device in MainPage.Devicelist.Devicelist)
             {

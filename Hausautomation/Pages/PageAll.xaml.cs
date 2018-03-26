@@ -103,7 +103,7 @@ namespace Hausautomation.Pages
             if (device != null)
             {
                 Debug.WriteLine(device.Ise_id + " " + device.Name);
-                device.StateChange2(true);
+                device.StateChange2(false);
             }
         }
 
@@ -115,7 +115,7 @@ namespace Hausautomation.Pages
             if (device != null)
             {
                 Debug.WriteLine(device.Ise_id + " " + device.Name);
-                device.StateChange(true);
+                device.StateChange(false);
             }
         }
 

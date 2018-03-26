@@ -40,9 +40,7 @@ namespace Hausautomation
 
             ReadXDoc readXDoc = new ReadXDoc(); 
             readXDoc.ReadAllXDocuments(); // Lese alle Dokumente von der HomeMatic ein und speicher sie in der Devicelist
-
-            Favoriten favoriten = new Favoriten();
-            favoriten.LoadFavoriten(); // Favoriten einlesen
+            readXDoc.StartStateListTask(this, null); // Alle 60 Sekunden die StateList aktualisieren
 
             Debug.WriteLine("Main fertig");
         }
