@@ -327,8 +327,50 @@ namespace Hausautomation.Model
         public bool bButton2 { get; set; } // sichtbarkeit Ob Un Li Re
         public bool bSwitch1 { get; set; } // sichtbarkeit Schalter 1
         public bool bSwitch2 { get; set; } // sichtbarkeit Schalter 2
-        public bool bSwitch1State { get { return _bSwitch1State; } set { _bSwitch1State = value; /*NotifyPropertyChanged();*/ } } // Status des Switch1
-        public bool bSwitch2State { get { return _bSwitch2State; } set { _bSwitch2State = value; /*NotifyPropertyChanged();*/ } } // Status des Switch1
+        public bool bSwitch1State
+        {
+            get { return _bSwitch1State; }
+            set
+            {
+                if (value != _bSwitch1State)
+                {
+                    _bSwitch1State = value;
+                    NotifyPropertyChanged();
+                    NotifyPropertyChanged("Switch1State");
+                }
+            }
+        } // Status des Switch1
+        public bool Switch1State
+        {
+            get { return _bSwitch1State; }
+            set
+            {
+                if (value != _bSwitch1State)
+                {
+                    _bSwitch1State = value;
+                    StateChange(value);
+                }
+            }
+        } // Status des Switch1
+        public bool bSwitch2State
+        {
+            get { return _bSwitch2State; }
+            set
+            {
+                _bSwitch2State = value;
+                NotifyPropertyChanged();
+                NotifyPropertyChanged("Switch2State");
+            }
+        } // Status des Switch2
+        public bool Switch2State
+        {
+            get { return _bSwitch2State; }
+            set
+            {
+                _bSwitch2State = value;
+                StateChange2(value);
+            }
+        } // Status des Switch2
         public bool bTextblock2 { get; set; } // sichtbarkeit
         public bool bTextblock3 { get; set; } // sichtbarkeit
         public bool bTextblock4 { get; set; } // sichtbarkeit
