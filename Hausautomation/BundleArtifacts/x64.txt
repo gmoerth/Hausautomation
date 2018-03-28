@@ -1,0 +1,2 @@
+MainPackage=C:\Users\Gerhard\source\repos\Hausautomation\Hausautomation\bin\x64\Debug\Hausautomation_1.0.0.0_x64_Debug.appx
+SymbolPackage=C:\Users\Gerhard\source\repos\Hausautomation\Hausautomation\AppPackages\Hausautomation_1.0.0.0_Debug_Test\Hausautomation_1.0.0.0_x64_Debug.appxsym

@@ -1,0 +1,3 @@
+MainPackage=C:\Users\Gerhard\source\repos\Hausautomation\Hausautomation\bin\ARM\Debug\Hausautomation_1.0.0.0_ARM_Debug.appx
+SymbolPackage=C:\Users\Gerhard\source\repos\Hausautomation\Hausautomation\AppPackages\Hausautomation_1.0.0.0_Debug_Test\Hausautomation_1.0.0.0_ARM_Debug.appxsym
+ResourcePack=C:\Users\Gerhard\source\repos\Hausautomation\Hausautomation\bin\ARM\Debug\Hausautomation_1.0.0.0_language-de.appx
