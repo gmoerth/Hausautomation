@@ -15,8 +15,8 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Margin="12" Style="{ThemeResource BodyTextBlockStyle}"
-                   Text="Klicke auf die Listeneinträge um sie als Favoriten zu markieren"/>
+        <TextBlock Grid.Row="0" Margin="15,17" Style="{ThemeResource BodyTextBlockStyle}"
+                   Text="Klicken Sie auf die Checkbox links um die Geräte als Favoriten zu markieren"/>
 
         <ListView x:Name="lvDevices" Grid.Row="1" ItemsSource="{x:Bind Devicelist}">
             <ListView.ItemTemplate>

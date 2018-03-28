@@ -69,6 +69,8 @@ namespace Hausautomation.Pages
                 XmlSerializer serializer3 = new XmlSerializer(typeof(Favoriten)); // Ausnahme ausgelöst: "System.NotSupportedException" in System.Private.CoreLib.dll
                 using (var reader3 = new StreamReader(File.Open(localFolder.Path + @"/favoriten.xml", FileMode.Open, FileAccess.Read)))
                 {
+                    if (fa.ise_id.Count > 0) // vorher löschen ... sonst wird die liste immer länger
+                        fa.ise_id.Clear();
                     fa = (Favoriten)serializer3.Deserialize(reader3);
                 }
             }

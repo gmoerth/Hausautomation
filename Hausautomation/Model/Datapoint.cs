@@ -105,7 +105,8 @@ namespace Hausautomation.Model
         public void Parse(XNode xnode)
         {
             NumberStyles style = NumberStyles.Number | NumberStyles.AllowCurrencySymbol;
-            CultureInfo culture = CultureInfo.CreateSpecificCulture("en-US"); // Punkt als Komma
+            //CultureInfo culture = CultureInfo.CreateSpecificCulture("en-US"); // Punkt als Komma
+            CultureInfo culture = new CultureInfo("en-US"); // Punkt als Komma
             XElement xElement = Channel.ToXElement(xnode);
             if (xElement == null)
                 throw new InvalidOperationException();

@@ -9,6 +9,8 @@ namespace Hausautomation.Model
     public class Favoriten
     {
         public List<int> ise_id { get; set; }
+        public string RoomItemSel { get; set; }
+        public string FuncItemSel { get; set; }
 
         public Favoriten()
         {

@@ -5,12 +5,71 @@
     xmlns:local="using:Hausautomation.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:data="using:Hausautomation.Model"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        
-        <TextBlock HorizontalAlignment="Left" Margin="120,120,0,0" Text="PageRoom" TextWrapping="Wrap" VerticalAlignment="Top"/>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <ComboBox x:Name="cbRoom" Grid.Row="0" Margin="15,12" Width="200" PlaceholderText="Räume"
+                  ItemsSource="{x:Bind Roomlist}" SelectionChanged="cbRoom_SelectionChanged"/>
+        <TextBlock Grid.Row="0" Text="Bitte wählen sie aus der Liste der Gewerke" Style="{ThemeResource BodyTextBlockStyle}" Margin="230,16"/>
+
+        <ListView x:Name="lvDevices" Grid.Row="1" ItemsSource="{x:Bind Devicelist}">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="data:Device">
+                    <RelativePanel>
+                        <Image x:Name="bmImage" Source="{x:Bind Image}" MaxWidth="150" Stretch="Uniform" Margin="34,24,0,24"/>
+                        <TextBlock x:Name="tbTextblock1" RelativePanel.RightOf="bmImage" Style="{ThemeResource BaseTextBlockStyle}"
+                                   Margin="24,24,24,24" Text="{x:Bind Textblock1, Mode=OneWay}"/>
+                        <Slider x:Name="slSlider1" RelativePanel.RightOf="tbTextblock1" Orientation="Vertical" TickFrequency="10"
+                                Margin="24,24,24,24" Height="150" TickPlacement="Outside" Value="{x:Bind iSlider1, Mode=TwoWay}"
+                                Visibility="{x:Bind bSlider1, Mode=OneWay}" ValueChanged="slSlider1_ValueChanged"/>
+                        <Button x:Name="btButton1" RelativePanel.RightOf="tbTextblock1" Margin="25,110,24,24" Content="Aus"
+                                Visibility="{x:Bind bButton1, Mode=OneWay}" Click="btButton1_Click"/>
+                        <Button x:Name="btButton2" RelativePanel.RightOf="tbTextblock1" Margin="27,60,24,24" Content="Ein"
+                                Visibility="{x:Bind bButton1, Mode=OneWay}" Click="btButton2_Click"/>
+                        <Button x:Name="btButtonOb" RelativePanel.RightOf="tbTextblock1" Margin="40,40,15,24" Content="O"
+                                Visibility="{x:Bind bButton2, Mode=OneWay}" Click="btButtonOb_Click"/>
+                        <Button x:Name="btButtonUn" RelativePanel.RightOf="tbTextblock1" Margin="40,130,15,24" Content="U"
+                                Visibility="{x:Bind bButton2, Mode=OneWay}" Click="btButtonUn_Click"/>
+                        <Button x:Name="btButtonLi" RelativePanel.RightOf="tbTextblock1" Margin="15,85,15,24" Content="L"
+                                Visibility="{x:Bind bButton2, Mode=OneWay}" Click="btButtonLi_Click"/>
+                        <Button x:Name="btButtonRe" RelativePanel.RightOf="tbTextblock1" Margin="65,85,15,24" Content="R"
+                                Visibility="{x:Bind bButton2, Mode=OneWay}" Click="btButtonRe_Click"/>
+                        <ToggleSwitch x:Name="tgSwitch1" Margin="20,145,-100,24" RelativePanel.RightOf="tbTextblock1"
+                                OffContent="Aus" OnContent="Ein" IsOn="{x:Bind Switch1State, Mode=TwoWay}"
+                                Visibility="{x:Bind bSwitch1, Mode=OneWay}" >
+                            <ToggleSwitch.RenderTransform>
+                                <CompositeTransform Rotation="-90"/>
+                            </ToggleSwitch.RenderTransform>
+                        </ToggleSwitch>
+                        <ToggleSwitch x:Name="tgSwitch2" Margin="0,145,-100,24" RelativePanel.RightOf="tgSwitch1"
+                                OffContent="Aus" OnContent="Ein" IsOn="{x:Bind bSwitch2State, Mode=OneWay}"
+                                Visibility="{x:Bind bSwitch2, Mode=OneWay}" >
+                            <ToggleSwitch.RenderTransform>
+                                <CompositeTransform Rotation="-90"/>
+                            </ToggleSwitch.RenderTransform>
+                        </ToggleSwitch>
+                        <TextBlock x:Name="tbTextblock2" RelativePanel.RightOf="slSlider1" Style="{ThemeResource BaseTextBlockStyle}"
+                                   Margin="24,24,24,24" Text="{x:Bind Textblock2, Mode=OneWay}" Visibility="{x:Bind bTextblock2, Mode=OneWay}"/>
+                        <TextBlock x:Name="tbTextblock3" RelativePanel.RightOf="btButton1" Style="{ThemeResource BaseTextBlockStyle}"
+                                   Margin="24,24,24,24" Text="{x:Bind Textblock3, Mode=OneWay}" Visibility="{x:Bind bTextblock3, Mode=OneWay}"/>
+                        <TextBlock x:Name="tbTextblock4" RelativePanel.RightOf="tgSwitch1" Style="{ThemeResource BaseTextBlockStyle}"
+                                   Margin="24,24,24,24" Text="{x:Bind Textblock4, Mode=OneWay}" Visibility="{x:Bind bTextblock4, Mode=OneWay}"/>
+                        <TextBlock x:Name="tbTextblock5" RelativePanel.RightOf="tgSwitch2" Style="{ThemeResource BaseTextBlockStyle}"
+                                   Margin="24,24,24,24" Text="{x:Bind Textblock5, Mode=OneWay}" Visibility="{x:Bind bTextblock5, Mode=OneWay}"/>
+                        <TextBlock x:Name="tbTextblock6" RelativePanel.RightOf="btButtonRe" Style="{ThemeResource BaseTextBlockStyle}"
+                                   Margin="24,24,24,24" Text="{x:Bind Textblock6, Mode=OneWay}" Visibility="{x:Bind bTextblock6, Mode=OneWay}"/>
+                    </RelativePanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
 
     </Grid>
-    
+
 </Page>

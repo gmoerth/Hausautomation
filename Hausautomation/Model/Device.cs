@@ -28,6 +28,16 @@ namespace Hausautomation.Model
             get { return Devicelist.Where(item => item.bFavoriten); }
         }
 
+        public IEnumerable<Device> Room
+        {
+            get { return Devicelist.Where(item => item.bRoom); }
+        }
+
+        public IEnumerable<Device> Function
+        {
+            get { return Devicelist.Where(item => item.bFunction); }
+        }
+
         public DeviceList()
         {
             Devicelist = new ObservableCollection<Device>();
@@ -54,9 +64,9 @@ namespace Hausautomation.Model
             foreach (Device device in Devicelist)
             {
                 device.PrepareAllDevices();
-                device.NotifyPropertyChanged("bSwitch1State");
-                device.NotifyPropertyChanged("bSwitch2State");
-                device.NotifyPropertyChanged("iSlider1");
+                //device.NotifyPropertyChanged("bSwitch1State");
+                //device.NotifyPropertyChanged("bSwitch2State");
+                //device.NotifyPropertyChanged("iSlider1");
             }
         }
 
@@ -98,7 +108,8 @@ namespace Hausautomation.Model
                 //bool ok = int.TryParse(element.Attribute("changed id").Value.ToString(), out int changed_id);
                 // funktioniert nicht weil keine Leerzeichen erlaubt sind => XML-API hält sich nicht an Standard
                 // daher selber parsen
-                CultureInfo culture = CultureInfo.CreateSpecificCulture("en-US"); // Punkt als Komma
+                //CultureInfo culture = CultureInfo.CreateSpecificCulture("en-US"); // Punkt als Komma
+                CultureInfo culture = new CultureInfo("en-US"); // Punkt als Komma
                 string str = element.Document.ToString(); // "<result>\r\n  <changed id=\"19073\" new_value=\"0.79\" />\r\n</result>"
                 int index1 = str.IndexOf("changed id=\"") + 12;
                 int index2 = str.IndexOf("\"", index1);
@@ -377,6 +388,8 @@ namespace Hausautomation.Model
         public bool bTextblock5 { get; set; } // sichtbarkeit
         public bool bTextblock6 { get; set; } // sichtbarkeit
         public bool bFavoriten { get { return _bfavoriten; } set { _bfavoriten = value; NotifyPropertyChanged(); } } // Favoriten
+        public bool bRoom { get { return _broom; } set { _broom = value; NotifyPropertyChanged(); } } // Room
+        public bool bFunction { get { return _bfunction; } set { _bfunction = value; NotifyPropertyChanged(); } } // Function
         public int iSlider1 { get { return _iSlider1; } set { _iSlider1 = value; /*NotifyPropertyChanged();*/ } } // Wert des Slider
         public int iChannel { get { return _iChannel; } set { _iChannel = value; NotifyPropertyChanged(); } } // Welcher Kanal wird bei HM-PB-4Dis-WM angezeigt
         public int iStateChangeID { get; set; } // ise_id wird für StateChange benötigt
@@ -391,6 +404,8 @@ namespace Hausautomation.Model
         private bool _bSwitch1State;
         private bool _bSwitch2State;
         private bool _bfavoriten;
+        private bool _broom;
+        private bool _bfunction;
         private int _iSlider1;
         private int _iChannel;
         private double? dLastSliderStatus; // Letzen Slider Wert merken

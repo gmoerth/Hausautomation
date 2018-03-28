@@ -96,7 +96,8 @@ namespace Hausautomation.Model
 
         public void ReadStateChangeXDoc(/*string NewIdAndValue*/)
         {
-            CultureInfo culture = CultureInfo.CreateSpecificCulture("en-US"); // Punkt als Komma
+            //CultureInfo culture = CultureInfo.CreateSpecificCulture("en-US"); // Punkt als Komma
+            CultureInfo culture = new CultureInfo("en-US"); // Punkt als Komma
             string _NewIdAndValue = "?ise_id=" + _NewId.ToString() + "&new_value=";
             if (_NewValue == Double.PositiveInfinity)
                 _NewIdAndValue += "True";
@@ -193,7 +194,7 @@ namespace Hausautomation.Model
                         HttpWebResponse response = (HttpWebResponse)await request.GetResponseAsync() as HttpWebResponse;
                         StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.GetEncoding("iso-8859-1"));
                         xdoc = XDocument.Load(reader);
-                        xdoc.Save(localFolder.Path + "/" + xml);
+                        xdoc.Save(localFolder.Path + "/" + xml); // TODO
                     }
                     else
                     {
@@ -231,7 +232,8 @@ namespace Hausautomation.Model
         private XDocument GenerateOffLineDocument()
         {
             //string xml = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?><result><changed id=\"XXXXX\" new_value=\"z.B.False\"/></result>";
-            CultureInfo culture = CultureInfo.CreateSpecificCulture("en-US"); // Punkt als Komma
+            //CultureInfo culture = CultureInfo.CreateSpecificCulture("en-US"); // Punkt als Komma
+            CultureInfo culture = new CultureInfo("en-US"); // Punkt als Komma
             string xml = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?><result><changed id=\"";
             xml += _NewId.ToString();
             xml += "\" new_value=\"";
