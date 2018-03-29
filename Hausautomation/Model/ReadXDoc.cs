@@ -101,18 +101,7 @@ namespace Hausautomation.Model
 #pragma warning disable 4014
             ReadXDocument("addons/xmlapi/statechange.cgi" + _NewIdAndValue, "statechange.xml");
 #pragma warning restore 4014
-            //Task.Delay(5000);
-            //Thread.Sleep(5000);
-            //UpdateStateListXDoc();
             StartStateListTaskShort(this, null);
-        }
-
-        public void UpdateStateListXDoc()
-        {
-#pragma warning disable 4014
-            ReadXDocument("addons/xmlapi/statelist.cgi", "statelist.xml");
-#pragma warning restore 4014
-            MainPage.Devicelist.PrepareAllDevicesIntheList();
         }
 
         public async Task ReadAllXDocumentsAsync()

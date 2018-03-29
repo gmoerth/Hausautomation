@@ -11,6 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Windows.UI.Popups;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media.Imaging;
 
 namespace Hausautomation.Model
@@ -134,10 +135,6 @@ namespace Hausautomation.Model
                                 //Debug.WriteLine(datapoint.Value.ToString());
                                 datapoint.Value = new_value;
                                 datapoint.Timestamp = DateTime.Now;
-                                device.PrepareAllDevices(); // Update Device => Es sollte der Timer Thread in ca. 2 Sekunden gestartet werden damit die Updates von Strom Spannung etc. aktualisiert werden
-                                //Thread.Sleep(2000);
-                                device.bSliderThreadActive = false;
-                                device.StateChange(null);
                                 return;
                             }
                         }
@@ -350,7 +347,7 @@ namespace Hausautomation.Model
                     NotifyPropertyChanged("Switch1State");
                 }
             }
-        } // Status des Switch1
+        }
         public bool Switch1State
         {
             get { return _bSwitch1State; }
@@ -362,26 +359,57 @@ namespace Hausautomation.Model
                     StateChange(value);
                 }
             }
-        } // Status des Switch1
+        }
         public bool bSwitch2State
         {
             get { return _bSwitch2State; }
             set
             {
-                _bSwitch2State = value;
-                NotifyPropertyChanged();
-                NotifyPropertyChanged("Switch2State");
+                if (value != _bSwitch2State)
+                {
+                    _bSwitch2State = value;
+                    NotifyPropertyChanged();
+                    NotifyPropertyChanged("Switch2State");
+                }
             }
-        } // Status des Switch2
+        }
         public bool Switch2State
         {
             get { return _bSwitch2State; }
             set
             {
-                _bSwitch2State = value;
-                StateChange2(value);
+                if (value != _bSwitch2State)
+                {
+                    _bSwitch2State = value;
+                    StateChange2(value);
+                }
             }
-        } // Status des Switch2
+        }
+        public double dSlider
+        {
+            get { return _dSlider; }
+            set
+            {
+                if (value != _dSlider)
+                {
+                    _dSlider = value;
+                    NotifyPropertyChanged();
+                    NotifyPropertyChanged("Slider");
+                }
+            }
+        }
+        public double Slider
+        {
+            get { return _dSlider; }
+            set
+            {
+                if (value != _dSlider)
+                {
+                    _dSlider = value;
+                    StateChange(value);
+                }
+            }
+        }
         public bool bTextblock2 { get; set; } // sichtbarkeit
         public bool bTextblock3 { get; set; } // sichtbarkeit
         public bool bTextblock4 { get; set; } // sichtbarkeit
@@ -390,7 +418,7 @@ namespace Hausautomation.Model
         public bool bFavoriten { get { return _bfavoriten; } set { _bfavoriten = value; NotifyPropertyChanged(); } } // Favoriten
         public bool bRoom { get { return _broom; } set { _broom = value; NotifyPropertyChanged(); } } // Room
         public bool bFunction { get { return _bfunction; } set { _bfunction = value; NotifyPropertyChanged(); } } // Function
-        public int iSlider1 { get { return _iSlider1; } set { _iSlider1 = value; /*NotifyPropertyChanged();*/ } } // Wert des Slider
+        public int iSlider1 { get { return _iSlider1; } set { _iSlider1 = value; NotifyPropertyChanged(); } } // Wert des Slider
         public int iChannel { get { return _iChannel; } set { _iChannel = value; NotifyPropertyChanged(); } } // Welcher Kanal wird bei HM-PB-4Dis-WM angezeigt
         public int iStateChangeID { get; set; } // ise_id wird für StateChange benötigt
         public int iStateChangeID2 { get; set; } // ise_id wird für StateChange benötigt
@@ -407,10 +435,8 @@ namespace Hausautomation.Model
         private bool _broom;
         private bool _bfunction;
         private int _iSlider1;
+        private double _dSlider;
         private int _iChannel;
-        private double? dLastSliderStatus; // Letzen Slider Wert merken
-        public bool bSliderThreadActive = false; // Thread not active
-        private long lLastSliderMilliseconds; // Ticks seit der letzten Slideränderung
 
         public BitmapImage Image { get; set; }
         #endregion
@@ -1102,7 +1128,8 @@ namespace Hausautomation.Model
                         if (datapoint.Type == "LEVEL")
                         {
                             iStateChangeID = datapoint.Ise_id;
-                            iSlider1 = (int)(datapoint.Value * 100 + 0.5);
+                            //iSlider1 = (int)(datapoint.Value * 100 + 0.5);
+                            dSlider = (datapoint.Value * 100);
                             str4 = "Letze Aktualisierung:\n";
                             str4 += datapoint.Timestamp.ToString();
                         }
@@ -1326,24 +1353,28 @@ namespace Hausautomation.Model
             readXDoc.ReadStateChangeXDoc();
         }
 
-        public void StateChange(double? dStatus)
-        {
-            if (dStatus != null)
-                dLastSliderStatus = dStatus;
-            //if (bSliderThreadActive == false && dLastSliderStatus != null)
-            if (DateTime.Now.Ticks - lLastSliderMilliseconds > 20000000 && dLastSliderStatus != null)
-            {
-                //bSliderThreadActive = true;
-                lLastSliderMilliseconds = DateTime.Now.Ticks;
-                ReadXDoc readXDoc = new ReadXDoc();
-                readXDoc.NewId = iStateChangeID;
-                readXDoc.NewValue = (double)dStatus / 100;
-                dLastSliderStatus = null;
-                //Thread thread = new Thread(readXDoc.ReadStateChangeXDoc); // Absturz bei PropertyChanged() weil anderer Thread
-                //thread.Start();
-                readXDoc.ReadStateChangeXDoc();
-            }
+        private DispatcherTimer _timer = null;
 
+        public void StateChange(double dStatus) // wegen Slider mit Timer
+        {
+            Debug.WriteLine("Slider_ValueChanged");
+            if (_timer != null)
+                _timer.Stop();
+            _timer = new DispatcherTimer();
+            _timer.Interval = new TimeSpan(0, 0, 2);
+            _timer.Tick += updateStateChange;
+            _timer.Start();
+        }
+
+        void updateStateChange(object sender, object e)
+        {
+            Debug.WriteLine("updateStateChange");
+            ReadXDoc readXDoc = new ReadXDoc();
+            readXDoc.NewId = iStateChangeID;
+            readXDoc.NewValue = Slider / 100;
+            readXDoc.ReadStateChangeXDoc();
+            _timer.Stop();
+            _timer.Tick -= updateStateChange;
         }
         #endregion
 

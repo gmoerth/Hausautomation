@@ -34,7 +34,7 @@ namespace Hausautomation.Pages
             Devicelist = MainPage.Devicelist.Favoriten;
         }
 
-        private void slSlider1_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+        /*private void slSlider1_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
             Slider sli = (Slider)sender;
             Device device = (Device)sli.DataContext;
@@ -44,7 +44,7 @@ namespace Hausautomation.Pages
                 Debug.WriteLine(device.Ise_id + " " + device.Name + " " + sli.Value.ToString());
                 device.StateChange(sli.Value);
             }
-        }
+        }*/
 
         private void btButton1_Click(object sender, RoutedEventArgs e)
         {
