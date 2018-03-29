@@ -28,7 +28,7 @@ namespace Hausautomation.Model
         private double _NewValue;
         public double NewValue { set { _NewValue = value; } }
         static private bool _bShortTaskRunning = false;
-        static private bool _bShortTaskAbort = false;
+        static private DateTime dateTime = DateTime.Now;
 
         public ReadXDoc()
         {
@@ -53,37 +53,30 @@ namespace Hausautomation.Model
 
         public async void StartStateListTaskShort(object sender, RoutedEventArgs e)
         {
-            if (_bShortTaskRunning == true)
-            {
-                _bShortTaskAbort = true;
-                //return;
-            }
+            dateTime = DateTime.Now;
             _bShortTaskRunning = true;
-            await Task.Delay(2000);
-            // 3 sekunden nach jedem schaltbefehlt abfragen
-            for (int i = 0; i < 3; i++)
+            await Task.Delay(3005);
+            if (dateTime.Ticks + 30000000 > DateTime.Now.Ticks)
             {
-                await Task.Run(() => StateListTaskShort());
-                // Update the UI with results
-                MainPage.Devicelist.PrepareAllDevicesIntheList();
+                Debug.WriteLine("Abort Statelist");
+                return;
             }
+            await Task.Run(() => StateListTaskShort());
+            // Update the UI with results
+            MainPage.Devicelist.PrepareAllDevicesIntheList();
             _bShortTaskRunning = false;
         }
 
         private async Task StateListTask()
         {
             await Task.Delay(60000);
-            await ReadXDocument("addons/xmlapi/statelist.cgi", "statelist.xml");
+            // nur wenn nicht gerade geklickt wurde
+            if (_bShortTaskRunning == false)
+                await ReadXDocument("addons/xmlapi/statelist.cgi", "statelist.xml");
         }
 
         private async Task StateListTaskShort()
         {
-            await Task.Delay(1000);
-            while(_bShortTaskAbort == true)
-            {
-                _bShortTaskAbort = false;
-                await Task.Delay(2000);
-            }
             await ReadXDocument("addons/xmlapi/statelist.cgi", "statelist.xml");
         }
 

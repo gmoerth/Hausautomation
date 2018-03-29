@@ -10,7 +10,7 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
         <NavigationView x:Name="nvHausautomation" Loaded="NavigationView_Loaded" SelectionChanged="NavigationView_SelectionChanged"
-                        IsSettingsVisible="{Binding ElementName=settingsCheck,Path=IsChecked}" IsTabStop="False" Header="Willkommen bei Hausautomation V.0.7beta">
+                        IsSettingsVisible="{Binding ElementName=settingsCheck,Path=IsChecked}" IsTabStop="False" Header="Willkommen bei Hausautomation V 1.0">
             <NavigationView.MenuItems>
                 <!--<NavigationViewItemSeparator/>
                 <NavigationViewItemSeparator/>-->

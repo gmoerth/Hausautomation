@@ -141,7 +141,7 @@ namespace Hausautomation.Pages
             }
         }
 
-        private void tgSwitch1_Toggled(object sender, RoutedEventArgs e)
+        /*private void tgSwitch1_Toggled(object sender, RoutedEventArgs e)
         {
             ToggleSwitch tgs = (ToggleSwitch)sender;
             Device device = (Device)tgs.DataContext;
@@ -163,6 +163,6 @@ namespace Hausautomation.Pages
                 Debug.WriteLine(device.Ise_id + " " + device.Name + " " + tgs.IsOn.ToString());
                 device.StateChange2(tgs.IsOn);
             }
-        }
+        }*/
     }
 }

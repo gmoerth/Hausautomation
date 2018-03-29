@@ -17,7 +17,7 @@
 
         <ComboBox x:Name="cbRoom" Grid.Row="0" Margin="15,12" Width="200" PlaceholderText="Räume"
                   ItemsSource="{x:Bind Roomlist}" SelectionChanged="cbRoom_SelectionChanged"/>
-        <TextBlock Grid.Row="0" Text="Bitte wählen sie aus der Liste der Gewerke" Style="{ThemeResource BodyTextBlockStyle}" Margin="230,16"/>
+        <TextBlock Grid.Row="0" Text="Bitte wählen sie aus der Liste der Räume" Style="{ThemeResource BodyTextBlockStyle}" Margin="230,16"/>
 
         <ListView x:Name="lvDevices" Grid.Row="1" ItemsSource="{x:Bind Devicelist}">
             <ListView.ItemTemplate>
