@@ -30,17 +30,17 @@
                                 Margin="24,24,24,24" Height="150" TickPlacement="Outside" Value="{x:Bind Slider, Mode=TwoWay}"
                                 Visibility="{x:Bind bSlider1, Mode=OneWay}"/>
                         <Button x:Name="btButton1" RelativePanel.RightOf="tbTextblock1" Margin="25,110,24,24" Content="Aus"
-                                Visibility="{x:Bind bButton1, Mode=OneWay}" Click="btButton1_Click"/>
+                                Visibility="{x:Bind bButton1, Mode=OneWay}" Click="{x:Bind StateChangeA}"/>
                         <Button x:Name="btButton2" RelativePanel.RightOf="tbTextblock1" Margin="27,60,24,24" Content="Ein"
-                                Visibility="{x:Bind bButton1, Mode=OneWay}" Click="btButton2_Click"/>
-                        <Button x:Name="btButtonOb" RelativePanel.RightOf="tbTextblock1" Margin="40,40,15,24" Content="O"
-                                Visibility="{x:Bind bButton2, Mode=OneWay}" Click="btButtonOb_Click"/>
+                                Visibility="{x:Bind bButton1, Mode=OneWay}" Click="{x:Bind StateChangeB}"/>
                         <Button x:Name="btButtonUn" RelativePanel.RightOf="tbTextblock1" Margin="40,130,15,24" Content="U"
-                                Visibility="{x:Bind bButton2, Mode=OneWay}" Click="btButtonUn_Click"/>
+                                Visibility="{x:Bind bButton2, Mode=OneWay}" Click="{x:Bind StateChangeA}"/>
+                        <Button x:Name="btButtonOb" RelativePanel.RightOf="tbTextblock1" Margin="40,40,15,24" Content="O"
+                                Visibility="{x:Bind bButton2, Mode=OneWay}" Click="{x:Bind StateChangeB}"/>
                         <Button x:Name="btButtonLi" RelativePanel.RightOf="tbTextblock1" Margin="15,85,15,24" Content="L"
-                                Visibility="{x:Bind bButton2, Mode=OneWay}" Click="btButtonLi_Click"/>
+                                Visibility="{x:Bind bButton2, Mode=OneWay}" Click="{x:Bind StateChangeC}"/>
                         <Button x:Name="btButtonRe" RelativePanel.RightOf="tbTextblock1" Margin="65,85,15,24" Content="R"
-                                Visibility="{x:Bind bButton2, Mode=OneWay}" Click="btButtonRe_Click"/>
+                                Visibility="{x:Bind bButton2, Mode=OneWay}" Click="{x:Bind StateChangeD}"/>
                         <ToggleSwitch x:Name="tgSwitch1" Margin="20,145,-100,24" RelativePanel.RightOf="tbTextblock1"
                                 OffContent="Aus" OnContent="Ein" IsOn="{x:Bind Switch1State, Mode=TwoWay}"
                                 Visibility="{x:Bind bSwitch1, Mode=OneWay}" >

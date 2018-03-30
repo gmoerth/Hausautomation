@@ -323,13 +323,65 @@ namespace Hausautomation.Model
             set { unreach = value; }
         }
 
+        /// <summary>
+        /// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// </summary>
         // Ab hier die Properties welche nur für die Anzeige in der View (Databinding) benötigt werden
-        public string Textblock1 { get { return _textblock1; } set { _textblock1 = value; NotifyPropertyChanged(); } } // Inhalt des Textblock1
-        public string Textblock2 { get { return _textblock2; } set { _textblock2 = value; NotifyPropertyChanged(); } }
-        public string Textblock3 { get { return _textblock3; } set { _textblock3 = value; NotifyPropertyChanged(); } }
-        public string Textblock4 { get { return _textblock4; } set { _textblock4 = value; NotifyPropertyChanged(); } }
-        public string Textblock5 { get { return _textblock5; } set { _textblock5 = value; NotifyPropertyChanged(); } }
-        public string Textblock6 { get { return _textblock6; } set { _textblock6 = value; NotifyPropertyChanged(); } }
+        // Inhalt des Textblock1
+        public string Textblock1
+        {
+            get { return _textblock1; }
+            set
+            {
+                _textblock1 = value;
+                NotifyPropertyChanged();
+            }
+        }
+        public string Textblock2
+        {
+            get { return _textblock2; }
+            set
+            {
+                _textblock2 = value;
+                NotifyPropertyChanged();
+            }
+        }
+        public string Textblock3
+        {
+            get { return _textblock3; }
+            set
+            {
+                _textblock3 = value;
+                NotifyPropertyChanged();
+            }
+        }
+        public string Textblock4
+        {
+            get { return _textblock4; }
+            set
+            {
+                _textblock4 = value;
+                NotifyPropertyChanged();
+            }
+        }
+        public string Textblock5
+        {
+            get { return _textblock5; }
+            set
+            {
+                _textblock5 = value;
+                NotifyPropertyChanged();
+            }
+        }
+        public string Textblock6
+        {
+            get { return _textblock6; }
+            set
+            {
+                _textblock6 = value;
+                NotifyPropertyChanged();
+            }
+        }
         public bool bSlider1 { get; set; } // sichtbarkeit Slider
         public bool bButton1 { get; set; } // sichtbarkeit Ein Aus
         public bool bButton2 { get; set; } // sichtbarkeit Ob Un Li Re
@@ -415,11 +467,53 @@ namespace Hausautomation.Model
         public bool bTextblock4 { get; set; } // sichtbarkeit
         public bool bTextblock5 { get; set; } // sichtbarkeit
         public bool bTextblock6 { get; set; } // sichtbarkeit
-        public bool bFavoriten { get { return _bfavoriten; } set { _bfavoriten = value; NotifyPropertyChanged(); } } // Favoriten
-        public bool bRoom { get { return _broom; } set { _broom = value; NotifyPropertyChanged(); } } // Room
-        public bool bFunction { get { return _bfunction; } set { _bfunction = value; NotifyPropertyChanged(); } } // Function
-        public int iSlider1 { get { return _iSlider1; } set { _iSlider1 = value; NotifyPropertyChanged(); } } // Wert des Slider
-        public int iChannel { get { return _iChannel; } set { _iChannel = value; NotifyPropertyChanged(); } } // Welcher Kanal wird bei HM-PB-4Dis-WM angezeigt
+        public bool bFavoriten
+        {
+            get { return _bfavoriten; }
+            set
+            {
+                _bfavoriten = value;
+                NotifyPropertyChanged();
+            }
+        }
+        public bool bRoom
+        {
+            get { return _broom; }
+            set
+            {
+                _broom = value;
+                NotifyPropertyChanged();
+            }
+        }
+        public bool bFunction
+        {
+            get { return _bfunction; }
+            set
+            {
+                _bfunction = value;
+                NotifyPropertyChanged();
+            }
+        }
+        // Wert des Slider
+        public int iSlider1
+        {
+            get { return _iSlider1; }
+            set
+            {
+                _iSlider1 = value;
+                NotifyPropertyChanged();
+            }
+        }
+        // Welcher Kanal wird bei HM-PB-4Dis-WM angezeigt
+        public int iChannel
+        {
+            get { return _iChannel; }
+            set
+            {
+                _iChannel = value;
+                NotifyPropertyChanged();
+            }
+        }
         public int iStateChangeID { get; set; } // ise_id wird für StateChange benötigt
         public int iStateChangeID2 { get; set; } // ise_id wird für StateChange benötigt
         private static List<BitmapImage> sources; // Images der Devices
@@ -956,6 +1050,16 @@ namespace Hausautomation.Model
             Textblock3 += strein + straus;
         }
 
+        public void StateChangeC() // XAML
+        {
+            PrepareHMPB4DisWM(false);
+        }
+
+        public void StateChangeD() // XAML
+        {
+            PrepareHMPB4DisWM(true);
+        }
+
         public void PrepareHMPB4DisWM(bool? bnext = null)
         {
             bButton2 = true;
@@ -1337,12 +1441,22 @@ namespace Hausautomation.Model
             Textblock3 += strein + straus;
         }
 
+        public void StateChangeA() // XAML
+        {
+            StateChange(false);
+        }
+
         public void StateChange(bool bStatus)
         {
             ReadXDoc readXDoc = new ReadXDoc();
             readXDoc.NewId = iStateChangeID;
             readXDoc.NewValue = bStatus ? Double.PositiveInfinity : Double.NegativeInfinity;
             readXDoc.ReadStateChangeXDoc();
+        }
+
+        public void StateChangeB() // XAML
+        {
+            StateChange2(false);
         }
 
         public void StateChange2(bool bStatus)
