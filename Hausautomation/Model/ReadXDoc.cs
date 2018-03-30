@@ -23,12 +23,26 @@ namespace Hausautomation.Model
         public string HMIP { get; set; }
         public int HMPO { get; set; }
         public bool online { get; set; } // Modus zum entwickeln und testen ... geht schneller
+        private int _Refresh;
+        public int Refresh
+        {
+            get { return _Refresh; }
+            set
+            {
+                _Refresh = value;
+                if (_Refresh < 10)
+                    _Refresh = 10;
+                if (_Refresh > 600)
+                    _Refresh = 600;
+            }
+        } // Zeit in Sekunden
         private int _NewId;
         public int NewId { set { _NewId = value; } }
         private double _NewValue;
         public double NewValue { set { _NewValue = value; } }
-        static private bool _bShortTaskRunning = false;
-        static private DateTime dateTime = DateTime.Now;
+        static private DispatcherTimer _timer = null;
+        static private int _anzahl;
+        public int Anzahl { set { _anzahl = value; } }
 
         public ReadXDoc()
         {
@@ -37,58 +51,42 @@ namespace Hausautomation.Model
                 HMIP = MainPage.settingsPage.xdoc.HMIP;
                 HMPO = MainPage.settingsPage.xdoc.HMPO;
                 online = MainPage.settingsPage.xdoc.online;
+                Refresh = MainPage.settingsPage.xdoc.Refresh;
             }
         }
 
-        public async void StartStateListTask(object sender, RoutedEventArgs e)
+        public void StartStateListTask()
         {
-            // dauerhaft
-            while (true)
-            {
-                await Task.Run(() => StateListTask());
-                // Update the UI with results
-                MainPage.Devicelist.PrepareAllDevicesIntheList();
-            }
+            if (_timer != null)
+                _timer.Stop();
+            _timer = new DispatcherTimer();
+            _timer.Interval = new TimeSpan(0, 0, Refresh); // 30 - 60 sek.
+            _timer.Tick += updateStateChange;
+            _timer.Start();
         }
 
-        public async void StartStateListTaskShort(object sender, RoutedEventArgs e)
+        private void updateStateChange(object sender, object e)
         {
-            dateTime = DateTime.Now;
-            _bShortTaskRunning = true;
-            await Task.Delay(3005);
-            if (dateTime.Ticks + 30000000 > DateTime.Now.Ticks)
-            {
-                Debug.WriteLine("Abort Statelist");
-                return;
-            }
-            await Task.Run(() => StateListTaskShort());
-            // Update the UI with results
-            MainPage.Devicelist.PrepareAllDevicesIntheList();
-            _bShortTaskRunning = false;
+            ReadStateListXDoc();
+            if (--_anzahl == 0)
+                _timer.Interval = new TimeSpan(0, 0, Refresh); // wieder auf 30 - 60 sek setzen
         }
 
-        private async Task StateListTask()
-        {
-            await Task.Delay(60000);
-            // nur wenn nicht gerade geklickt wurde
-            if (_bShortTaskRunning == false)
-                await ReadXDocument("addons/xmlapi/statelist.cgi", "statelist.xml");
-        }
-
-        private async Task StateListTaskShort()
+        private async void ReadStateListXDoc()
         {
             await ReadXDocument("addons/xmlapi/statelist.cgi", "statelist.xml");
+            // Update the UI with results
+            MainPage.Devicelist.PrepareAllDevicesIntheList();
         }
 
-        public void ReadAllXDocuments()
+        public void ReadStateChangeXDoc()
         {
-#pragma warning disable 4014
-            ReadAllXDocumentsAsync();
-#pragma warning restore 4014
-        }
-
-        public void ReadStateChangeXDoc(/*string NewIdAndValue*/)
-        {
+            if (_timer != null)
+                _timer.Stop();
+            _timer = new DispatcherTimer();
+            _timer.Interval = new TimeSpan(0, 0, 3); // 3 Sekunden zwischen den Refresh
+            _timer.Tick += updateStateChange;
+            _timer.Start();
             //CultureInfo culture = CultureInfo.CreateSpecificCulture("en-US"); // Punkt als Komma
             CultureInfo culture = new CultureInfo("en-US"); // Punkt als Komma
             string _NewIdAndValue = "?ise_id=" + _NewId.ToString() + "&new_value=";
@@ -101,7 +99,13 @@ namespace Hausautomation.Model
 #pragma warning disable 4014
             ReadXDocument("addons/xmlapi/statechange.cgi" + _NewIdAndValue, "statechange.xml");
 #pragma warning restore 4014
-            StartStateListTaskShort(this, null);
+        }
+
+        public void ReadAllXDocuments()
+        {
+#pragma warning disable 4014
+            ReadAllXDocumentsAsync();
+#pragma warning restore 4014
         }
 
         public async Task ReadAllXDocumentsAsync()

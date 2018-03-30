@@ -337,6 +337,7 @@ namespace Hausautomation.Model
                 NotifyPropertyChanged();
             }
         }
+
         public string Textblock2
         {
             get { return _textblock2; }
@@ -346,6 +347,7 @@ namespace Hausautomation.Model
                 NotifyPropertyChanged();
             }
         }
+
         public string Textblock3
         {
             get { return _textblock3; }
@@ -355,6 +357,7 @@ namespace Hausautomation.Model
                 NotifyPropertyChanged();
             }
         }
+
         public string Textblock4
         {
             get { return _textblock4; }
@@ -364,6 +367,7 @@ namespace Hausautomation.Model
                 NotifyPropertyChanged();
             }
         }
+
         public string Textblock5
         {
             get { return _textblock5; }
@@ -373,6 +377,7 @@ namespace Hausautomation.Model
                 NotifyPropertyChanged();
             }
         }
+
         public string Textblock6
         {
             get { return _textblock6; }
@@ -382,11 +387,13 @@ namespace Hausautomation.Model
                 NotifyPropertyChanged();
             }
         }
+
         public bool bSlider1 { get; set; } // sichtbarkeit Slider
         public bool bButton1 { get; set; } // sichtbarkeit Ein Aus
         public bool bButton2 { get; set; } // sichtbarkeit Ob Un Li Re
         public bool bSwitch1 { get; set; } // sichtbarkeit Schalter 1
         public bool bSwitch2 { get; set; } // sichtbarkeit Schalter 2
+
         public bool bSwitch1State
         {
             get { return _bSwitch1State; }
@@ -400,6 +407,7 @@ namespace Hausautomation.Model
                 }
             }
         }
+
         public bool Switch1State
         {
             get { return _bSwitch1State; }
@@ -412,6 +420,7 @@ namespace Hausautomation.Model
                 }
             }
         }
+
         public bool bSwitch2State
         {
             get { return _bSwitch2State; }
@@ -425,6 +434,7 @@ namespace Hausautomation.Model
                 }
             }
         }
+
         public bool Switch2State
         {
             get { return _bSwitch2State; }
@@ -437,6 +447,7 @@ namespace Hausautomation.Model
                 }
             }
         }
+
         public double dSlider
         {
             get { return _dSlider; }
@@ -450,6 +461,7 @@ namespace Hausautomation.Model
                 }
             }
         }
+
         public double Slider
         {
             get { return _dSlider; }
@@ -462,11 +474,13 @@ namespace Hausautomation.Model
                 }
             }
         }
+
         public bool bTextblock2 { get; set; } // sichtbarkeit
         public bool bTextblock3 { get; set; } // sichtbarkeit
         public bool bTextblock4 { get; set; } // sichtbarkeit
         public bool bTextblock5 { get; set; } // sichtbarkeit
         public bool bTextblock6 { get; set; } // sichtbarkeit
+
         public bool bFavoriten
         {
             get { return _bfavoriten; }
@@ -476,6 +490,7 @@ namespace Hausautomation.Model
                 NotifyPropertyChanged();
             }
         }
+
         public bool bRoom
         {
             get { return _broom; }
@@ -485,6 +500,7 @@ namespace Hausautomation.Model
                 NotifyPropertyChanged();
             }
         }
+
         public bool bFunction
         {
             get { return _bfunction; }
@@ -494,6 +510,7 @@ namespace Hausautomation.Model
                 NotifyPropertyChanged();
             }
         }
+
         // Wert des Slider
         public int iSlider1
         {
@@ -504,6 +521,7 @@ namespace Hausautomation.Model
                 NotifyPropertyChanged();
             }
         }
+
         // Welcher Kanal wird bei HM-PB-4Dis-WM angezeigt
         public int iChannel
         {
@@ -514,6 +532,7 @@ namespace Hausautomation.Model
                 NotifyPropertyChanged();
             }
         }
+
         public int iStateChangeID { get; set; } // ise_id wird für StateChange benötigt
         public int iStateChangeID2 { get; set; } // ise_id wird für StateChange benötigt
         private static List<BitmapImage> sources; // Images der Devices
@@ -1050,11 +1069,13 @@ namespace Hausautomation.Model
             Textblock3 += strein + straus;
         }
 
+        // für Button Links
         public void StateChangeC() // XAML
         {
             PrepareHMPB4DisWM(false);
         }
 
+        // für Button Rechts
         public void StateChangeD() // XAML
         {
             PrepareHMPB4DisWM(true);
@@ -1446,11 +1467,13 @@ namespace Hausautomation.Model
             StateChange(false);
         }
 
+        // für Button Aus oder Unten und Switches
         public void StateChange(bool bStatus)
         {
             ReadXDoc readXDoc = new ReadXDoc();
             readXDoc.NewId = iStateChangeID;
             readXDoc.NewValue = bStatus ? Double.PositiveInfinity : Double.NegativeInfinity;
+            readXDoc.Anzahl = 3;
             readXDoc.ReadStateChangeXDoc();
         }
 
@@ -1459,19 +1482,22 @@ namespace Hausautomation.Model
             StateChange2(false);
         }
 
+        // für Button Ein oder Oben
         public void StateChange2(bool bStatus)
         {
             ReadXDoc readXDoc = new ReadXDoc();
             readXDoc.NewId = iStateChangeID2;
             readXDoc.NewValue = bStatus ? Double.PositiveInfinity : Double.NegativeInfinity;
+            readXDoc.Anzahl = 3;
             readXDoc.ReadStateChangeXDoc();
         }
 
         private DispatcherTimer _timer = null;
-
-        public void StateChange(double dStatus) // wegen Slider mit Timer
+        
+        // wegen Slider mit Timer
+        public void StateChange(double dStatus) 
         {
-            Debug.WriteLine("Slider_ValueChanged");
+            //Debug.WriteLine("Slider_ValueChanged");
             if (_timer != null)
                 _timer.Stop();
             _timer = new DispatcherTimer();
@@ -1480,12 +1506,13 @@ namespace Hausautomation.Model
             _timer.Start();
         }
 
-        void updateStateChange(object sender, object e)
+        public void updateStateChange(object sender, object e)
         {
-            Debug.WriteLine("updateStateChange");
+            //Debug.WriteLine("updateStateChange");
             ReadXDoc readXDoc = new ReadXDoc();
             readXDoc.NewId = iStateChangeID;
             readXDoc.NewValue = Slider / 100;
+            readXDoc.Anzahl = 10; // mehr wiederholungen weil Rollo länger dauert
             readXDoc.ReadStateChangeXDoc();
             _timer.Stop();
             _timer.Tick -= updateStateChange;

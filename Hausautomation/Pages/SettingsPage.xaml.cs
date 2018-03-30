@@ -55,6 +55,7 @@ namespace Hausautomation.Pages
                 tbHMIP.Text = xdoc.HMIP;
                 tbHMPO.Text = xdoc.HMPO.ToString();
                 cbOnline.IsChecked = xdoc.online;
+                tbRefresh.Text = xdoc.Refresh.ToString();
                 XmlSerializer serializer2 = new XmlSerializer(typeof(SendMail)); // Ausnahme ausgelöst: "System.NotSupportedException" in System.Private.CoreLib.dll
                 using (var reader2 = new StreamReader(File.Open(localFolder.Path + @"/sendmail.xml", FileMode.Open, FileAccess.Read)))
                 {
@@ -98,6 +99,7 @@ namespace Hausautomation.Pages
                     tbHMIP_TextChanged(null, null);
                     tbHMPO_TextChanged(null, null);
                     cbOnline_Click(null, null);
+                    tbRefresh_TextChanged(null, null);
                     serializer.Serialize(writer, xdoc);
                 }
                 XmlSerializer serializer2 = new XmlSerializer(typeof(SendMail));
@@ -143,6 +145,12 @@ namespace Hausautomation.Pages
         private void cbOnline_Click(object sender, RoutedEventArgs e)
         {
             xdoc.online = (bool)cbOnline.IsChecked;
+        }
+
+        private void tbRefresh_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            int.TryParse(tbRefresh.Text, out int refresh);
+            xdoc.Refresh = refresh;
         }
 
         private void tbSMTPServer_TextChanged(object sender, TextChangedEventArgs e)

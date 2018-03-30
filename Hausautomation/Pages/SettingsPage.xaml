@@ -15,6 +15,10 @@
         <TextBlock HorizontalAlignment="Left" Margin="280,16,0,0" Text="Port:" VerticalAlignment="Top"/>
         <TextBox x:Name="tbHMPO" HorizontalAlignment="Left" Height="20" Margin="320,10,0,0" Text="80" VerticalAlignment="Top" Width="64" TextChanged="tbHMPO_TextChanged"/>
         <CheckBox x:Name="cbOnline" Content="Online" HorizontalAlignment="Left" Margin="396,10,0,0" VerticalAlignment="Top" Click="cbOnline_Click" MinWidth="80"/>
+        <TextBlock HorizontalAlignment="Left" Margin="261,51,0,0" Text="Refresh:" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbRefresh" HorizontalAlignment="Left" Height="20" Margin="320,45,0,0" Text="60" VerticalAlignment="Top" Width="64" TextChanged="tbRefresh_TextChanged"/>
+        <TextBlock HorizontalAlignment="Left" Margin="395,51,0,0" Text="Sekunden" VerticalAlignment="Top"/>
+
 
         <TextBlock HorizontalAlignment="Left" Margin="10,276,0,0" Text="SMTPServer" VerticalAlignment="Top"/>
         <TextBox x:Name="tbSMTPServer" HorizontalAlignment="Left" Height="20" Margin="95,270,0,0" Text="smtp.server.at" VerticalAlignment="Top" Width="145" TextChanged="tbSMTPServer_TextChanged"/>
