@@ -65,9 +65,6 @@ namespace Hausautomation.Model
             foreach (Device device in Devicelist)
             {
                 device.PrepareAllDevices();
-                //device.NotifyPropertyChanged("bSwitch1State");
-                //device.NotifyPropertyChanged("bSwitch2State");
-                //device.NotifyPropertyChanged("iSlider1");
             }
         }
 
@@ -76,7 +73,6 @@ namespace Hausautomation.Model
             DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
             return (date - dtDateTime).TotalSeconds;
         }
-
 
         public void LoadXDocument(XDocument xDocument)
         {
@@ -135,6 +131,8 @@ namespace Hausautomation.Model
                                 //Debug.WriteLine(datapoint.Value.ToString());
                                 datapoint.Value = new_value;
                                 datapoint.Timestamp = DateTime.Now;
+                                //PrepareAllDevicesIntheList();
+                                device.PrepareAllDevices();
                                 return;
                             }
                         }

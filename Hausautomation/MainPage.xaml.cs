@@ -9,7 +9,9 @@ using Hausautomation.Model;
 using Hausautomation.Pages;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -42,6 +44,8 @@ namespace Hausautomation
             readXDoc.ReadAllXDocuments(); // Lese alle Dokumente von der HomeMatic ein und speicher sie in der Devicelist
             readXDoc.StartStateListTask(); // Alle 30-60 Sekunden die StateList aktualisieren
 
+            var appTitleBar = ApplicationView.GetForCurrentView().TitleBar;
+            appTitleBar.ForegroundColor = Colors.Black;
             Debug.WriteLine("Main fertig");
         }
 

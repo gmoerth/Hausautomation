@@ -13,7 +13,9 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using Windows.Storage;
+using Windows.UI;
 using Windows.UI.Popups;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 
 namespace Hausautomation.Model
@@ -74,9 +76,13 @@ namespace Hausautomation.Model
 
         private async void ReadStateListXDoc()
         {
+            var appTitleBar = ApplicationView.GetForCurrentView().TitleBar;
+            //var appTitleBar = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView().TitleBar;
+            appTitleBar.ForegroundColor = Colors.Red;
             await ReadXDocument("addons/xmlapi/statelist.cgi", "statelist.xml");
             // Update the UI with results
             MainPage.Devicelist.PrepareAllDevicesIntheList();
+            appTitleBar.ForegroundColor = Colors.Black;
         }
 
         public void ReadStateChangeXDoc()
