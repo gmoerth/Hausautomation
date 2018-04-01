@@ -104,8 +104,8 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\MainPageHeader.xaml.cs">
-      <DependentUpon>MainPageHeader.xaml</DependentUpon>
+    <Compile Include="Pages\PageLoad.xaml.cs">
+      <DependentUpon>PageLoad.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\ReadXDoc.cs" />
     <Compile Include="Model\Room.cs" />
@@ -118,6 +118,9 @@
     </Compile>
     <Compile Include="Pages\PageFunc.xaml.cs">
       <DependentUpon>PageFunc.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PageHelp.xaml.cs">
+      <DependentUpon>PageHelp.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\PageRoom.xaml.cs">
       <DependentUpon>PageRoom.xaml</DependentUpon>
@@ -178,7 +181,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\MainPageHeader.xaml">
+    <Page Include="Pages\PageLoad.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -191,6 +194,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\PageFunc.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\PageHelp.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

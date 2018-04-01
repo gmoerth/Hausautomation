@@ -1,0 +1,48 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Foundation;
+using Windows.Foundation.Collections;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Navigation;
+
+// Die Elementvorlage "Leere Seite" wird unter https://go.microsoft.com/fwlink/?LinkId=234238 dokumentiert.
+
+namespace Hausautomation.Pages
+{
+    /// <summary>
+    /// Eine leere Seite, die eigenständig verwendet oder zu der innerhalb eines Rahmens navigiert werden kann.
+    /// </summary>
+    public sealed partial class PageLoad : Page
+    {
+        public PageLoad()
+        {
+            instance = this;
+            this.InitializeComponent();
+        }
+
+        private static PageLoad instance;
+
+        public static PageLoad Instance
+        {
+            get
+            {
+                return instance;
+            }
+        }
+
+        public void Stop()
+        {
+            prStart.IsActive = false;
+            tbStart.Text = "Fertig geladen";
+        }
+
+    }
+}

@@ -8,11 +8,11 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="Hausautomation.Pages.MainPageHeader" BaseTypeListCollapsed="true">
+  <Class Name="Hausautomation.Pages.PageLoad" BaseTypeListCollapsed="true">
     <Position X="0.5" Y="3.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Pages\MainPageHeader.xaml.cs</FileName>
+      <FileName>Pages\PageLoad.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>

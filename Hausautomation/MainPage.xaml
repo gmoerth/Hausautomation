@@ -23,7 +23,7 @@
                 <NavigationViewItem Icon="Home" Content="Räume" Tag="PageRoom" ToolTipService.ToolTip="Räume"/>
                 <NavigationViewItem Icon="MapDrive" Content="Gewerke" Tag="PageFunc" ToolTipService.ToolTip="Gewerke"/>
                 <NavigationViewItemHeader Content="Hilfe" Visibility="{x:Bind nvHausautomation.IsPaneOpen, Mode=OneWay}"/>
-                <NavigationViewItem Icon="Help" Content="Hilfe" Tag="MainPageHeader" ToolTipService.ToolTip="Hilfe"/>
+                <NavigationViewItem Icon="Help" Content="Hilfe" Tag="PageHelp" ToolTipService.ToolTip="Hilfe"/>
             </NavigationView.MenuItems>
             <Frame x:Name="contentFrame">
                 <Frame.ContentTransitions>

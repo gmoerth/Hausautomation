@@ -123,11 +123,11 @@ namespace Hausautomation.Model
             MainPage.Devicelist.PrepareAllDevicesIntheList();
             Favoriten favoriten = new Favoriten();
             favoriten.LoadFavoriten(); // Favoriten einlesen
-            MainPageHeader mph = MainPageHeader.Instance;
+            PageLoad mph = PageLoad.Instance;
             while (mph == null) // falls null kurz warten und nochmal probieren
             {                // cache laden geht schneller und die View ist noch gar nicht geladen   
                 await Task.Delay(500);
-                mph = MainPageHeader.Instance;
+                mph = PageLoad.Instance;
             }
             mph.Stop();
             // Demo debug Ausgabe der kompletten Liste

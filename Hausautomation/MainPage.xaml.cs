@@ -66,8 +66,7 @@ namespace Hausautomation
 
         private void NavigationView_Loaded(object sender, RoutedEventArgs e)
         {
-            //contentFrame.Navigate(typeof(PageAll));
-            contentFrame.Navigate(typeof(MainPageHeader));
+            contentFrame.Navigate(typeof(PageLoad));
         }
 
         private void NavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
@@ -97,7 +96,7 @@ namespace Hausautomation
                     case "PageFunc":
                         nvHausautomation.Header = "Gewerke";
                         break;
-                    case "MainPageHeader":
+                    case "PageHelp":
                         nvHausautomation.Header = "Hilfe";
                         break;
                     default:

@@ -20,29 +20,11 @@ namespace Hausautomation.Pages
     /// <summary>
     /// Eine leere Seite, die eigenständig verwendet oder zu der innerhalb eines Rahmens navigiert werden kann.
     /// </summary>
-    public sealed partial class MainPageHeader : Page
+    public sealed partial class PageHelp : Page
     {
-        public MainPageHeader()
+        public PageHelp()
         {
-            instance = this;
             this.InitializeComponent();
         }
-
-        private static MainPageHeader instance;
-
-        public static MainPageHeader Instance
-        {
-            get
-            {
-                return instance;
-            }
-        }
-
-        public void Stop()
-        {
-            prStart.IsActive = false;
-            tbStart.Text = "Fertig geladen";
-        }
-
     }
 }
