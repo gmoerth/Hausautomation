@@ -9,5 +9,7 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+        <WebView x:Name="wvHelp" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto"/>
+
     </Grid>
 </Page>
