@@ -31,6 +31,7 @@ namespace Hausautomation
     {
         public static DeviceList Devicelist; // Die Liste die alle Geräte enthält
         public static SettingsPage settingsPage; // Enthält alle gespeicherten Einstellungen
+        public static Fritzbox fritzbox;
 
         public MainPage()
         {
@@ -43,6 +44,9 @@ namespace Hausautomation
             ReadXDoc readXDoc = new ReadXDoc(); 
             readXDoc.ReadAllXDocuments(); // Lese alle Dokumente von der HomeMatic ein und speicher sie in der Devicelist
             readXDoc.StartStateListTask(); // Alle 30-60 Sekunden die StateList aktualisieren
+
+            fritzbox = new Fritzbox();
+            fritzbox.StarteMonitoringTask();
 
             var appTitleBar = ApplicationView.GetForCurrentView().TitleBar;
             appTitleBar.ForegroundColor = Colors.Black;

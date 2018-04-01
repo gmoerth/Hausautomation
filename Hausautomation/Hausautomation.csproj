@@ -99,6 +99,7 @@
     <Compile Include="Model\Datapoint.cs" />
     <Compile Include="Model\Device.cs" />
     <Compile Include="Model\Favoriten.cs" />
+    <Compile Include="Model\Fritzbox.cs" />
     <Compile Include="Model\Function.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>

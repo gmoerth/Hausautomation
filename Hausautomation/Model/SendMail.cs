@@ -65,6 +65,8 @@ namespace Hausautomation.Model
                     emailMessage.Sender.Name = "Hausautomation";
                     await client.SendMailAsync(emailMessage);
                     Debug.WriteLine("Message sent. " + subject + " " + DateTime.Now.ToString());
+                    if (MainPage.settingsPage != null)
+                        await MainPage.settingsPage.UpdateTitle("Mail sent. " + subject);
                 }
             }
             catch (Exception ex)
