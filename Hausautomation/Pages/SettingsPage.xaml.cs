@@ -163,6 +163,11 @@ namespace Hausautomation.Pages
 
         private void cbOnline_Click(object sender, RoutedEventArgs e)
         {
+            if (xdoc.online == false && cbOnline.IsChecked == true)
+            {
+                xdoc.online = (bool)cbOnline.IsChecked;
+                xdoc.ReadAllXDocumentsAsync();
+            }
             xdoc.online = (bool)cbOnline.IsChecked;
         }
 
@@ -339,6 +344,8 @@ namespace Hausautomation.Pages
                 () =>
                 {
                     // Your UI update code goes here!
+                    if (fb == null)
+                        return;
                     Brush wh = new SolidColorBrush(Colors.White);
                     Brush gy = new SolidColorBrush(Colors.GreenYellow);
                     Brush to = new SolidColorBrush(Colors.Tomato);

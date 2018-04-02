@@ -187,7 +187,7 @@ namespace Hausautomation.Model
         public Fritzbox()
         {
             sm = new SendMail();
-            if (MainPage.settingsPage != null)
+            if (MainPage.settingsPage != null && MainPage.settingsPage.fb != null)
             {
                 IP1 = MainPage.settingsPage.fb.IP1;
                 IP2 = MainPage.settingsPage.fb.IP2;
@@ -252,7 +252,7 @@ namespace Hausautomation.Model
                 MAC3E();
             if (DV4 == true)
                 MAC4E();
-            Debug.WriteLine($"{IP1} {PW1} {MAC1} {EM1} {FB1} {DV1}");
+            //Debug.WriteLine($"{IP1} {PW1} {MAC1} {EM1} {FB1} {DV1}");
             if (MainPage.settingsPage != null)
                 MainPage.settingsPage.UpdateMAC_AND_EM();
         }

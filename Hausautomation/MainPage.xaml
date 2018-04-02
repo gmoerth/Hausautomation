@@ -9,12 +9,12 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-        <NavigationView x:Name="nvHausautomation" Loaded="NavigationView_Loaded" SelectionChanged="NavigationView_SelectionChanged"
+        <NavigationView x:Name="nvHausautomation" Loaded="NavigationView_Loaded" SelectionChanged="NavigationView_SelectionChanged"  OpenPaneLength="200"
                         IsSettingsVisible="{Binding ElementName=settingsCheck,Path=IsChecked}" IsTabStop="False" Header="Willkommen bei Hausautomation V 1.0">
             <NavigationView.MenuItems>
                 <!--<NavigationViewItemSeparator/>
                 <NavigationViewItemSeparator/>-->
-                <AutoSuggestBox x:Name="asbSuche" QueryIcon="Find" Width="290" Visibility="{x:Bind nvHausautomation.IsPaneOpen, Mode=OneWay}"
+                <AutoSuggestBox x:Name="asbSuche" QueryIcon="Find" Width="170" Visibility="{x:Bind nvHausautomation.IsPaneOpen, Mode=OneWay}"
                                 PlaceholderText="Suche" ToolTipService.ToolTip="Suche"/>
                 <NavigationViewItemHeader Content="Hauptseite" Visibility="{x:Bind nvHausautomation.IsPaneOpen, Mode=OneWay}"/>
                 <NavigationViewItem Icon="AllApps" Content="Alle Geräte" Tag="PageAll" ToolTipService.ToolTip="Alle Geräte"/>

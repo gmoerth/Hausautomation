@@ -35,19 +35,19 @@
         <TextBox x:Name="IP4" HorizontalAlignment="Left" Height="20" Margin="95,168,0,0" PlaceholderText="192.168.178.4" VerticalAlignment="Top" Width="145" Text="{x:Bind fb.IP4, Mode=TwoWay}"/>
         <PasswordBox x:Name="PW4" HorizontalAlignment="Left" Height="20" Margin="245,168,0,0" PlaceholderText="Password 4" VerticalAlignment="Top" Width="140" Password="{x:Bind fb.PW4, Mode=TwoWay}"/>
         <CheckBox x:Name="FB4" Content="aktiv" HorizontalAlignment="Left" Margin="396,168,0,0" VerticalAlignment="Top" IsChecked="{x:Bind fb.FB4, Mode=TwoWay}" MinWidth="60"/>
-        <TextBlock HorizontalAlignment="Left" Margin="10,214,0,0" Text="Device 1:" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,214,0,0" Text="Gerät 1:" VerticalAlignment="Top"/>
         <TextBox x:Name="MAC1" HorizontalAlignment="Left" Height="20" Margin="95,208,0,0" PlaceholderText="00:00:00:00:00:00" VerticalAlignment="Top" Width="145" Text="{x:Bind fb.MAC1, Mode=TwoWay}"/>
         <TextBox x:Name="EM1" HorizontalAlignment="Left" Height="20" Margin="245,208,0,0" PlaceholderText="email@host.at" VerticalAlignment="Top" Width="140" Text="{x:Bind fb.EM1, Mode=TwoWay}"/>
         <CheckBox x:Name="DV1" Content="aktiv" HorizontalAlignment="Left" Margin="396,208,0,0" VerticalAlignment="Top" IsChecked="{x:Bind fb.DV1, Mode=TwoWay}" MinWidth="60"/>
-        <TextBlock HorizontalAlignment="Left" Margin="10,244,0,0" Text="Device 2:" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,244,0,0" Text="Gerät 2:" VerticalAlignment="Top"/>
         <TextBox x:Name="MAC2" HorizontalAlignment="Left" Height="20" Margin="95,238,0,0" PlaceholderText="00:00:00:00:00:00" VerticalAlignment="Top" Width="145" Text="{x:Bind fb.MAC2, Mode=TwoWay}"/>
         <TextBox x:Name="EM2" HorizontalAlignment="Left" Height="20" Margin="245,238,0,0" PlaceholderText="email@host.at" VerticalAlignment="Top" Width="140" Text="{x:Bind fb.EM2, Mode=TwoWay}"/>
         <CheckBox x:Name="DV2" Content="aktiv" HorizontalAlignment="Left" Margin="396,238,0,0" VerticalAlignment="Top" IsChecked="{x:Bind fb.DV2, Mode=TwoWay}" MinWidth="60"/>
-        <TextBlock HorizontalAlignment="Left" Margin="10,274,0,0" Text="Device 3:" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,274,0,0" Text="Gerät 3:" VerticalAlignment="Top"/>
         <TextBox x:Name="MAC3" HorizontalAlignment="Left" Height="20" Margin="95,268,0,0" PlaceholderText="00:00:00:00:00:00" VerticalAlignment="Top" Width="145" Text="{x:Bind fb.MAC3, Mode=TwoWay}"/>
         <TextBox x:Name="EM3" HorizontalAlignment="Left" Height="20" Margin="245,268,0,0" PlaceholderText="email@host.at" VerticalAlignment="Top" Width="140" Text="{x:Bind fb.EM3, Mode=TwoWay}"/>
         <CheckBox x:Name="DV3" Content="aktiv" HorizontalAlignment="Left" Margin="396,268,0,0" VerticalAlignment="Top" IsChecked="{x:Bind fb.DV3, Mode=TwoWay}" MinWidth="60"/>
-        <TextBlock HorizontalAlignment="Left" Margin="10,304,0,0" Text="Device 4:" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,304,0,0" Text="Gerät 4:" VerticalAlignment="Top"/>
         <TextBox x:Name="MAC4" HorizontalAlignment="Left" Height="20" Margin="95,298,0,0" PlaceholderText="00:00:00:00:00:00" VerticalAlignment="Top" Width="145" Text="{x:Bind fb.MAC4, Mode=TwoWay}"/>
         <TextBox x:Name="EM4" HorizontalAlignment="Left" Height="20" Margin="245,298,0,0" PlaceholderText="email@host.at" VerticalAlignment="Top" Width="140" Text="{x:Bind fb.EM4, Mode=TwoWay}"/>
         <CheckBox x:Name="DV4" Content="aktiv" HorizontalAlignment="Left" Margin="396,298,0,0" VerticalAlignment="Top" IsChecked="{x:Bind fb.DV4, Mode=TwoWay}" MinWidth="60"/>

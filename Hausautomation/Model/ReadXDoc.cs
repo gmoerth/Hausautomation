@@ -24,7 +24,18 @@ namespace Hausautomation.Model
     {
         public string HMIP { get; set; }
         public int HMPO { get; set; }
-        public bool online { get; set; } // Modus zum entwickeln und testen ... geht schneller
+        //public bool online { get; set; } // Modus zum entwickeln und testen ... geht schneller
+        private bool _online;
+        public bool online
+        {
+            get { return _online; }
+            set
+            {
+                //if (value == true && _online == false)
+                //    ReadAllXDocumentsAsync();
+                _online = value;
+            }
+        }
         private int _Refresh;
         public int Refresh
         {
