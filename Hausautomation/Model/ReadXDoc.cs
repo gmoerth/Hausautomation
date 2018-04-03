@@ -253,7 +253,7 @@ namespace Hausautomation.Model
 
         private async Task Hinweis_auf_Offline()
         {
-            MessageDialog showDialog = new MessageDialog("Lade den Chache von der letzten Verbindung [OK]", "Konnte keine Online Verbindung mit HomeMatic herstellen!");
+            MessageDialog showDialog = new MessageDialog("Lade den Cache von der letzten Verbindung [OK]", "Konnte keine Online Verbindung mit HomeMatic herstellen!");
             showDialog.Commands.Add(new UICommand("OK") { Id = 0 });
             var result = await showDialog.ShowAsync();
             if ((int)result.Id == 0)

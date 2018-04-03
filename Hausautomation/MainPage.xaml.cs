@@ -96,6 +96,9 @@ namespace Hausautomation
                     case "PageFunc":
                         nvHausautomation.Header = "Gewerke";
                         break;
+                    case "PageProg":
+                        nvHausautomation.Header = "Programme";
+                        break;
                     case "PageHelp":
                         nvHausautomation.Header = "Hilfe";
                         break;
