@@ -15,21 +15,41 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Button Content="Gerät 1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,12,12,12"/>
-        <Button Content="Gerät 2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="112,12,12,12"/>
-        <Button Content="Gerät 3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="212,12,12,12"/>
-        <Button Content="Gerät 4" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="312,12,12,12"/>
+        <ToggleSwitch Grid.Row="0" HorizontalAlignment="Left" Margin="24,10,0,10" OffContent="Aus" OnContent="Ein" VerticalAlignment="Top" />
+        <TextBlock Grid.Row="0" Text="Lernmodus aktivieren und Geräte schalten" Style="{ThemeResource BodyTextBlockStyle}" Margin="150,10" VerticalAlignment="Center"/>
 
-        <ListView x:Name="lvProg" Grid.Row="1" ItemsSource="{x:Bind Programlist}">
+        <ListView x:Name="lvProg" Grid.Row="1" ItemsSource="{x:Bind Programlist}" SelectionMode="Single">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="data:Programs">
                     <RelativePanel>
 
-                        <TextBlock x:Name="tbText1" Style="{ThemeResource BaseTextBlockStyle}" Margin="24,24,24,24" Text="ABC" />
-                        <TextBlock x:Name="tbText2" Style="{ThemeResource BaseTextBlockStyle}" RelativePanel.Below="tbText1" Margin="24,24,24,24" Text="ABC" />
-                        <TextBlock x:Name="tbText3" Style="{ThemeResource BaseTextBlockStyle}" RelativePanel.Below="tbText2" Margin="24,24,24,24" Text="ABC" />
-                        <TextBlock x:Name="tbText4" Style="{ThemeResource BaseTextBlockStyle}" RelativePanel.Below="tbText3" Margin="24,24,24,24" Text="ABC" />
-                   
+                        <RelativePanel x:Name="Links">
+                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Margin="24,24,24,24" Text="Programm Nr.: "/>
+                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Margin="134,24,24,24" Text="{x:Bind Device}"/>
+                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Margin="24,44,24,24" Text="SNr: "/>
+                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Margin="64,44,24,24" Text="{x:Bind SNr}"/>
+                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Margin="24,64,24,24" Text="Name: "/>
+                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Margin="84,64,24,24" Text="{x:Bind Name}"/>
+                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Margin="24,84,24,24" Text="Schaltbefehl für ID: "/>
+                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Margin="164,84,24,24" Text="{x:Bind Ise_Id}"/>
+                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Margin="24,104,24,24" Text="Neuer Wert: "/>
+                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Margin="114,104,24,24" Text="{x:Bind New_Value}"/>
+                        </RelativePanel>
+
+                        <RelativePanel x:Name="Mitte" RelativePanel.RightOf="Links">
+                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Margin="24,24,24,24" Text="Wenn"/>
+                            <ComboBox x:Name="cbDevice" Margin="24,44,24,24" Width="180" PlaceholderText="Gerät" 
+                                  ItemsSource="{x:Bind Devicelist}" SelectedIndex="{Binding Device, Mode=TwoWay}"/>
+                            <ComboBox x:Name="cbStatus" Margin="24,74,24,24" Width="180" PlaceholderText="Status" 
+                                  ItemsSource="{x:Bind Statuslist}" SelectedIndex="{Binding Status, Mode=TwoWay}"/>
+                        </RelativePanel>
+
+                        <RelativePanel x:Name="Rechts" RelativePanel.RightOf="Mitte">
+                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Margin="24,24,24,24" Text="Verzögert um:" />
+                            <ComboBox x:Name="cbDelay" Margin="24,44,24,24" Width="180" PlaceholderText="Verzögerung" 
+                                  ItemsSource="{x:Bind Delaylist}" SelectedIndex="{Binding Delay, Mode=TwoWay}"/>
+                        </RelativePanel>
+
                     </RelativePanel>
                 </DataTemplate>
             </ListView.ItemTemplate>

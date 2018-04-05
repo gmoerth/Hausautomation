@@ -34,6 +34,7 @@ namespace Hausautomation.Pages
         public SendMail sm;
         public Favoriten fa;
         public Fritzbox fb;
+        public ProgramList pgl;
 
         public SettingsPage()
         {
@@ -42,6 +43,7 @@ namespace Hausautomation.Pages
             sm = new SendMail();
             fa = new Favoriten();
             fb = MainPage.fritzbox;
+            pgl = MainPage.Devicelist.Programlist;
             LoadSettingsXML();
             MainPage.settingsPage = this;
         }
@@ -86,6 +88,15 @@ namespace Hausautomation.Pages
                     using (var reader = new StreamReader(File.Open(localFolder.Path + @"/fritzbox.xml", FileMode.Open, FileAccess.Read)))
                     {
                         fb = (Fritzbox)serializer4.Deserialize(reader);
+                    }
+                }
+                if (pgl.Programlist.Count == 0) // nur laden wenn liste leer (das erste mal)
+                {
+                    XmlSerializer serializer5 = new XmlSerializer(typeof(ProgramList)); // Ausnahme ausgelöst: "System.NotSupportedException" in System.Private.CoreLib.dll
+                    using (var reader = new StreamReader(File.Open(localFolder.Path + @"/programs.xml", FileMode.Open, FileAccess.Read)))
+                    {
+                        pgl = (ProgramList)serializer5.Deserialize(reader);
+                        MainPage.Devicelist.Programlist = pgl;
                     }
                 }
             }
@@ -136,6 +147,11 @@ namespace Hausautomation.Pages
                 using (StreamWriter writer = new StreamWriter(File.Open(localFolder.Path + @"/fritzbox.xml", FileMode.Create, FileAccess.Write)))
                 {
                     serializer4.Serialize(writer, fb);
+                }
+                XmlSerializer serializer5 = new XmlSerializer(typeof(ProgramList));
+                using (StreamWriter writer = new StreamWriter(File.Open(localFolder.Path + @"/programs.xml", FileMode.Create, FileAccess.Write)))
+                {
+                    serializer5.Serialize(writer, pgl);
                 }
             }
             catch (Exception ex)
@@ -215,7 +231,7 @@ namespace Hausautomation.Pages
 
         public async Task<bool> UpdateIP_AND_PW(string ip, string sid)
         {
-            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, 
+            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
                     // Your UI update code goes here!

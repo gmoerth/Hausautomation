@@ -22,7 +22,7 @@
                 <NavigationViewItem Icon="Favorite" Content="Favoriten" Tag="PageFav" ToolTipService.ToolTip="Favoriten"/>
                 <NavigationViewItem Icon="Home" Content="Räume" Tag="PageRoom" ToolTipService.ToolTip="Räume"/>
                 <NavigationViewItem Icon="MapDrive" Content="Gewerke" Tag="PageFunc" ToolTipService.ToolTip="Gewerke"/>
-                <NavigationViewItem Icon="MapDrive" Content="Programme" Tag="PageProg" ToolTipService.ToolTip="Programme"/>
+                <NavigationViewItem Icon="CellPhone" Content="Programme" Tag="PageProg" ToolTipService.ToolTip="Programme"/>
                 <NavigationViewItemHeader Content="Hilfe" Visibility="{x:Bind nvHausautomation.IsPaneOpen, Mode=OneWay}"/>
                 <NavigationViewItem Icon="Help" Content="Hilfe" Tag="PageHelp" ToolTipService.ToolTip="Hilfe"/>
             </NavigationView.MenuItems>

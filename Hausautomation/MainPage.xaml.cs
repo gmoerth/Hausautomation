@@ -46,10 +46,12 @@ namespace Hausautomation
             readXDoc.StartStateListTask(); // Alle 30-60 Sekunden die StateList aktualisieren
 
             fritzbox = new Fritzbox();
-            fritzbox.StarteMonitoringTask();
+            fritzbox.StarteMonitoringTask(); // Alle 60 Sekunden die Fritzboxen abfragen
 
             var appTitleBar = ApplicationView.GetForCurrentView().TitleBar;
             appTitleBar.ForegroundColor = Colors.Black;
+            ApplicationView.PreferredLaunchViewSize = new Size(1024, 768);
+            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
             Debug.WriteLine("Main fertig");
         }
 

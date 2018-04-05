@@ -24,20 +24,17 @@ namespace Hausautomation.Pages
     /// </summary>
     public sealed partial class PageProg : Page
     {
+        //private ProgramList Programlist;
         private ObservableCollection<Programs> Programlist;
 
         public PageProg()
         {
             this.InitializeComponent();
 
-            Programs prog = new Programs();
-            prog.Device = 1;
-            prog.MAC = "00:00:00:00:00:00";
-            prog.Ise_Id = 1234;
-            prog.IfOnline = true;
-            prog.Delay = 300;
-            Programlist = new ObservableCollection<Programs>();
-            Programlist.Add(prog);
+            //    Programlist = new ObservableCollection<Programs>();
+            Programlist = MainPage.Devicelist.Programlist.Programlist;
+            //Programlist = MainPage.Devicelist.Programlist;
+
         }
     }
 }

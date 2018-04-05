@@ -24,6 +24,8 @@ namespace Hausautomation.Model
 
         public FunctionList Functionlist { get; set; } // diese Liste ist redundant aber hilfreich
 
+        public ProgramList Programlist { get; set; } // Die erstellten Programme
+
         public IEnumerable<Device> Favoriten
         {
             get { return Devicelist.Where(item => item.bFavoriten); }
@@ -44,6 +46,7 @@ namespace Hausautomation.Model
             Devicelist = new ObservableCollection<Device>();
             Roomlist = new RoomList();
             Functionlist = new FunctionList();
+            Programlist = new ProgramList();
         }
 
         #region Methoden
