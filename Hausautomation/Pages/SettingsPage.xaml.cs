@@ -46,6 +46,8 @@ namespace Hausautomation.Pages
             pgl = MainPage.Devicelist.Programlist;
             LoadSettingsXML();
             MainPage.settingsPage = this;
+            UpdateIP_AND_PW();
+            UpdateMAC_AND_EM();
         }
 
         public void LoadSettingsXML()
@@ -229,36 +231,32 @@ namespace Hausautomation.Pages
             sm.Authentification = (bool)cbAUT.IsChecked;
         }
 
-        public async Task<bool> UpdateIP_AND_PW(string ip, string sid)
+        public async void UpdateIP_AND_PW()
         {
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
                     // Your UI update code goes here!
+                    //Debug.WriteLine("UpdateIP_AND_PW");
                     Brush wh = new SolidColorBrush(Colors.White);
                     Brush gy = new SolidColorBrush(Colors.GreenYellow);
                     Brush to = new SolidColorBrush(Colors.Tomato);
-                    if (FB1.IsChecked == true)
+                    if (fb.FB1 == true)
                     {
-                        if (ip == IP1.Text)
+                        if (fb.SID1Stat == 1)
                         {
-                            if (sid == "")
-                            {
-                                IP1.Background = to;
-                                PW1.Background = wh;
-                                return;
-                            }
-                            if (sid == "0000000000000000")
-                            {
-                                IP1.Background = gy;
-                                PW1.Background = to;
-                                return;
-                            }
-                            if (sid != "SW")
-                            {
-                                IP1.Background = gy;
-                                PW1.Background = gy;
-                            }
+                            IP1.Background = to;
+                            PW1.Background = wh;
+                        }
+                        if (fb.SID1Stat == 2)
+                        {
+                            IP1.Background = gy;
+                            PW1.Background = to;
+                        }
+                        if (fb.SID1Stat == 3)
+                        {
+                            IP1.Background = gy;
+                            PW1.Background = gy;
                         }
                     }
                     else
@@ -266,27 +264,22 @@ namespace Hausautomation.Pages
                         IP1.Background = wh;
                         PW1.Background = wh;
                     }
-                    if (FB2.IsChecked == true)
+                    if (fb.FB2 == true)
                     {
-                        if (ip == IP2.Text)
+                        if (fb.SID2Stat == 1)
                         {
-                            if (sid == "")
-                            {
-                                IP2.Background = to;
-                                PW2.Background = wh;
-                                return;
-                            }
-                            if (sid == "0000000000000000")
-                            {
-                                IP2.Background = gy;
-                                PW2.Background = to;
-                                return;
-                            }
-                            if (sid != "SW")
-                            {
-                                IP2.Background = gy;
-                                PW2.Background = gy;
-                            }
+                            IP2.Background = to;
+                            PW2.Background = wh;
+                        }
+                        if (fb.SID2Stat == 2)
+                        {
+                            IP2.Background = gy;
+                            PW2.Background = to;
+                        }
+                        if (fb.SID2Stat == 3)
+                        {
+                            IP2.Background = gy;
+                            PW2.Background = gy;
                         }
                     }
                     else
@@ -294,27 +287,22 @@ namespace Hausautomation.Pages
                         IP2.Background = wh;
                         PW2.Background = wh;
                     }
-                    if (FB3.IsChecked == true)
+                    if (fb.FB3 == true)
                     {
-                        if (ip == IP3.Text)
+                        if (fb.SID3Stat == 1)
                         {
-                            if (sid == "")
-                            {
-                                IP3.Background = to;
-                                PW3.Background = wh;
-                                return;
-                            }
-                            if (sid == "0000000000000000")
-                            {
-                                IP3.Background = gy;
-                                PW3.Background = to;
-                                return;
-                            }
-                            if (sid != "SW")
-                            {
-                                IP3.Background = gy;
-                                PW3.Background = gy;
-                            }
+                            IP3.Background = to;
+                            PW3.Background = wh;
+                        }
+                        if (fb.SID3Stat == 2)
+                        {
+                            IP3.Background = gy;
+                            PW3.Background = to;
+                        }
+                        if (fb.SID3Stat == 3)
+                        {
+                            IP3.Background = gy;
+                            PW3.Background = gy;
                         }
                     }
                     else
@@ -322,27 +310,22 @@ namespace Hausautomation.Pages
                         IP3.Background = wh;
                         PW3.Background = wh;
                     }
-                    if (FB4.IsChecked == true)
+                    if (fb.FB4 == true)
                     {
-                        if (ip == IP4.Text)
+                        if (fb.SID4Stat == 1)
                         {
-                            if (sid == "")
-                            {
-                                IP4.Background = to;
-                                PW4.Background = wh;
-                                return;
-                            }
-                            if (sid == "0000000000000000")
-                            {
-                                IP4.Background = gy;
-                                PW4.Background = to;
-                                return;
-                            }
-                            if (sid != "SW")
-                            {
-                                IP4.Background = gy;
-                                PW4.Background = gy;
-                            }
+                            IP4.Background = to;
+                            PW4.Background = wh;
+                        }
+                        if (fb.SID4Stat == 2)
+                        {
+                            IP4.Background = gy;
+                            PW4.Background = to;
+                        }
+                        if (fb.SID4Stat == 3)
+                        {
+                            IP4.Background = gy;
+                            PW4.Background = gy;
                         }
                     }
                     else
@@ -351,8 +334,8 @@ namespace Hausautomation.Pages
                         PW4.Background = wh;
                     }
                 });
-            return true;
         }
+
 
         public async void UpdateMAC_AND_EM()
         {
@@ -362,9 +345,11 @@ namespace Hausautomation.Pages
                     // Your UI update code goes here!
                     if (fb == null)
                         return;
+                    //Debug.WriteLine("UpdateMAC_AND_EM");
                     Brush wh = new SolidColorBrush(Colors.White);
                     Brush gy = new SolidColorBrush(Colors.GreenYellow);
                     Brush to = new SolidColorBrush(Colors.Tomato);
+                    Brush ye = new SolidColorBrush(Colors.Yellow);
                     if (fb.MAC1anz == 0)
                     {
                         MAC1.Background = wh;
@@ -374,6 +359,8 @@ namespace Hausautomation.Pages
                         MAC1.Background = gy;
                     if (fb.MAC1anz < 0)
                         MAC1.Background = to;
+                    if (fb.EM1Anz > 0)
+                        EM1.Background = ye;
                     if (fb.MAC2anz == 0)
                     {
                         MAC2.Background = wh;
@@ -383,6 +370,8 @@ namespace Hausautomation.Pages
                         MAC2.Background = gy;
                     if (fb.MAC2anz < 0)
                         MAC2.Background = to;
+                    if (fb.EM2Anz > 0)
+                        EM2.Background = ye;
                     if (fb.MAC3anz == 0)
                     {
                         MAC3.Background = wh;
@@ -392,6 +381,8 @@ namespace Hausautomation.Pages
                         MAC3.Background = gy;
                     if (fb.MAC3anz < 0)
                         MAC3.Background = to;
+                    if (fb.EM3Anz > 0)
+                        EM3.Background = ye;
                     if (fb.MAC4anz == 0)
                     {
                         MAC4.Background = wh;
@@ -401,28 +392,20 @@ namespace Hausautomation.Pages
                         MAC4.Background = gy;
                     if (fb.MAC4anz < 0)
                         MAC4.Background = to;
+                    if (fb.EM4Anz > 0)
+                        EM4.Background = ye;
                 });
         }
 
-        public async Task<bool> UpdateTitle(string title)
+        public async void UpdateTitle(string title)
         {
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
                     // Your UI update code goes here!
-                    Brush ye = new SolidColorBrush(Colors.Yellow);
-                    if (title.Contains(MAC1.Text) == true)
-                        EM1.Background = ye;
-                    if (title.Contains(MAC2.Text) == true)
-                        EM2.Background = ye;
-                    if (title.Contains(MAC3.Text) == true)
-                        EM3.Background = ye;
-                    if (title.Contains(MAC4.Text) == true)
-                        EM4.Background = ye;
                     var appView = ApplicationView.GetForCurrentView();
                     appView.Title = title;
                 });
-            return true;
         }
 
     }

@@ -31,9 +31,9 @@ namespace Hausautomation.Model
             get { return _MAC1; }
             set
             {
-                _MAC1 = value; MAC1anz = 0;
-                if (MainPage.settingsPage != null)
-                    MainPage.settingsPage.UpdateMAC_AND_EM();
+                _MAC1 = value;
+                MAC1anz = 0;
+                UpdateMAC_AND_EM();
             }
         }
         private string _MAC2;
@@ -44,8 +44,7 @@ namespace Hausautomation.Model
             {
                 _MAC2 = value;
                 MAC2anz = 0;
-                if (MainPage.settingsPage != null)
-                    MainPage.settingsPage.UpdateMAC_AND_EM();
+                UpdateMAC_AND_EM();
             }
         }
         private string _MAC3;
@@ -56,8 +55,7 @@ namespace Hausautomation.Model
             {
                 _MAC3 = value;
                 MAC3anz = 0;
-                if (MainPage.settingsPage != null)
-                    MainPage.settingsPage.UpdateMAC_AND_EM();
+                UpdateMAC_AND_EM();
             }
         }
         private string _MAC4;
@@ -68,8 +66,7 @@ namespace Hausautomation.Model
             {
                 _MAC4 = value;
                 MAC4anz = 0;
-                if (MainPage.settingsPage != null)
-                    MainPage.settingsPage.UpdateMAC_AND_EM();
+                UpdateMAC_AND_EM();
             }
         }
         public string EM1 { get; set; }
@@ -83,8 +80,8 @@ namespace Hausautomation.Model
             set
             {
                 _FB1 = value;
-                if (MainPage.settingsPage != null)
-                    MainPage.settingsPage.UpdateIP_AND_PW(IP1, "SW");
+                SID1Stat = 0;
+                UpdateIP_AND_PW();
             }
         }
         private bool _FB2;
@@ -94,8 +91,8 @@ namespace Hausautomation.Model
             set
             {
                 _FB2 = value;
-                if (MainPage.settingsPage != null)
-                    MainPage.settingsPage.UpdateIP_AND_PW(IP2, "SW");
+                SID2Stat = 0;
+                UpdateIP_AND_PW();
             }
         }
         private bool _FB3;
@@ -105,8 +102,8 @@ namespace Hausautomation.Model
             set
             {
                 _FB3 = value;
-                if (MainPage.settingsPage != null)
-                    MainPage.settingsPage.UpdateIP_AND_PW(IP3, "SW");
+                SID3Stat = 0;
+                UpdateIP_AND_PW();
             }
         }
         private bool _FB4;
@@ -116,8 +113,8 @@ namespace Hausautomation.Model
             set
             {
                 _FB4 = value;
-                if (MainPage.settingsPage != null)
-                    MainPage.settingsPage.UpdateIP_AND_PW(IP4, "SW");
+                SID4Stat = 0;
+                UpdateIP_AND_PW();
             }
         }
         private bool _DV1;
@@ -128,8 +125,8 @@ namespace Hausautomation.Model
             {
                 _DV1 = value;
                 MAC1anz = 0;
-                if (MainPage.settingsPage != null)
-                    MainPage.settingsPage.UpdateMAC_AND_EM();
+                EM1Anz = 0;
+                UpdateMAC_AND_EM();
             }
         }
         private bool _DV2;
@@ -140,8 +137,8 @@ namespace Hausautomation.Model
             {
                 _DV2 = value;
                 MAC2anz = 0;
-                if (MainPage.settingsPage != null)
-                    MainPage.settingsPage.UpdateMAC_AND_EM();
+                EM2Anz = 0;
+                UpdateMAC_AND_EM();
             }
         }
         private bool _DV3;
@@ -152,8 +149,8 @@ namespace Hausautomation.Model
             {
                 _DV3 = value;
                 MAC3anz = 0;
-                if (MainPage.settingsPage != null)
-                    MainPage.settingsPage.UpdateMAC_AND_EM();
+                EM3Anz = 0;
+                UpdateMAC_AND_EM();
             }
         }
         private bool _DV4;
@@ -164,8 +161,8 @@ namespace Hausautomation.Model
             {
                 _DV4 = value;
                 MAC4anz = 0;
-                if (MainPage.settingsPage != null)
-                    MainPage.settingsPage.UpdateMAC_AND_EM();
+                EM4Anz = 0;
+                UpdateMAC_AND_EM();
             }
         }
 
@@ -173,6 +170,16 @@ namespace Hausautomation.Model
         public int MAC2anz { get; set; }
         public int MAC3anz { get; set; }
         public int MAC4anz { get; set; }
+
+        public int SID1Stat { get; set; }
+        public int SID2Stat { get; set; }
+        public int SID3Stat { get; set; }
+        public int SID4Stat { get; set; }
+
+        public int EM1Anz { get; set; }
+        public int EM2Anz { get; set; }
+        public int EM3Anz { get; set; }
+        public int EM4Anz { get; set; }
 
         bool MAC1found;
         bool MAC2found;
@@ -217,6 +224,14 @@ namespace Hausautomation.Model
                 MAC2anz = MainPage.settingsPage.fb.MAC2anz;
                 MAC3anz = MainPage.settingsPage.fb.MAC3anz;
                 MAC4anz = MainPage.settingsPage.fb.MAC4anz;
+                SID1Stat = MainPage.settingsPage.fb.SID1Stat;
+                SID2Stat = MainPage.settingsPage.fb.SID2Stat;
+                SID3Stat = MainPage.settingsPage.fb.SID3Stat;
+                SID4Stat = MainPage.settingsPage.fb.SID4Stat;
+                EM1Anz = MainPage.settingsPage.fb.EM1Anz;
+                EM2Anz = MainPage.settingsPage.fb.EM2Anz;
+                EM3Anz = MainPage.settingsPage.fb.EM3Anz;
+                EM4Anz = MainPage.settingsPage.fb.EM4Anz;
             }
         }
 
@@ -252,9 +267,26 @@ namespace Hausautomation.Model
                 MAC3E();
             if (DV4 == true)
                 MAC4E();
-            //Debug.WriteLine($"{IP1} {PW1} {MAC1} {EM1} {FB1} {DV1}");
+            UpdateMAC_AND_EM();
+        }
+
+        public void UpdateMAC_AND_EM()
+        {
             if (MainPage.settingsPage != null)
                 MainPage.settingsPage.UpdateMAC_AND_EM();
+        }
+
+        public void UpdateIP_AND_PW()
+        {
+            if (MainPage.settingsPage != null)
+                MainPage.settingsPage.UpdateIP_AND_PW();
+        }
+
+        public void SendEmail(string mailto, string subject, string body)
+        {
+            sm.SendEmail(mailto, subject, body);
+            if (MainPage.settingsPage != null)
+                MainPage.settingsPage.UpdateTitle(subject + " " + body);
         }
 
         public void MAC1E()
@@ -263,8 +295,9 @@ namespace Hausautomation.Model
             {
                 if (MAC1anz < 0)
                 {
-                    sm.SendEmail(EM1, "MAC: " + MAC1, $"ist online -> war {-MAC1anz} Minuten offline");
+                    SendEmail(EM1, "MAC: " + MAC1, $"ist online -> war {-MAC1anz} Minuten offline");
                     MAC1anz = 0;
+                    EM1Anz++;
                 }
                 MAC1anz++;
                 Debug.WriteLine($"MAC1anz = {MAC1anz}");
@@ -273,8 +306,9 @@ namespace Hausautomation.Model
             {
                 if (MAC1anz > 0)
                 {
-                    sm.SendEmail(EM1, "MAC: " + MAC1, $"ist offline -> war {MAC1anz} Minuten online");
+                    SendEmail(EM1, "MAC: " + MAC1, $"ist offline -> war {MAC1anz} Minuten online");
                     MAC1anz = 0;
+                    EM1Anz++;
                 }
                 MAC1anz--;
                 Debug.WriteLine($"MAC1anz = {MAC1anz}");
@@ -287,8 +321,9 @@ namespace Hausautomation.Model
             {
                 if (MAC2anz < 0)
                 {
-                    sm.SendEmail(EM2, "MAC: " + MAC2, $"ist online -> war {-MAC2anz} Minuten offline");
+                    SendEmail(EM2, "MAC: " + MAC2, $"ist online -> war {-MAC2anz} Minuten offline");
                     MAC2anz = 0;
+                    EM2Anz++;
                 }
                 MAC2anz++;
                 Debug.WriteLine($"MAC2anz = {MAC2anz}");
@@ -297,8 +332,9 @@ namespace Hausautomation.Model
             {
                 if (MAC2anz > 0)
                 {
-                    sm.SendEmail(EM2, "MAC: " + MAC2, $"ist offline -> war {MAC2anz} Minuten online");
+                    SendEmail(EM2, "MAC: " + MAC2, $"ist offline -> war {MAC2anz} Minuten online");
                     MAC2anz = 0;
+                    EM2Anz++;
                 }
                 MAC2anz--;
                 Debug.WriteLine($"MAC2anz = {MAC2anz}");
@@ -311,8 +347,9 @@ namespace Hausautomation.Model
             {
                 if (MAC3anz < 0)
                 {
-                    sm.SendEmail(EM3, "MAC: " + MAC3, $"ist online -> war {-MAC3anz} Minuten offline");
+                    SendEmail(EM3, "MAC: " + MAC3, $"ist online -> war {-MAC3anz} Minuten offline");
                     MAC3anz = 0;
+                    EM3Anz++;
                 }
                 MAC3anz++;
                 Debug.WriteLine($"MAC3anz = {MAC3anz}");
@@ -321,8 +358,9 @@ namespace Hausautomation.Model
             {
                 if (MAC3anz > 0)
                 {
-                    sm.SendEmail(EM3, "MAC: " + MAC3, $"ist offline -> war {MAC3anz} Minuten online");
+                    SendEmail(EM3, "MAC: " + MAC3, $"ist offline -> war {MAC3anz} Minuten online");
                     MAC3anz = 0;
+                    EM3Anz++;
                 }
                 MAC3anz--;
                 Debug.WriteLine($"MAC3anz = {MAC3anz}");
@@ -335,8 +373,9 @@ namespace Hausautomation.Model
             {
                 if (MAC4anz < 0)
                 {
-                    sm.SendEmail(EM4, "MAC: " + MAC4, $"ist online -> war {-MAC4anz} Minuten offline {MACGAST}");
+                    SendEmail(EM4, "MAC: " + MAC4, $"ist online -> war {-MAC4anz} Minuten offline {MACGAST}");
                     MAC4anz = 0;
+                    EM4Anz++;
                 }
                 MAC4anz++;
                 Debug.WriteLine($"MAC4anz = {MAC4anz}");
@@ -345,8 +384,9 @@ namespace Hausautomation.Model
             {
                 if (MAC4anz > 0)
                 {
-                    sm.SendEmail(EM4, "MAC: " + MAC4, $"ist offline -> war {MAC4anz} Minuten online {MACOLD}");
+                    SendEmail(EM4, "MAC: " + MAC4, $"ist offline -> war {MAC4anz} Minuten online {MACOLD}");
                     MAC4anz = 0;
+                    EM4Anz++;
                 }
                 MAC4anz--;
                 Debug.WriteLine($"MAC4anz = {MAC4anz}");
@@ -511,7 +551,7 @@ namespace Hausautomation.Model
             {
                 Debug.WriteLine("SeiteEinlesen " + ex.Message.ToString());
             }
-            return str; //*return string-result
+            return str;
         }
 
         public async Task<string> GetSessionId(string benutzername, string kennwort, string ipfritzbox)
@@ -539,8 +579,43 @@ namespace Hausautomation.Model
             {
                 Debug.WriteLine("GetSessionId " + ex.Message.ToString());
             }
-            if (MainPage.settingsPage != null)
-                MainPage.settingsPage.UpdateIP_AND_PW(ipfritzbox, sid);
+            if (ipfritzbox == IP1)
+            {
+                if (sid == "")
+                    SID1Stat = 1;
+                else if (sid == "0000000000000000")
+                    SID1Stat = 2;
+                else
+                    SID1Stat = 3;
+            }
+            else if (ipfritzbox == IP2)
+            {
+                if (sid == "")
+                    SID2Stat = 1;
+                else if (sid == "0000000000000000")
+                    SID2Stat = 2;
+                else
+                    SID2Stat = 3;
+            }
+            else if (ipfritzbox == IP3)
+            {
+                if (sid == "")
+                    SID3Stat = 1;
+                else if (sid == "0000000000000000")
+                    SID3Stat = 2;
+                else
+                    SID3Stat = 3;
+            }
+            else if (ipfritzbox == IP4)
+            {
+                if (sid == "")
+                    SID4Stat = 1;
+                else if (sid == "0000000000000000")
+                    SID4Stat = 2;
+                else
+                    SID4Stat = 3;
+            }
+            UpdateIP_AND_PW();
             return sid;
         }
 
