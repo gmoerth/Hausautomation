@@ -15,7 +15,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <ToggleSwitch Grid.Row="0" HorizontalAlignment="Left" Margin="24,10,0,10" OffContent="Aus" OnContent="Ein" VerticalAlignment="Top" />
+        <ToggleSwitch Grid.Row="0" HorizontalAlignment="Left" Margin="24,10,0,10" OffContent="Aus" OnContent="Ein" VerticalAlignment="Top" IsOn="{x:Bind Lernen, Mode=TwoWay}"/>
         <TextBlock Grid.Row="0" Text="Lernmodus aktivieren und Geräte schalten" Style="{ThemeResource BodyTextBlockStyle}" Margin="150,10" VerticalAlignment="Center"/>
 
         <ListView x:Name="lvProg" Grid.Row="1" ItemsSource="{x:Bind Programlist}" SelectionMode="Single">
@@ -24,16 +24,17 @@
                     <RelativePanel>
 
                         <RelativePanel x:Name="Links">
-                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Margin="24,24,24,24" Text="Programm Nr.: "/>
-                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Margin="134,24,24,24" Text="{x:Bind Device}"/>
-                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Margin="24,44,24,24" Text="SNr: "/>
-                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Margin="64,44,24,24" Text="{x:Bind SNr}"/>
-                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Margin="24,64,24,24" Text="Name: "/>
-                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Margin="84,64,24,24" Text="{x:Bind Name}"/>
-                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Margin="24,84,24,24" Text="Schaltbefehl für ID: "/>
-                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Margin="164,84,24,24" Text="{x:Bind Ise_Id}"/>
-                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Margin="24,104,24,24" Text="Neuer Wert: "/>
-                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Margin="114,104,24,24" Text="{x:Bind New_Value}"/>
+                            <CheckBox IsChecked="{x:Bind Active, Mode=TwoWay}" Margin="0,54,0,0" MinWidth="0" Click="{x:Bind Checkbox_Click}"/>
+                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Margin="34,24,24,24" Text="Programm Nr.: "/>
+                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Margin="144,24,24,24" Text="{x:Bind ID}"/>
+                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Margin="34,44,24,24" Text="SNr: "/>
+                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Margin="74,44,24,24" Text="{x:Bind SNr}"/>
+                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Margin="34,64,24,24" Text="Name: "/>
+                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Margin="94,64,24,24" Text="{x:Bind Name}"/>
+                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Margin="34,84,24,24" Text="Schaltbefehl für ID: "/>
+                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Margin="174,84,24,24" Text="{x:Bind Ise_Id}"/>
+                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Margin="34,104,24,24" Text="Neuer Wert: "/>
+                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Margin="124,104,24,24" Text="{x:Bind New_Value}"/>
                         </RelativePanel>
 
                         <RelativePanel x:Name="Mitte" RelativePanel.RightOf="Links">
@@ -48,6 +49,7 @@
                             <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Margin="24,24,24,24" Text="Verzögert um:" />
                             <ComboBox x:Name="cbDelay" Margin="24,44,24,24" Width="180" PlaceholderText="Verzögerung" 
                                   ItemsSource="{x:Bind Delaylist}" SelectedIndex="{Binding Delay, Mode=TwoWay}"/>
+                            <Button Content="Programm Löschen" Margin="24,74,24,24" Click="{x:Bind Delete}"/>
                         </RelativePanel>
 
                     </RelativePanel>

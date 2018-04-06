@@ -22,7 +22,7 @@
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="data:Device">
                     <RelativePanel>
-                        <CheckBox x:Name="cbFavoriten" IsChecked="{x:Bind bFavoriten, Mode=TwoWay}" Margin="0,85,0,0" Click="cbFavoriten_Click"/>
+                        <CheckBox x:Name="cbFavoriten" IsChecked="{x:Bind bFavoriten, Mode=TwoWay}" Margin="0,85,0,0" Click="cbFavoriten_Click" MinWidth="0"/>
                         <Image x:Name="bmImage" Source="{x:Bind Image}" MaxWidth="150" Stretch="Uniform" Margin="34,24,0,24"/>
                         <TextBlock x:Name="tbTextblock1" RelativePanel.RightOf="bmImage" Style="{ThemeResource BaseTextBlockStyle}"
                                    Margin="24,24,24,24" Text="{x:Bind Textblock1, Mode=OneWay}"/>

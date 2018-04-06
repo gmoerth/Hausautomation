@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Popups;
 
 namespace Hausautomation.Model
 {
@@ -16,33 +17,23 @@ namespace Hausautomation.Model
         public ProgramList()
         {
             Programlist = new ObservableCollection<Programs>();
-
-            /*Programs prog = new Programs();
-            prog.Device = 1;
-            prog.New_Value = "1234a";
-            prog.Ise_Id = 1234;
-            prog.Delay = 0;
-            prog.SNr = "NEQ1542641";
-            prog.Name = "HM-PB-2-WM55-2";
-            prog.Status = 0;
-            Programlist.Add(prog);
-
-            Programs prog2 = new Programs();
-            prog2.Device = 2;
-            prog2.New_Value = "5678b";
-            prog2.Ise_Id = 5678;
-            prog2.Delay = 3;
-            prog2.SNr = "NEQ1542641a";
-            prog2.Name = "HM-PB-2-WM55-2a";
-            prog2.Status = 1;
-            Programlist.Add(prog2);*/
-
         }
 
     }
 
     public class Programs
     {
+        private bool _Active;
+
+        public bool Active
+        {
+            get { return _Active; }
+            set
+            {
+                _Active = value;
+            }
+        }
+
         private int _Device;
 
         public int Device
@@ -51,10 +42,9 @@ namespace Hausautomation.Model
             set
             {
                 _Device = value;
-                if(Devicelist.Count > 0) // nur speichern wenn Benutzer etwas auswählt
+                if (Devicelist.Count > 0) // nur speichern wenn Benutzer etwas auswählt
                 {
-                    SettingsPage settingsPage = new SettingsPage();
-                    settingsPage.SaveSettingsXML();
+                    MainPage.settingsPage.SaveSettingsXML();
                 }
             }
         }
@@ -68,8 +58,7 @@ namespace Hausautomation.Model
                 _Status = value;
                 if (Statuslist.Count > 0) // nur speichern wenn Benutzer etwas auswählt
                 {
-                    SettingsPage settingsPage = new SettingsPage();
-                    settingsPage.SaveSettingsXML();
+                    MainPage.settingsPage.SaveSettingsXML();
                 }
             }
         }
@@ -84,10 +73,16 @@ namespace Hausautomation.Model
                 _Delay = value;
                 if (Delaylist.Count > 0) // nur speichern wenn Benutzer etwas auswählt
                 {
-                    SettingsPage settingsPage = new SettingsPage();
-                    settingsPage.SaveSettingsXML();
+                    MainPage.settingsPage.SaveSettingsXML();
                 }
             }
+        }
+        private int _ID;
+
+        public int ID
+        {
+            get { return _ID; }
+            set { _ID = value; }
         }
         private string _SNr;
 
@@ -138,20 +133,42 @@ namespace Hausautomation.Model
             get { return _Delaylist; }
             set { _Delaylist = value; }
         }
-        //public List<string> Devicelist = new List<string>() { "Gerät mit MAC 1", "Gerät mit MAC 2", "Gerät mit MAC 3", "Gerät mit MAC 4" };
-        //public List<string> Statuslist = new List<string>() { "auf Online wechselt", "auf Offline wechselt" };
-        //public List<string> Delaylist = new List<string>() { "sofort", "1 Minute", "2 Minuten", "5 Minuten", "10 Minuten", "30 Minuten", "1 Stunde", "2 Stunden", "5 Stunden", "10 Stunden" };
 
         public Programs()
         {
-            Devicelist = new List<string>();
-            Statuslist = new List<string>();
-            Delaylist = new List<string>();
         }
 
-        /*public void scDevice()
+        public Programs(bool WithNewList)
         {
-            
-        }*/
+            Devicelist = new List<string>() { "Gerät mit MAC 1", "Gerät mit MAC 2", "Gerät mit MAC 3", "Gerät mit MAC 4" };
+            Statuslist = new List<string>() { "auf Online wechselt", "auf Offline wechselt" };
+            Delaylist = new List<string>() { "sofort", "1 Minute", "2 Minuten", "5 Minuten", "10 Minuten", "30 Minuten", "1 Stunde", "2 Stunden", "5 Stunden", "10 Stunden" };
+            Programs programs = MainPage.Devicelist.Programlist.Programlist.LastOrDefault();
+            if (programs != null)
+                ID = programs.ID + 1;
+            else
+                ID = 1;
+        }
+
+        public async Task Delete()
+        {
+            MessageDialog showDialog = new MessageDialog("Soll das Programm endgültig gelöscht werden?", "Programm Löschen?");
+            showDialog.Commands.Add(new UICommand("Ja") { Id = 0 });
+            showDialog.Commands.Add(new UICommand("Nein") { Id = 1 });
+            showDialog.DefaultCommandIndex = 0;
+            showDialog.CancelCommandIndex = 1;
+            var result = await showDialog.ShowAsync();
+            if ((int)result.Id == 0)
+            {
+                MainPage.Devicelist.Programlist.Programlist.Remove(this);
+                MainPage.settingsPage.SaveSettingsXML();
+            }
+        }
+
+        public void Checkbox_Click()
+        {
+            MainPage.settingsPage.SaveSettingsXML();
+        }
+
     }
 }

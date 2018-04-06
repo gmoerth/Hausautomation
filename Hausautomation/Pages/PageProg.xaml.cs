@@ -24,17 +24,31 @@ namespace Hausautomation.Pages
     /// </summary>
     public sealed partial class PageProg : Page
     {
-        //private ProgramList Programlist;
         private ObservableCollection<Programs> Programlist;
+        private bool _Lernen;
+
+        public bool Lernen
+        {
+            get
+            {
+                ReadXDoc readXDoc = new ReadXDoc();
+                _Lernen = readXDoc.Learn;
+                return _Lernen;
+            }
+            set
+            {
+                _Lernen = value;
+                ReadXDoc readXDoc = new ReadXDoc();
+                readXDoc.Learn = _Lernen;
+                MainPage.settingsPage.SaveSettingsXML();
+            }
+        }
 
         public PageProg()
         {
             this.InitializeComponent();
 
-            //    Programlist = new ObservableCollection<Programs>();
             Programlist = MainPage.Devicelist.Programlist.Programlist;
-            //Programlist = MainPage.Devicelist.Programlist;
-
         }
     }
 }

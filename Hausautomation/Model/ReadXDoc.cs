@@ -56,6 +56,8 @@ namespace Hausautomation.Model
         static private DispatcherTimer _timer = null;
         static private int _anzahl;
         public int Anzahl { set { _anzahl = value; } }
+        static private bool _learn;
+        public bool Learn { get { return _learn; } set { _learn = value; } }
 
         public ReadXDoc()
         {
@@ -116,6 +118,35 @@ namespace Hausautomation.Model
 #pragma warning disable 4014
             ReadXDocument("addons/xmlapi/statechange.cgi" + _NewIdAndValue, "statechange.xml");
 #pragma warning restore 4014
+            // Lernfunktion
+            if(Learn == true)
+            {
+                Programs programs = new Programs(true);
+                programs.Ise_Id = _NewId;
+                if (_NewValue == Double.PositiveInfinity)
+                    programs.New_Value = "True";
+                else if (_NewValue == Double.NegativeInfinity)
+                    programs.New_Value = "False";
+                else
+                    programs.New_Value = _NewValue.ToString("F", culture);
+                foreach (Device device in MainPage.Devicelist.Devicelist)
+                {
+                    foreach (Channel channel in device.Channellist.Channellist)
+                    {
+                        foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
+                        {
+                            if (datapoint.Ise_id == _NewId)
+                            {
+                                programs.SNr = device.Address;
+                                programs.Name = device.Device_type;
+                                break;
+                            }
+                        }
+                    }
+                }
+                MainPage.Devicelist.Programlist.Programlist.Add(programs);
+                MainPage.settingsPage.SaveSettingsXML();
+            }
         }
 
         public void ReadAllXDocuments()
