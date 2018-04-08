@@ -14,6 +14,7 @@ using System.Xml.Linq;
 using System.Xml.Serialization;
 using Windows.Storage;
 using Windows.UI;
+using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -75,7 +76,7 @@ namespace Hausautomation.Model
             if (_timer != null)
                 _timer.Stop();
             _timer = new DispatcherTimer();
-            _timer.Interval = new TimeSpan(0, 0, Refresh); // 30 - 60 sek.
+            _timer.Interval = new TimeSpan(0, 0, Refresh); // 10 - 600 sek.
             _timer.Tick += updateStateChange;
             _timer.Start();
         }
@@ -84,13 +85,12 @@ namespace Hausautomation.Model
         {
             ReadStateListXDoc();
             if (--_anzahl == 0)
-                _timer.Interval = new TimeSpan(0, 0, Refresh); // wieder auf 30 - 60 sek setzen
+                _timer.Interval = new TimeSpan(0, 0, Refresh); // wieder auf default = 60 sek setzen
         }
 
         private async void ReadStateListXDoc()
         {
             var appTitleBar = ApplicationView.GetForCurrentView().TitleBar;
-            //var appTitleBar = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView().TitleBar;
             appTitleBar.ForegroundColor = Colors.Red;
             await ReadXDocument("addons/xmlapi/statelist.cgi", "statelist.xml");
             // Update the UI with results
@@ -98,55 +98,59 @@ namespace Hausautomation.Model
             appTitleBar.ForegroundColor = Colors.Black;
         }
 
-        public void ReadStateChangeXDoc()
+        public async void ReadStateChangeXDoc()
         {
-            if (_timer != null)
-                _timer.Stop();
-            _timer = new DispatcherTimer();
-            _timer.Interval = new TimeSpan(0, 0, 3); // 3 Sekunden zwischen den Refresh
-            _timer.Tick += updateStateChange;
-            _timer.Start();
-            //CultureInfo culture = CultureInfo.CreateSpecificCulture("en-US"); // Punkt als Komma
-            CultureInfo culture = new CultureInfo("en-US"); // Punkt als Komma
-            string _NewIdAndValue = "?ise_id=" + _NewId.ToString() + "&new_value=";
-            if (_NewValue == Double.PositiveInfinity)
-                _NewIdAndValue += "True";
-            else if (_NewValue == Double.NegativeInfinity)
-                _NewIdAndValue += "False";
-            else
-                _NewIdAndValue += _NewValue.ToString("F", culture);
-#pragma warning disable 4014
-            ReadXDocument("addons/xmlapi/statechange.cgi" + _NewIdAndValue, "statechange.xml");
-#pragma warning restore 4014
-            // Lernfunktion
-            if(Learn == true)
-            {
-                Programs programs = new Programs(true);
-                programs.Ise_Id = _NewId;
-                if (_NewValue == Double.PositiveInfinity)
-                    programs.New_Value = "True";
-                else if (_NewValue == Double.NegativeInfinity)
-                    programs.New_Value = "False";
-                else
-                    programs.New_Value = _NewValue.ToString("F", culture);
-                foreach (Device device in MainPage.Devicelist.Devicelist)
+            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                () =>
                 {
-                    foreach (Channel channel in device.Channellist.Channellist)
+                    if (_timer != null)
+                        _timer.Stop();
+                    _timer = new DispatcherTimer();
+                    _timer.Interval = new TimeSpan(0, 0, 3); // 3 Sekunden zwischen den Refresh
+                    _timer.Tick += updateStateChange;
+                    _timer.Start();
+                    //CultureInfo culture = CultureInfo.CreateSpecificCulture("en-US"); // Punkt als Komma
+                    CultureInfo culture = new CultureInfo("en-US"); // Punkt als Komma
+                    string _NewIdAndValue = "?ise_id=" + _NewId.ToString() + "&new_value=";
+                    if (_NewValue == Double.PositiveInfinity)
+                        _NewIdAndValue += "True";
+                    else if (_NewValue == Double.NegativeInfinity)
+                        _NewIdAndValue += "False";
+                    else
+                        _NewIdAndValue += _NewValue.ToString("F", culture);
+#pragma warning disable 4014
+                    ReadXDocument("addons/xmlapi/statechange.cgi" + _NewIdAndValue, "statechange.xml");
+#pragma warning restore 4014
+                    // Lernfunktion aktiv
+                    if (Learn == true)
                     {
-                        foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
+                        Programs programs = new Programs(true);
+                        programs.Ise_Id = _NewId;
+                        if (_NewValue == Double.PositiveInfinity)
+                            programs.New_Value = "True";
+                        else if (_NewValue == Double.NegativeInfinity)
+                            programs.New_Value = "False";
+                        else
+                            programs.New_Value = _NewValue.ToString("F", culture);
+                        foreach (Device device in MainPage.Devicelist.Devicelist)
                         {
-                            if (datapoint.Ise_id == _NewId)
+                            foreach (Channel channel in device.Channellist.Channellist)
                             {
-                                programs.SNr = device.Address;
-                                programs.Name = device.Device_type;
-                                break;
+                                foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
+                                {
+                                    if (datapoint.Ise_id == _NewId)
+                                    {
+                                        programs.SNr = device.Address;
+                                        programs.Name = device.Device_type;
+                                        break;
+                                    }
+                                }
                             }
                         }
+                        MainPage.Devicelist.Programlist.Programlist.Add(programs);
+                        MainPage.settingsPage.SaveSettingsXML();
                     }
-                }
-                MainPage.Devicelist.Programlist.Programlist.Add(programs);
-                MainPage.settingsPage.SaveSettingsXML();
-            }
+                });
         }
 
         public void ReadAllXDocuments()

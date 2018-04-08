@@ -274,6 +274,7 @@ namespace Hausautomation.Model
         {
             if (MainPage.settingsPage != null)
                 MainPage.settingsPage.UpdateMAC_AND_EM();
+            MainPage.Devicelist.Programlist.CheckProgramsForExecution(MAC1anz, MAC2anz, MAC3anz, MAC4anz);
         }
 
         public void UpdateIP_AND_PW()
@@ -284,7 +285,8 @@ namespace Hausautomation.Model
 
         public void SendEmail(string mailto, string subject, string body)
         {
-            sm.SendEmail(mailto, subject, body);
+            if (mailto != "")
+                sm.SendEmail(mailto, subject, body);
             if (MainPage.settingsPage != null)
                 MainPage.settingsPage.UpdateTitle(subject + " " + body);
         }
