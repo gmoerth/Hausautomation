@@ -15,7 +15,8 @@
                 <!--<NavigationViewItemSeparator/>
                 <NavigationViewItemSeparator/>-->
                 <AutoSuggestBox x:Name="asbSuche" QueryIcon="Find" Width="170" Visibility="{x:Bind nvHausautomation.IsPaneOpen, Mode=OneWay}"
-                                PlaceholderText="Suche" ToolTipService.ToolTip="Suche"/>
+                                PlaceholderText="Suche" ToolTipService.ToolTip="Suche" TextChanged="AutoSuggestBox_TextChanged"
+                                QuerySubmitted="AutoSuggestBox_QuerySubmitted" SuggestionChosen="AutoSuggestBox_SuggestionChosen"/>
                 <NavigationViewItemHeader Content="Hauptseite" Visibility="{x:Bind nvHausautomation.IsPaneOpen, Mode=OneWay}"/>
                 <NavigationViewItem Icon="AllApps" Content="Alle Geräte" Tag="PageAll" ToolTipService.ToolTip="Alle Geräte"/>
                 <NavigationViewItemHeader Content="Unterseiten" Visibility="{x:Bind nvHausautomation.IsPaneOpen, Mode=OneWay}"/>

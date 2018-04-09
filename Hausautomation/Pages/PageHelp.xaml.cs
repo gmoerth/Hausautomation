@@ -27,17 +27,33 @@ namespace Hausautomation.Pages
     /// </summary>
     public sealed partial class PageHelp : Page
     {
+        private bool once = true;
         public PageHelp()
         {
             this.InitializeComponent();
             try
             {
-                Uri targetUri = new Uri("http://members.chello.at/gmoerth/Grobkonzept_Gerhard_Moerth.html");
+                //StorageFile file = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Grobkonzept_Gerhard_Moerth.html"));
+                //StorageFolder folder = await ApplicationData.Current.LocalFolder.CreateFolderAsync("HTML", CreationCollisionOption.OpenIfExists);
+                //await file.CopyAsync(folder, "Grobkonzept_Gerhard_Moerth.html", NameCollisionOption.ReplaceExisting);
+
+                wvHelp.NavigationFailed += WvHelp_NavigationFailed;
+                Uri targetUri = new Uri("ms-appdata:///local/HTML/Grobkonzept_Gerhard_Moerth.html"); // zuerst lokale version probieren
                 wvHelp.Navigate(targetUri);
             }
             catch (FormatException ex)
             {
                 Debug.WriteLine(ex.Message.ToString());
+            }
+        }
+
+        private void WvHelp_NavigationFailed(object sender, WebViewNavigationFailedEventArgs e)
+        {
+            if (once == true)
+            {
+                Uri targetUri = new Uri("http://members.chello.at/gmoerth/Grobkonzept_Gerhard_Moerth.html");
+                wvHelp.Navigate(targetUri);
+                once = false;
             }
         }
     }

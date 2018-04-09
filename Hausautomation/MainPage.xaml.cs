@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -32,16 +33,18 @@ namespace Hausautomation
         public static DeviceList Devicelist; // Die Liste die alle Geräte enthält
         public static SettingsPage settingsPage; // Enthält alle gespeicherten Einstellungen
         public static Fritzbox fritzbox;
+        public ObservableCollection<string> Suggestions { get; private set; }
 
         public MainPage()
         {
+            this.Suggestions = new ObservableCollection<string>() { "WC", "Auto", "Haus" };
             this.InitializeComponent();
             Window.Current.VisibilityChanged += Window_VisibilityChanged;
 
             Devicelist = new DeviceList();
             settingsPage = new SettingsPage();
 
-            ReadXDoc readXDoc = new ReadXDoc(); 
+            ReadXDoc readXDoc = new ReadXDoc();
             readXDoc.ReadAllXDocuments(); // Lese alle Dokumente von der HomeMatic ein und speicher sie in der Devicelist
             readXDoc.StartStateListTask(); // Alle 30-60 Sekunden die StateList aktualisieren
 
@@ -111,5 +114,72 @@ namespace Hausautomation
             }
         }
 
+        private void AutoSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        {
+            /////
+            Suggestions.Clear();
+            foreach (Room room in Devicelist.Roomlist.Roomlist)
+                if (room.Name.ToLower().Contains(sender.Text.ToLower()))
+                    Suggestions.Add(room.Name);
+            foreach (Function function in Devicelist.Functionlist.Functionlist)
+                if (function.Name.ToLower().Contains(sender.Text.ToLower()))
+                    Suggestions.Add(function.Name);
+            // doppelte aussortieren
+            /*foreach (Device device in Devicelist.Devicelist)
+                if (device.Device_type != null)
+                    if (device.Device_type.ToLower().Contains(sender.Text.ToLower()))
+                        Suggestions.Add(device.Device_type);
+            foreach (Device device in Devicelist.Devicelist)
+                if (device.Address != null)
+                    if (device.Address.ToLower().Contains(sender.Text.ToLower()))
+                        Suggestions.Add(device.Address);*/
+            /////
+            Debug.WriteLine("AutoSuggestBox_TextChanged");
+            if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
+            {
+                //Suggestions.Clear();
+                //Suggestions.Add(sender.Text + "1");
+                //Suggestions.Add(sender.Text + "2");
+            }
+            asbSuche.ItemsSource = Suggestions;
+            /*if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
+             {
+                 var suggestions = SearchControls(sender.Text);
+
+                 if (suggestions.Count > 0)
+                     sender.ItemsSource = suggestions;
+                 else
+                     sender.ItemsSource = new string[] { "No results found" };
+             }*/
+        }
+
+        private void AutoSuggestBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        {
+            Debug.WriteLine("AutoSuggestBox_QuerySubmitted");
+            /*if (args.ChosenSuggestion != null && args.ChosenSuggestion is ControlInfoDataItem)
+              {
+                  //User selected an item, take an action
+                  SelectControl(args.ChosenSuggestion as ControlInfoDataItem);
+              }
+              else if (!string.IsNullOrEmpty(args.QueryText))
+              {
+                  //Do a fuzzy search based on the text
+                  var suggestions = SearchControls(sender.Text);
+                  if (suggestions.Count > 0)
+                  {
+                      SelectControl(suggestions.FirstOrDefault());
+                  }
+              }*/
+        }
+
+        private void AutoSuggestBox_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
+        {
+            Debug.WriteLine("AutoSuggestBox_SuggestionChosen");
+            //Don't autocomplete the TextBox when we are showing "no results"
+            /*if (args.SelectedItem is ControlInfoDataItem control)
+            {
+                sender.Text = control.Title;
+            }*/
+        }
     }
 }
