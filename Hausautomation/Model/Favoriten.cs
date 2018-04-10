@@ -11,6 +11,7 @@ namespace Hausautomation.Model
         public List<int> ise_id { get; set; }
         public string RoomItemSel { get; set; }
         public string FuncItemSel { get; set; }
+        public string AllItemScroll { get; set; }
 
         public Favoriten()
         {

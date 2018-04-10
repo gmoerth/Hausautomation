@@ -57,5 +57,29 @@ namespace Hausautomation.Pages
                     fav.RemoveFavoriten(device.Ise_id);
             }
         }
+
+        private void lvDevices_Loaded(object sender, RoutedEventArgs e)
+        {
+            Debug.WriteLine("lvDevices_Loaded");
+            // nur wenn die suche aktiv ist
+            if (MainPage.settingsPage.fa.AllItemScroll != null)
+            {
+                foreach (Device device in Devicelist)
+                    if (device.Address == MainPage.settingsPage.fa.AllItemScroll)
+                    {
+                        lvDevices.SelectedItem = device;
+                        lvDevices.ScrollIntoView(device);
+                        break;
+                    }
+                foreach (Device device in Devicelist)
+                    if (device.Device_type == MainPage.settingsPage.fa.AllItemScroll)
+                    {
+                        lvDevices.SelectedItem = device;
+                        lvDevices.ScrollIntoView(device);
+                        break;
+                    }
+                MainPage.settingsPage.fa.AllItemScroll = null;
+            }
+        }
     }
 }

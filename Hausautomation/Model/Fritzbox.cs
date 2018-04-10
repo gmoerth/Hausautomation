@@ -257,7 +257,7 @@ namespace Hausautomation.Model
                 Test(IP3, PW3);
             if (FB4 == true)
                 Test(IP4, PW4);
-            // TODO: statt 30 sek warten warten bis Test() fertig ist
+            // 30 sek warten warten bis Test() fertig ist
             await Task.Delay(30000);
             if (DV1 == true)
                 MAC1E();

@@ -19,6 +19,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
 // Die Elementvorlage "Leere Seite" wird unter https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x407 dokumentiert.
@@ -33,11 +34,9 @@ namespace Hausautomation
         public static DeviceList Devicelist; // Die Liste die alle Geräte enthält
         public static SettingsPage settingsPage; // Enthält alle gespeicherten Einstellungen
         public static Fritzbox fritzbox;
-        public ObservableCollection<string> Suggestions { get; private set; }
 
         public MainPage()
         {
-            this.Suggestions = new ObservableCollection<string>() { "WC", "Auto", "Haus" };
             this.InitializeComponent();
             Window.Current.VisibilityChanged += Window_VisibilityChanged;
 
@@ -83,6 +82,8 @@ namespace Hausautomation
             }
             else
             {
+                if (!(args.SelectedItem is NavigationViewItem)) // wegen der AutoSuggestBox
+                    return;
                 var selectedItem = (NavigationViewItem)args.SelectedItem;
                 string pageName = "Hausautomation.Pages." + ((string)selectedItem.Tag);
                 Type pageType = Type.GetType(pageName);
@@ -116,70 +117,83 @@ namespace Hausautomation
 
         private void AutoSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
-            /////
-            Suggestions.Clear();
-            foreach (Room room in Devicelist.Roomlist.Roomlist)
-                if (room.Name.ToLower().Contains(sender.Text.ToLower()))
-                    Suggestions.Add(room.Name);
-            foreach (Function function in Devicelist.Functionlist.Functionlist)
-                if (function.Name.ToLower().Contains(sender.Text.ToLower()))
-                    Suggestions.Add(function.Name);
-            // doppelte aussortieren
-            /*foreach (Device device in Devicelist.Devicelist)
-                if (device.Device_type != null)
-                    if (device.Device_type.ToLower().Contains(sender.Text.ToLower()))
+            Debug.WriteLine("AutoSuggestBox_TextChanged");
+            ObservableCollection<string> Suggestions = new ObservableCollection<string>() { };
+            // Device_Type
+            foreach (Device device in Devicelist.Devicelist)
+                if (device.Device_type != null)                                      // doppelte aussortieren
+                    if (device.Device_type.ToLower().Contains(sender.Text.ToLower()) && !Suggestions.Contains(device.Device_type))
                         Suggestions.Add(device.Device_type);
+            // Address
             foreach (Device device in Devicelist.Devicelist)
                 if (device.Address != null)
                     if (device.Address.ToLower().Contains(sender.Text.ToLower()))
-                        Suggestions.Add(device.Address);*/
-            /////
-            Debug.WriteLine("AutoSuggestBox_TextChanged");
-            if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
-            {
-                //Suggestions.Clear();
-                //Suggestions.Add(sender.Text + "1");
-                //Suggestions.Add(sender.Text + "2");
-            }
-            asbSuche.ItemsSource = Suggestions;
-            /*if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
-             {
-                 var suggestions = SearchControls(sender.Text);
-
-                 if (suggestions.Count > 0)
-                     sender.ItemsSource = suggestions;
-                 else
-                     sender.ItemsSource = new string[] { "No results found" };
-             }*/
+                        Suggestions.Add(device.Address);
+            // Room
+            foreach (Room room in Devicelist.Roomlist.Roomlist)
+                if (room.Name.ToLower().Contains(sender.Text.ToLower()))
+                    Suggestions.Add(room.Name);
+            // Function
+            foreach (Function function in Devicelist.Functionlist.Functionlist)
+                if (function.Name.ToLower().Contains(sender.Text.ToLower()))
+                    Suggestions.Add(function.Name);
+            // sort einbauen
+            List<string> suchvorschlag = Suggestions.OrderBy(x => x.FirstOrDefault()).ToList();
+            asbSuche.ItemsSource = suchvorschlag;
         }
 
         private void AutoSuggestBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
             Debug.WriteLine("AutoSuggestBox_QuerySubmitted");
-            /*if (args.ChosenSuggestion != null && args.ChosenSuggestion is ControlInfoDataItem)
-              {
-                  //User selected an item, take an action
-                  SelectControl(args.ChosenSuggestion as ControlInfoDataItem);
-              }
-              else if (!string.IsNullOrEmpty(args.QueryText))
-              {
-                  //Do a fuzzy search based on the text
-                  var suggestions = SearchControls(sender.Text);
-                  if (suggestions.Count > 0)
-                  {
-                      SelectControl(suggestions.FirstOrDefault());
-                  }
-              }*/
+            string itemtag = "";
+            // Room
+            foreach (Room room in Devicelist.Roomlist.Roomlist)
+                if (room.Name.ToLower().Contains(args.QueryText.ToLower()))
+                {
+                    MainPage.settingsPage.fa.RoomItemSel = room.Name;
+                    Type pageType = Type.GetType("Hausautomation.Pages.PageRoom");
+                    contentFrame.Navigate(pageType);
+                    itemtag = "PageRoom";
+                    break;
+                }
+            // Function
+            foreach (Function function in Devicelist.Functionlist.Functionlist)
+                if (function.Name.ToLower().Contains(args.QueryText.ToLower()))
+                {
+                    MainPage.settingsPage.fa.FuncItemSel = function.Name;
+                    Type pageType = Type.GetType("Hausautomation.Pages.PageFunc");
+                    contentFrame.Navigate(pageType);
+                    itemtag = "PageFunc";
+                    break;
+                }
+            // Device_Type
+            foreach (Device device in Devicelist.Devicelist)
+                if (device.Device_type != null)
+                    if (device.Device_type.ToLower().Contains(args.QueryText.ToLower()))
+                    {
+                        MainPage.settingsPage.fa.AllItemScroll = device.Device_type;
+                        Type pageType = Type.GetType("Hausautomation.Pages.PageAll");
+                        contentFrame.Navigate(pageType);
+                        itemtag = "PageAll";
+                        break;
+                    }
+            // Address
+            foreach (Device device in Devicelist.Devicelist)
+                if (device.Address != null)
+                    if (device.Address.ToLower().Contains(args.QueryText.ToLower()))
+                    {
+                        MainPage.settingsPage.fa.AllItemScroll = device.Address;
+                        Type pageType = Type.GetType("Hausautomation.Pages.PageAll");
+                        contentFrame.Navigate(pageType);
+                        itemtag = "PageAll";
+                        break;
+                    }
+            // damit der blauen Marker in der NavigationView stimmt
+            foreach (var navViewMenuItem in nvHausautomation.MenuItems)
+                if (navViewMenuItem is NavigationViewItem item)
+                    if (item.Tag.Equals(itemtag))
+                        item.IsSelected = true;
         }
 
-        private void AutoSuggestBox_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
-        {
-            Debug.WriteLine("AutoSuggestBox_SuggestionChosen");
-            //Don't autocomplete the TextBox when we are showing "no results"
-            /*if (args.SelectedItem is ControlInfoDataItem control)
-            {
-                sender.Text = control.Title;
-            }*/
-        }
     }
 }

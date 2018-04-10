@@ -184,7 +184,7 @@ namespace Hausautomation.Pages
             if (xdoc.online == false && cbOnline.IsChecked == true)
             {
                 xdoc.online = (bool)cbOnline.IsChecked;
-                xdoc.ReadAllXDocumentsAsync();
+                xdoc.ReadAllXDocuments();
             }
             xdoc.online = (bool)cbOnline.IsChecked;
         }
