@@ -372,7 +372,14 @@ namespace Hausautomation.Model
                 ID = 1;
         }
 
-        public async Task Delete()
+        public void Delete()
+        {
+#pragma warning disable 4014
+            DeleteAsync();
+#pragma warning restore 4014
+        }
+
+        public async Task DeleteAsync()
         {
             MessageDialog showDialog = new MessageDialog("Soll das Programm endgültig gelöscht werden?", "Programm Löschen?");
             showDialog.Commands.Add(new UICommand("Ja") { Id = 0 });
