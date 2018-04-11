@@ -71,6 +71,9 @@ namespace Hausautomation
         private void NavigationView_Loaded(object sender, RoutedEventArgs e)
         {
             contentFrame.Navigate(typeof(PageLoad));
+            PageLoad pl = PageLoad.Instance;
+            if(pl != null)
+                pl.Text2 = "Lade Dokumente...";
         }
 
         private void NavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
@@ -107,6 +110,12 @@ namespace Hausautomation
                         break;
                     case "PageHelp":
                         nvHausautomation.Header = "Hilfe";
+                        break;
+                    case "PageLoad":
+                        nvHausautomation.Header = "Über";
+                        PageLoad pl = PageLoad.Instance;
+                        if (pl != null)
+                            pl.ShowAbout();
                         break;
                     default:
                         throw new NotImplementedException();

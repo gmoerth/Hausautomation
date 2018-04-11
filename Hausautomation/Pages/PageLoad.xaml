@@ -16,10 +16,16 @@
                 </ParallaxView>
             </GridView.Header>
         </GridView>
+
+        <TextBlock x:Name="tbZeile1" TextWrapping="Wrap" HorizontalAlignment="Center"
+                   FontSize="36" Margin="0,80,0,0" Foreground="Black" FontWeight="Bold" />
+        <TextBlock x:Name="tbZeile2" TextWrapping="Wrap" HorizontalAlignment="Center"
+                   FontSize="36" Margin="0,130,0,0" Foreground="Black" FontWeight="Bold" />
+        <TextBlock x:Name="tbZeile3" TextWrapping="Wrap" HorizontalAlignment="Center"
+                   FontSize="36" Margin="0,180,0,0" Foreground="Black" FontWeight="Bold" />
+        <TextBlock x:Name="tbZeile4" TextWrapping="Wrap" HorizontalAlignment="Center"
+                   FontSize="36" Margin="0,230,0,0" Foreground="Black" FontWeight="Bold" />
         
-        <TextBlock x:Name="tbStart" Text="Lade Dokumente..." TextWrapping="Wrap" HorizontalAlignment="Center"
-                   FontSize="36" Margin="0,150,0,0" Foreground="Black" FontWeight="Bold" />
-  
         <ProgressRing x:Name="prStart" IsActive="True" Height="100" Width="100" />
 
     </Grid>

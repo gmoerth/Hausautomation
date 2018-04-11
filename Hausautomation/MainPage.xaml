@@ -10,7 +10,7 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
         <NavigationView x:Name="nvHausautomation" Loaded="NavigationView_Loaded" SelectionChanged="NavigationView_SelectionChanged"  OpenPaneLength="200"
-                        IsSettingsVisible="{Binding ElementName=settingsCheck,Path=IsChecked}" IsTabStop="False" Header="Willkommen bei Hausautomation V 1.0">
+                        IsSettingsVisible="{Binding ElementName=settingsCheck,Path=IsChecked}" IsTabStop="False" Header="Willkommen bei Hausautomation">
             <NavigationView.MenuItems>
                 <!--<NavigationViewItemSeparator/>
                 <NavigationViewItemSeparator/>-->
@@ -26,6 +26,7 @@
                 <NavigationViewItem Icon="CellPhone" Content="Programme" Tag="PageProg" ToolTipService.ToolTip="Programme"/>
                 <NavigationViewItemHeader Content="Hilfe" Visibility="{x:Bind nvHausautomation.IsPaneOpen, Mode=OneWay}"/>
                 <NavigationViewItem Icon="Help" Content="Hilfe" Tag="PageHelp" ToolTipService.ToolTip="Hilfe"/>
+                <NavigationViewItem Icon="ContactInfo" Content="Über" Tag="PageLoad" ToolTipService.ToolTip="Über"/>
             </NavigationView.MenuItems>
             <Frame x:Name="contentFrame">
                 <Frame.ContentTransitions>
