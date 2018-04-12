@@ -216,7 +216,7 @@ namespace Hausautomation.Model
 
         public void GetDelayedProgramsForExecution()
         {
-            Debug.WriteLine($"GetDelayedProgramsForExecution Anz={Statementslist.Count}");
+            //Debug.WriteLine($"GetDelayedProgramsForExecution Anz={Statementslist.Count}");
             int i = Statementslist.Count;
             while (i-- > 0)
             {

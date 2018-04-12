@@ -148,6 +148,8 @@ namespace Hausautomation.Pages
                 XmlSerializer serializer4 = new XmlSerializer(typeof(Fritzbox));
                 using (StreamWriter writer = new StreamWriter(File.Open(localFolder.Path + @"/fritzbox.xml", FileMode.Create, FileAccess.Write)))
                 {
+                    if (fb == null)
+                        fb = new Fritzbox();
                     serializer4.Serialize(writer, fb);
                 }
                 XmlSerializer serializer5 = new XmlSerializer(typeof(ProgramList));

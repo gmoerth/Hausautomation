@@ -402,7 +402,9 @@ namespace Hausautomation.Model
             // SessionID ermitteln
             string sid = await GetSessionId(benutzername, kennwort, ipfritzbox);
             string sHtml_of_website = await SeiteEinlesen(@"http://" + ipfritzbox + @"/wlan/wlan_settings.lua", sid);
-            if (MAC1found == false && DV1 == true)
+            if (sHtml_of_website == "")
+                return;
+            if (MAC1found == false && DV1 == true && MAC1 != null)
             {
                 int index = sHtml_of_website.IndexOf(MAC1);
                 if (index != -1)
@@ -433,7 +435,7 @@ namespace Hausautomation.Model
                     }
                 }
             }
-            if (MAC2found == false && DV2 == true)
+            if (MAC2found == false && DV2 == true && MAC2 != null)
             {
                 int index = sHtml_of_website.IndexOf(MAC2);
                 if (index != -1)
@@ -464,7 +466,7 @@ namespace Hausautomation.Model
                     }
                 }
             }
-            if (MAC3found == false && DV3 == true)
+            if (MAC3found == false && DV3 == true && MAC3 != null)
             {
                 int index = sHtml_of_website.IndexOf(MAC3);
                 if (index != -1)
@@ -495,7 +497,7 @@ namespace Hausautomation.Model
                     }
                 }
             }
-            if (MAC4found == false && DV4 == true)
+            if (MAC4found == false && DV4 == true && MAC4 != null)
             {
                 int index = sHtml_of_website.IndexOf(MAC4);
                 if (index != -1)
@@ -590,7 +592,7 @@ namespace Hausautomation.Model
                 else
                     SID1Stat = 3;
             }
-            else if (ipfritzbox == IP2)
+            if (ipfritzbox == IP2)
             {
                 if (sid == "")
                     SID2Stat = 1;
@@ -599,7 +601,7 @@ namespace Hausautomation.Model
                 else
                     SID2Stat = 3;
             }
-            else if (ipfritzbox == IP3)
+            if (ipfritzbox == IP3)
             {
                 if (sid == "")
                     SID3Stat = 1;
@@ -608,7 +610,7 @@ namespace Hausautomation.Model
                 else
                     SID3Stat = 3;
             }
-            else if (ipfritzbox == IP4)
+            if (ipfritzbox == IP4)
             {
                 if (sid == "")
                     SID4Stat = 1;
