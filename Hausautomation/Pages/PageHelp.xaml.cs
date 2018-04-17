@@ -38,7 +38,7 @@ namespace Hausautomation.Pages
                 //await file.CopyAsync(folder, "Grobkonzept_Gerhard_Moerth.html", NameCollisionOption.ReplaceExisting);
 
                 wvHelp.NavigationFailed += WvHelp_NavigationFailed;
-                Uri targetUri = new Uri("ms-appdata:///local/HTML/Grobkonzept_Gerhard_Moerth.html"); // zuerst lokale version probieren
+                Uri targetUri = new Uri("ms-appdata:///local/HTML/Uebersicht/Uebersicht.html"); // zuerst lokale version probieren
                 wvHelp.Navigate(targetUri);
             }
             catch (FormatException ex)
@@ -51,7 +51,7 @@ namespace Hausautomation.Pages
         {
             if (once == true)
             {
-                Uri targetUri = new Uri("http://members.chello.at/gmoerth/Grobkonzept_Gerhard_Moerth.html");
+                Uri targetUri = new Uri("http://members.chello.at/gmoerth/Uebersicht/Uebersicht.html");
                 wvHelp.Navigate(targetUri);
                 once = false;
             }

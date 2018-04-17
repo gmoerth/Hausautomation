@@ -158,7 +158,7 @@
     <Content Include="Assets\HM-Cen-O-TW-x-x-2.png" />
     <Content Include="Assets\Hausautomation.jpg" />
     <Content Include="Assets\HM-OU-LED16.png" />
-    <Content Include="Assets\HM-RC-Key4-2.jpg" />
+    <Content Include="Assets\HM-RC-Key4-2.png" />
     <Content Include="XML\functionlist.xml" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
@@ -175,7 +175,7 @@
     <Content Include="XML\statelist.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="XML\XML-API.txt" />
+    <Content Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

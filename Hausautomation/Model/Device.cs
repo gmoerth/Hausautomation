@@ -575,7 +575,7 @@ namespace Hausautomation.Model
                 new BitmapImage(new Uri("ms-appx:///Assets/HmIP-BROLL.jpg")),           // 10
                 new BitmapImage(new Uri("ms-appx:///Assets/HMIP-WRC2.jpg")),            // 11
                 new BitmapImage(new Uri("ms-appx:///Assets/HM-OU-LED16.png")),          // 12
-                new BitmapImage(new Uri("ms-appx:///Assets/HM-RC-Key4-2.jpg")),          // 12
+                new BitmapImage(new Uri("ms-appx:///Assets/HM-RC-Key4-2.png")),          // 12
             };
             Image = sources[0]; // Zentrale hat kein "device_type"
         }

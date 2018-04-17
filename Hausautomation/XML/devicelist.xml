@@ -30,6 +30,24 @@
     <channel name="HM-LC-Sw2-FM OEQ0320613:1" type="26" address="OEQ0320613:1" ise_id="1263" direction="RECEIVER" parent_device="1238" index="1" group_partner="" aes_available="true" transmission_mode="DEFAULT" visible="true" ready_config="true" operate="true" />
     <channel name="HM-LC-Sw2-FM OEQ0320613:2" type="26" address="OEQ0320613:2" ise_id="1269" direction="RECEIVER" parent_device="1238" index="2" group_partner="" aes_available="true" transmission_mode="DEFAULT" visible="true" ready_config="true" operate="true" />
   </device>
+  <device name="HM-OU-LED16 OEQ0677210" address="OEQ0677210" ise_id="26517" interface="BidCos-RF" device_type="HM-OU-LED16" ready_config="true">
+    <channel name="HM-OU-LED16 OEQ0677210:1" type="32" address="OEQ0677210:1" ise_id="26543" direction="UNKNOWN" parent_device="26517" index="1" group_partner="" aes_available="true" transmission_mode="DEFAULT" visible="true" ready_config="true" operate="true" />
+    <channel name="HM-OU-LED16 OEQ0677210:2" type="32" address="OEQ0677210:2" ise_id="26549" direction="UNKNOWN" parent_device="26517" index="2" group_partner="" aes_available="true" transmission_mode="DEFAULT" visible="true" ready_config="true" operate="true" />
+    <channel name="HM-OU-LED16 OEQ0677210:3" type="32" address="OEQ0677210:3" ise_id="26555" direction="UNKNOWN" parent_device="26517" index="3" group_partner="" aes_available="true" transmission_mode="DEFAULT" visible="true" ready_config="true" operate="true" />
+    <channel name="HM-OU-LED16 OEQ0677210:4" type="32" address="OEQ0677210:4" ise_id="26561" direction="UNKNOWN" parent_device="26517" index="4" group_partner="" aes_available="true" transmission_mode="DEFAULT" visible="true" ready_config="true" operate="true" />
+    <channel name="HM-OU-LED16 OEQ0677210:5" type="32" address="OEQ0677210:5" ise_id="26567" direction="UNKNOWN" parent_device="26517" index="5" group_partner="" aes_available="true" transmission_mode="DEFAULT" visible="true" ready_config="true" operate="true" />
+    <channel name="HM-OU-LED16 OEQ0677210:6" type="32" address="OEQ0677210:6" ise_id="26573" direction="UNKNOWN" parent_device="26517" index="6" group_partner="" aes_available="true" transmission_mode="DEFAULT" visible="true" ready_config="true" operate="true" />
+    <channel name="HM-OU-LED16 OEQ0677210:7" type="32" address="OEQ0677210:7" ise_id="26579" direction="UNKNOWN" parent_device="26517" index="7" group_partner="" aes_available="true" transmission_mode="DEFAULT" visible="true" ready_config="true" operate="true" />
+    <channel name="HM-OU-LED16 OEQ0677210:8" type="32" address="OEQ0677210:8" ise_id="26585" direction="UNKNOWN" parent_device="26517" index="8" group_partner="" aes_available="true" transmission_mode="DEFAULT" visible="true" ready_config="true" operate="true" />
+    <channel name="HM-OU-LED16 OEQ0677210:9" type="32" address="OEQ0677210:9" ise_id="26591" direction="UNKNOWN" parent_device="26517" index="9" group_partner="" aes_available="true" transmission_mode="DEFAULT" visible="true" ready_config="true" operate="true" />
+    <channel name="HM-OU-LED16 OEQ0677210:10" type="32" address="OEQ0677210:10" ise_id="26597" direction="UNKNOWN" parent_device="26517" index="10" group_partner="" aes_available="true" transmission_mode="DEFAULT" visible="true" ready_config="true" operate="true" />
+    <channel name="HM-OU-LED16 OEQ0677210:11" type="32" address="OEQ0677210:11" ise_id="26603" direction="UNKNOWN" parent_device="26517" index="11" group_partner="" aes_available="true" transmission_mode="DEFAULT" visible="true" ready_config="true" operate="true" />
+    <channel name="HM-OU-LED16 OEQ0677210:12" type="32" address="OEQ0677210:12" ise_id="26609" direction="UNKNOWN" parent_device="26517" index="12" group_partner="" aes_available="true" transmission_mode="DEFAULT" visible="true" ready_config="true" operate="true" />
+    <channel name="HM-OU-LED16 OEQ0677210:13" type="32" address="OEQ0677210:13" ise_id="26615" direction="UNKNOWN" parent_device="26517" index="13" group_partner="" aes_available="true" transmission_mode="DEFAULT" visible="true" ready_config="true" operate="true" />
+    <channel name="HM-OU-LED16 OEQ0677210:14" type="32" address="OEQ0677210:14" ise_id="26621" direction="UNKNOWN" parent_device="26517" index="14" group_partner="" aes_available="true" transmission_mode="DEFAULT" visible="true" ready_config="true" operate="true" />
+    <channel name="HM-OU-LED16 OEQ0677210:15" type="32" address="OEQ0677210:15" ise_id="26627" direction="UNKNOWN" parent_device="26517" index="15" group_partner="" aes_available="true" transmission_mode="DEFAULT" visible="true" ready_config="true" operate="true" />
+    <channel name="HM-OU-LED16 OEQ0677210:16" type="32" address="OEQ0677210:16" ise_id="26633" direction="UNKNOWN" parent_device="26517" index="16" group_partner="" aes_available="true" transmission_mode="DEFAULT" visible="true" ready_config="true" operate="true" />
+  </device>
   <device name="HM-PB-2-WM55-2 NEQ1542641" address="NEQ1542641" ise_id="1533" interface="BidCos-RF" device_type="HM-PB-2-WM55-2" ready_config="true">
     <channel name="HM-PB-2-WM55-2 NEQ1542641:1" type="32" address="NEQ1542641:1" ise_id="1554" direction="SENDER" parent_device="1533" index="1" group_partner="1560" aes_available="true" transmission_mode="DEFAULT" visible="true" ready_config="true" operate="true" />
     <channel name="HM-PB-2-WM55-2 NEQ1542641:2" type="32" address="NEQ1542641:2" ise_id="1560" direction="SENDER" parent_device="1533" index="2" group_partner="1554" aes_available="true" transmission_mode="DEFAULT" visible="true" ready_config="true" operate="true" />
@@ -60,11 +78,29 @@
     <channel name="HM-PB-4Dis-WM IEQ0100217:19" type="32" address="IEQ0100217:19" ise_id="25704" direction="SENDER" parent_device="25575" index="19" group_partner="25710" aes_available="true" transmission_mode="AES" visible="true" ready_config="true" operate="true" />
     <channel name="HM-PB-4Dis-WM IEQ0100217:20" type="32" address="IEQ0100217:20" ise_id="25710" direction="SENDER" parent_device="25575" index="20" group_partner="25704" aes_available="true" transmission_mode="AES" visible="true" ready_config="true" operate="true" />
   </device>
+  <device name="HM-RC-Key4-2 NEQ0250556" address="NEQ0250556" ise_id="31760" interface="BidCos-RF" device_type="HM-RC-Key4-2" ready_config="true">
+    <channel name="HM-RC-Key4-2 NEQ0250556:1" type="32" address="NEQ0250556:1" ise_id="31789" direction="SENDER" parent_device="31760" index="1" group_partner="31793" aes_available="true" transmission_mode="AES" visible="true" ready_config="true" operate="true" />
+    <channel name="HM-RC-Key4-2 NEQ0250556:2" type="32" address="NEQ0250556:2" ise_id="31793" direction="SENDER" parent_device="31760" index="2" group_partner="31789" aes_available="true" transmission_mode="AES" visible="true" ready_config="true" operate="true" />
+    <channel name="HM-RC-Key4-2 NEQ0250556:3" type="32" address="NEQ0250556:3" ise_id="31797" direction="SENDER" parent_device="31760" index="3" group_partner="" aes_available="true" transmission_mode="AES" visible="true" ready_config="true" operate="true" />
+    <channel name="HM-RC-Key4-2 NEQ0250556:4" type="32" address="NEQ0250556:4" ise_id="31801" direction="SENDER" parent_device="31760" index="4" group_partner="" aes_available="true" transmission_mode="AES" visible="true" ready_config="true" operate="true" />
+  </device>
   <device name="HM-Sec-MDIR-3 OEQ0488052" address="OEQ0488052" ise_id="26225" interface="BidCos-RF" device_type="HM-Sec-MDIR-3" ready_config="true">
     <channel name="HM-Sec-MDIR-3 OEQ0488052:1" type="17" address="OEQ0488052:1" ise_id="26255" direction="SENDER" parent_device="26225" index="1" group_partner="" aes_available="true" transmission_mode="AES" visible="true" ready_config="true" operate="true" />
   </device>
   <device name="HM-Sec-SCo OEQ0807137" address="OEQ0807137" ise_id="26167" interface="BidCos-RF" device_type="HM-Sec-SCo" ready_config="true">
     <channel name="HM-Sec-SCo OEQ0807137:1" type="37" address="OEQ0807137:1" ise_id="26196" direction="SENDER" parent_device="26167" index="1" group_partner="" aes_available="true" transmission_mode="AES" visible="true" ready_config="true" operate="true" />
+  </device>
+  <device name="HM-Sec-SCo OEQ1200658" address="OEQ1200658" ise_id="26284" interface="BidCos-RF" device_type="HM-Sec-SCo" ready_config="true">
+    <channel name="HM-Sec-SCo OEQ1200658:1" type="37" address="OEQ1200658:1" ise_id="26313" direction="SENDER" parent_device="26284" index="1" group_partner="" aes_available="true" transmission_mode="AES" visible="true" ready_config="true" operate="true" />
+  </device>
+  <device name="HM-Sec-SCo OEQ1201633" address="OEQ1201633" ise_id="26343" interface="BidCos-RF" device_type="HM-Sec-SCo" ready_config="true">
+    <channel name="HM-Sec-SCo OEQ1201633:1" type="37" address="OEQ1201633:1" ise_id="26372" direction="SENDER" parent_device="26343" index="1" group_partner="" aes_available="true" transmission_mode="AES" visible="true" ready_config="true" operate="true" />
+  </device>
+  <device name="HM-Sec-SCo OEQ1201741" address="OEQ1201741" ise_id="26401" interface="BidCos-RF" device_type="HM-Sec-SCo" ready_config="true">
+    <channel name="HM-Sec-SCo OEQ1201741:1" type="37" address="OEQ1201741:1" ise_id="26430" direction="SENDER" parent_device="26401" index="1" group_partner="" aes_available="true" transmission_mode="AES" visible="true" ready_config="true" operate="true" />
+  </device>
+  <device name="HM-Sec-SCo OEQ1201754" address="OEQ1201754" ise_id="26459" interface="BidCos-RF" device_type="HM-Sec-SCo" ready_config="true">
+    <channel name="HM-Sec-SCo OEQ1201754:1" type="37" address="OEQ1201754:1" ise_id="26488" direction="SENDER" parent_device="26459" index="1" group_partner="" aes_available="true" transmission_mode="AES" visible="true" ready_config="true" operate="true" />
   </device>
   <device name="HmIP-BROLL 0011170999CF72" address="0011170999CF72" ise_id="19248" interface="HmIP-RF" device_type="HmIP-BROLL" ready_config="true">
     <channel name="HmIP-BROLL 0011170999CF72:0" type="30" address="0011170999CF72:0" ise_id="19249" direction="UNKNOWN" parent_device="19248" index="0" group_partner="" aes_available="false" transmission_mode="AES" visible="true" ready_config="true" operate="true" />

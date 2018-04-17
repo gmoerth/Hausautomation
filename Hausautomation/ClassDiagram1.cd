@@ -93,7 +93,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Hausautomation.Model.Statements">
-    <Position X="6" Y="26.5" Width="1.5" />
+    <Position X="3.25" Y="29.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAABAAAAAAAEAAABAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Model\Programs.cs</FileName>
@@ -119,6 +119,14 @@
       <HashCode>AQAAAAAAAABgRAAAIAAQUAwAgVAAAAAAIAABgABCICg=</HashCode>
       <FileName>Model\ReadXDoc.cs</FileName>
     </TypeIdentifier>
+  </Class>
+  <Class Name="Hausautomation.MainPage">
+    <Position X="6" Y="27" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAACAEAAAAAAAACABQAIAAACAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>MainPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

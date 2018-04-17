@@ -10,6 +10,7 @@ using Hausautomation.Model;
 using Hausautomation.Pages;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
@@ -39,6 +40,7 @@ namespace Hausautomation
         {
             this.InitializeComponent();
             Window.Current.VisibilityChanged += Window_VisibilityChanged;
+            TransferToStorage(); // Erstinstallation XML Files für offline kopieren
 
             Devicelist = new DeviceList();
             settingsPage = new SettingsPage();
@@ -72,7 +74,7 @@ namespace Hausautomation
         {
             contentFrame.Navigate(typeof(PageLoad));
             PageLoad pl = PageLoad.Instance;
-            if(pl != null)
+            if (pl != null)
                 pl.Text2 = "Lade Dokumente...";
         }
 
@@ -204,5 +206,57 @@ namespace Hausautomation
                         item.IsSelected = true;
         }
 
+        private async void TransferToStorage()
+        {
+            bool bCopied = false;
+            // Has the file been copied already?
+            try
+            {
+                await ApplicationData.Current.LocalFolder.GetFileAsync("statelist.xml");
+                // No exception means it exists
+            }
+            catch (FileNotFoundException)
+            {
+                // The file obviously doesn't exist
+                StorageFile statelist = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///XML/statelist.xml"));
+                await statelist.CopyAsync(ApplicationData.Current.LocalFolder);
+                bCopied = true;
+            }
+            try
+            {
+                await ApplicationData.Current.LocalFolder.GetFileAsync("devicelist.xml");
+            }
+            catch (FileNotFoundException)
+            {
+                StorageFile devicelist = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///XML/devicelist.xml"));
+                await devicelist.CopyAsync(ApplicationData.Current.LocalFolder);
+                bCopied = true;
+            }
+            try
+            {
+                await ApplicationData.Current.LocalFolder.GetFileAsync("roomlist.xml");
+            }
+            catch (FileNotFoundException)
+            {
+                StorageFile roomlist = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///XML/roomlist.xml"));
+                await roomlist.CopyAsync(ApplicationData.Current.LocalFolder);
+                bCopied = true;
+            }
+            try
+            {
+                await ApplicationData.Current.LocalFolder.GetFileAsync("functionlist.xml");
+            }
+            catch (FileNotFoundException)
+            {
+                StorageFile functionlist = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///XML/functionlist.xml"));
+                await functionlist.CopyAsync(ApplicationData.Current.LocalFolder);
+                bCopied = true;
+            }
+            if (bCopied == true)
+            {
+                ReadXDoc readXDoc = new ReadXDoc();
+                readXDoc.ReadAllXDocuments();
+            }
+        }
     }
 }
