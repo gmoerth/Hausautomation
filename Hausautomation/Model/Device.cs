@@ -575,7 +575,8 @@ namespace Hausautomation.Model
                 new BitmapImage(new Uri("ms-appx:///Assets/HmIP-BROLL.jpg")),           // 10
                 new BitmapImage(new Uri("ms-appx:///Assets/HMIP-WRC2.jpg")),            // 11
                 new BitmapImage(new Uri("ms-appx:///Assets/HM-OU-LED16.png")),          // 12
-                new BitmapImage(new Uri("ms-appx:///Assets/HM-RC-Key4-2.png")),          // 12
+                new BitmapImage(new Uri("ms-appx:///Assets/HM-RC-Key4-2.png")),         // 13
+                new BitmapImage(new Uri("ms-appx:///Assets/HmIP-FSM.png")),             // 14
             };
             Image = sources[0]; // Zentrale hat kein "device_type"
         }
@@ -696,6 +697,9 @@ namespace Hausautomation.Model
                 case "HmIP-BSM":
                     Image = sources[3];
                     break;
+                case "HmIP-FSM":
+                    Image = sources[14];
+                    break;
                 case "HMIP-PSM":
                     Image = sources[9];
                     break;
@@ -709,7 +713,10 @@ namespace Hausautomation.Model
                     Image = sources[13];
                     break;
                 default:
-                    throw new NotImplementedException();
+                    MessageDialog showDialog = new MessageDialog(Device_type, "Bild nicht implementiert!");
+                    var result = showDialog.ShowAsync();
+                    break;
+                    //throw new NotImplementedException();
             }
         }
 
@@ -749,6 +756,8 @@ namespace Hausautomation.Model
                 case "HmIP-BSM":
                     PrepareHmIPBSM();
                     break;
+                case "HmIP-FSM":
+                    break;
                 case "HMIP-PSM":
                     PrepareHMIPPSM();
                     break;
@@ -762,6 +771,8 @@ namespace Hausautomation.Model
                 case null: // HM-RCV-50 Zentrale
                     break;
                 default:
+                    MessageDialog showDialog = new MessageDialog(Device_type, "Gerät nicht implementiert!");
+                    var result = showDialog.ShowAsync();
                     break;
                     //throw new NotImplementedException();
             }
@@ -1018,6 +1029,7 @@ namespace Hausautomation.Model
             bTextblock3 = true;
             string strein = "";
             string straus = "";
+            DateTime timeshort = DateTime.MinValue, timelong = DateTime.MinValue;
             foreach (Channel channel in Channellist.Channellist)
             {
                 if (channel.Index == 0)
@@ -1040,14 +1052,21 @@ namespace Hausautomation.Model
                 {
                     foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
                     {
-                        if (datapoint.Type == "PRESS_LONG")
-                        {
-                        }
                         if (datapoint.Type == "PRESS_SHORT")
                         {
                             iStateChangeID = datapoint.Ise_id;
                             straus = "\nAus: ";
-                            straus += datapoint.Timestamp.ToString();
+                            //straus += datapoint.Timestamp.ToString();
+                            timeshort = datapoint.Timestamp;
+                        }
+                        if (datapoint.Type == "PRESS_LONG")
+                        {
+                            iStateChangeID = datapoint.Ise_id;
+                            timelong = datapoint.Timestamp;
+                            if (timeshort < timelong)
+                                straus += timelong.ToString();
+                            else
+                                straus += timeshort.ToString();
                         }
                     }
                 }
@@ -1055,14 +1074,21 @@ namespace Hausautomation.Model
                 {
                     foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
                     {
-                        if (datapoint.Type == "PRESS_LONG")
-                        {
-                        }
                         if (datapoint.Type == "PRESS_SHORT")
                         {
                             iStateChangeID2 = datapoint.Ise_id;
                             strein = "\nLetzter Tastendruck:\nEin: ";
-                            strein += datapoint.Timestamp.ToString();
+                            //strein += datapoint.Timestamp.ToString();
+                            timeshort = datapoint.Timestamp;
+                        }
+                        if (datapoint.Type == "PRESS_LONG")
+                        {
+                            iStateChangeID2 = datapoint.Ise_id;
+                            timelong = datapoint.Timestamp;
+                            if (timeshort < timelong)
+                                strein += timelong.ToString();
+                            else
+                                strein += timeshort.ToString();
                         }
                     }
                 }
@@ -1494,9 +1520,9 @@ namespace Hausautomation.Model
         }
 
         private DispatcherTimer _timer = null;
-        
+
         // wegen Slider mit Timer
-        public void StateChange(double dStatus) 
+        public void StateChange(double dStatus)
         {
             //Debug.WriteLine("Slider_ValueChanged");
             if (_timer != null)
