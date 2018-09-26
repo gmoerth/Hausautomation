@@ -105,6 +105,7 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Programs.cs" />
+    <Compile Include="Model\Rssi.cs" />
     <Compile Include="Pages\PageLoad.xaml.cs">
       <DependentUpon>PageLoad.xaml</DependentUpon>
     </Compile>

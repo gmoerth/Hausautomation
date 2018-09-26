@@ -93,6 +93,7 @@ namespace Hausautomation.Model
             var appTitleBar = ApplicationView.GetForCurrentView().TitleBar;
             appTitleBar.ForegroundColor = Colors.Red;
             await ReadXDocument("addons/xmlapi/statelist.cgi", "statelist.xml");
+            await ReadXDocument("addons/xmlapi/rssilist.cgi", "rssilist.xml");
             // Update the UI with results
             MainPage.Devicelist.PrepareAllDevicesIntheList();
             appTitleBar.ForegroundColor = Colors.Black;
@@ -166,6 +167,7 @@ namespace Hausautomation.Model
             await ReadXDocument("addons/xmlapi/devicelist.cgi", "devicelist.xml");
             await ReadXDocument("addons/xmlapi/roomlist.cgi", "roomlist.xml");
             await ReadXDocument("addons/xmlapi/functionlist.cgi", "functionlist.xml");
+            await ReadXDocument("addons/xmlapi/rssilist.cgi", "rssilist.xml");
             MainPage.Devicelist.PrepareAllDevicesIntheList();
             Favoriten favoriten = new Favoriten();
             favoriten.LoadFavoriten(); // Favoriten einlesen

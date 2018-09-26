@@ -24,6 +24,8 @@ namespace Hausautomation.Model
 
         public FunctionList Functionlist { get; set; } // diese Liste ist redundant aber hilfreich
 
+        public RssiList Rssilist { get; set; } // diese Liste ist redundant aber hilfreich
+
         public ProgramList Programlist { get; set; } // Die erstellten Programme
 
         public IEnumerable<Device> Favoriten
@@ -46,6 +48,7 @@ namespace Hausautomation.Model
             Devicelist = new ObservableCollection<Device>();
             Roomlist = new RoomList();
             Functionlist = new FunctionList();
+            Rssilist = new RssiList();
             Programlist = new ProgramList();
         }
 
@@ -182,6 +185,27 @@ namespace Hausautomation.Model
                     function.Parse(element);
                     InsertFunctionInChannel(element);
                     Functionlist.AddFunction(function);
+                }
+            }
+            // rssi parsen (rssilist)
+            foreach (XElement element in xDocument.Descendants("rssi"))
+            {
+                //Debug.WriteLine(element);
+                string device = element.Attribute("device").Value;
+                Rssi rssi = Rssilist.GetRssi(device);
+                if (rssi != null)
+                {
+                    //Debug.WriteLine($"GetFunction - Parse\n{element}");
+                    rssi.Parse(element);
+                    //InsertFunctionInChannel(element);
+                }
+                else
+                {
+                    //Debug.WriteLine($"AddFunction - Parse\n{element}");
+                    rssi = new Rssi();
+                    rssi.Parse(element);
+                    //InsertFunctionInChannel(element);
+                    Rssilist.AddRssi(rssi);
                 }
             }
         }
@@ -757,6 +781,7 @@ namespace Hausautomation.Model
                     PrepareHmIPBSM();
                     break;
                 case "HmIP-FSM":
+                    PrepareHmIPFSM();
                     break;
                 case "HMIP-PSM":
                     PrepareHMIPPSM();
@@ -813,6 +838,17 @@ namespace Hausautomation.Model
                                 strData += "\nRSSI Gerät: " + datapoint.Value.ToString();
                                 //strData += "\n" + datapoint.Timestamp.ToString();
                             }
+                            else
+                            {
+                                Rssi rssi = MainPage.Devicelist.Rssilist.GetRssi(Address);
+                                if (rssi != null)
+                                {
+                                    int rssirx = (rssi.Rx + 155) * 2; // RSSI = ( dBm + 155 ) * 2
+                                                                      // dBm = ( RSSI / 2) - 155
+                                    if (rssirx < 256)
+                                        strData += "\nRSSI Gerät: " + rssirx.ToString();
+                                }
+                            }
                         }
                         if (datapoint.Type == "RSSI_PEER")
                         {
@@ -821,6 +857,17 @@ namespace Hausautomation.Model
                                 strData += "\nRSSI Zentrale: " + datapoint.Value.ToString();
                                 //strData += "\n" + datapoint.Timestamp.ToString();
                                 break;
+                            }
+                            else
+                            {
+                                Rssi rssi = MainPage.Devicelist.Rssilist.GetRssi(Address);
+                                if (rssi != null)
+                                {
+                                    int rssitx = (rssi.Tx + 155) * 2; // RSSI = ( dBm + 155 ) * 2
+                                                                      // dBm = ( RSSI / 2) - 155
+                                    if (rssitx < 256)
+                                        strData += "\nRSSI Zentrale: " + rssitx.ToString();
+                                }
                             }
                         }
                     }
@@ -1050,47 +1097,45 @@ namespace Hausautomation.Model
                 }
                 if (channel.Index == 1)
                 {
+                    straus = "\nAus: ";
                     foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
                     {
                         if (datapoint.Type == "PRESS_SHORT")
                         {
                             iStateChangeID = datapoint.Ise_id;
-                            straus = "\nAus: ";
                             //straus += datapoint.Timestamp.ToString();
                             timeshort = datapoint.Timestamp;
                         }
                         if (datapoint.Type == "PRESS_LONG")
                         {
-                            iStateChangeID = datapoint.Ise_id;
                             timelong = datapoint.Timestamp;
-                            if (timeshort < timelong)
-                                straus += timelong.ToString();
-                            else
-                                straus += timeshort.ToString();
                         }
                     }
+                    if (timeshort < timelong)
+                        straus += timelong.ToString();
+                    else
+                        straus += timeshort.ToString();
                 }
                 if (channel.Index == 2)
                 {
+                    strein = "\nLetzter Tastendruck:\nEin: ";
                     foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
                     {
                         if (datapoint.Type == "PRESS_SHORT")
                         {
                             iStateChangeID2 = datapoint.Ise_id;
-                            strein = "\nLetzter Tastendruck:\nEin: ";
                             //strein += datapoint.Timestamp.ToString();
                             timeshort = datapoint.Timestamp;
                         }
                         if (datapoint.Type == "PRESS_LONG")
                         {
-                            iStateChangeID2 = datapoint.Ise_id;
                             timelong = datapoint.Timestamp;
-                            if (timeshort < timelong)
-                                strein += timelong.ToString();
-                            else
-                                strein += timeshort.ToString();
                         }
                     }
+                    if (timeshort < timelong)
+                        strein += timelong.ToString();
+                    else
+                        strein += timeshort.ToString();
                 }
             }
             Textblock3 += strein + straus;
@@ -1114,6 +1159,7 @@ namespace Hausautomation.Model
             bTextblock6 = true;
             string strein = "";
             string straus = "";
+            DateTime timeshort = DateTime.MinValue, timelong = DateTime.MinValue;
             if (bnext != null)
             {
                 if (bnext == true && iChannel < 9)
@@ -1142,35 +1188,47 @@ namespace Hausautomation.Model
                 //if (channel.Index == 1)
                 if (channel.Index == iChannel * 2 + 1)
                 {
+                    straus = "\nAus: ";
                     foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
                     {
-                        if (datapoint.Type == "PRESS_LONG")
-                        {
-                        }
                         if (datapoint.Type == "PRESS_SHORT")
                         {
                             iStateChangeID = datapoint.Ise_id;
-                            straus = "\nAus: ";
-                            straus += datapoint.Timestamp.ToString();
+                            //straus += datapoint.Timestamp.ToString();
+                            timeshort = datapoint.Timestamp;
+                        }
+                        if (datapoint.Type == "PRESS_LONG")
+                        {
+                            timelong = datapoint.Timestamp;
                         }
                     }
+                    if (timeshort < timelong)
+                        straus += timelong.ToString();
+                    else
+                        straus += timeshort.ToString();
                 }
                 //if (channel.Index == 2)
                 if (channel.Index == iChannel * 2 + 2)
                 {
+                    strein = "\nAnzeige für Kanal: " + (iChannel + 1).ToString();
+                    strein += "\nLetzter Tastendruck:\nEin: ";
                     foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
                     {
-                        if (datapoint.Type == "PRESS_LONG")
-                        {
-                        }
                         if (datapoint.Type == "PRESS_SHORT")
                         {
                             iStateChangeID2 = datapoint.Ise_id;
-                            strein = "\nAnzeige für Kanal: " + (iChannel + 1).ToString();
-                            strein += "\nLetzter Tastendruck:\nEin: ";
-                            strein += datapoint.Timestamp.ToString();
+                            //strein += datapoint.Timestamp.ToString();
+                            timeshort = datapoint.Timestamp;
+                        }
+                        if (datapoint.Type == "PRESS_LONG")
+                        {
+                            timelong = datapoint.Timestamp;
                         }
                     }
+                    if (timeshort < timelong)
+                        strein += timelong.ToString();
+                    else
+                        strein += timeshort.ToString();
                 }
             }
             Textblock6 += strein + straus;
@@ -1189,7 +1247,7 @@ namespace Hausautomation.Model
                         {
                             Textblock2 = "Letze Aktualisierung:\n";
                             Textblock2 += datapoint.Timestamp.ToString();
-                            Textblock2 += "\nTüre: ";
+                            Textblock2 += "\nSensor: ";
                             if (datapoint.Value == double.NegativeInfinity)
                                 Textblock2 += "geschlossen";
                             else if (datapoint.Value == double.PositiveInfinity)
@@ -1268,7 +1326,7 @@ namespace Hausautomation.Model
                         if (datapoint.Type == "ACTUAL_TEMPERATURE")
                         {
                             str0 = "\nTemperatur: ";
-                            str0 += (datapoint.Value - 4).ToString();
+                            str0 += (datapoint.Value - 6).ToString();
                             str0 += "°C\n" + datapoint.Timestamp.ToString();
                         }
                     }
@@ -1319,6 +1377,73 @@ namespace Hausautomation.Model
                     }
                 }
                 if (channel.Index == 7)
+                {
+                    foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
+                    {
+                        if (datapoint.Type == "VOLTAGE")
+                        {
+                            strvo += "\nSpannung: ";
+                            strvo += datapoint.Value.ToString();
+                            strvo += " " + datapoint.Valueunit.ToString();
+                        }
+                        if (datapoint.Type == "CURRENT")
+                        {
+                            strcu += "\nStrom: ";
+                            strcu += datapoint.Value.ToString();
+                            strcu += " " + datapoint.Valueunit.ToString();
+                        }
+                        if (datapoint.Type == "FREQUENCY")
+                        {
+                            strfr += "\nFrequenz: ";
+                            strfr += datapoint.Value.ToString();
+                            strfr += " " + datapoint.Valueunit.ToString();
+                        }
+                        if (datapoint.Type == "POWER")
+                        {
+                            strpo += "\nLeistung: ";
+                            strpo += datapoint.Value.ToString();
+                            strpo += " " + datapoint.Valueunit.ToString();
+                        }
+                        if (datapoint.Type == "ENERGY_COUNTER")
+                        {
+                            stren += "\nEnergieverb.: ";
+                            stren += datapoint.Value.ToString("F");
+                            stren += " " + datapoint.Valueunit.ToString();
+                        }
+                    }
+                }
+            }
+            Textblock4 += strvo + strcu + strfr + strpo + stren;
+        }
+
+        public void PrepareHmIPFSM()
+        {
+            bSwitch1 = true;
+            bTextblock4 = true;
+            string strvo = "";
+            string strcu = "";
+            string strfr = "";
+            string strpo = "";
+            string stren = "";
+            foreach (Channel channel in Channellist.Channellist)
+            {
+                if (channel.Index == 2)
+                {
+                    foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
+                    {
+                        if (datapoint.Type == "STATE")
+                        {
+                            iStateChangeID = datapoint.Ise_id;
+                            if (datapoint.Value == double.NegativeInfinity)
+                                bSwitch1State = false;
+                            if (datapoint.Value == double.PositiveInfinity)
+                                bSwitch1State = true;
+                            Textblock4 = "Letze Aktualisierung:\n";
+                            Textblock4 += datapoint.Timestamp.ToString();
+                        }
+                    }
+                }
+                if (channel.Index == 5)
                 {
                     foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
                     {
@@ -1431,6 +1556,7 @@ namespace Hausautomation.Model
             bTextblock3 = true;
             string strein = "";
             string straus = "";
+            DateTime timeshort = DateTime.MinValue, timelong = DateTime.MinValue;
             foreach (Channel channel in Channellist.Channellist)
             {
                 if (channel.Index == 0)
@@ -1457,33 +1583,45 @@ namespace Hausautomation.Model
                 }
                 if (channel.Index == 1)
                 {
+                    straus = "\nAus: ";
                     foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
                     {
                         if (datapoint.Type == "PRESS_LONG")
                         {
+                            timelong = datapoint.Timestamp;
                         }
                         if (datapoint.Type == "PRESS_SHORT")
                         {
                             iStateChangeID = datapoint.Ise_id;
-                            straus = "\nAus: ";
-                            straus += datapoint.Timestamp.ToString();
+                            //straus += datapoint.Timestamp.ToString();
+                            timeshort = datapoint.Timestamp;
                         }
                     }
+                    if (timeshort < timelong)
+                        straus += timelong.ToString();
+                    else
+                        straus += timeshort.ToString();
                 }
                 if (channel.Index == 2)
                 {
+                    strein = "\nLetzter Tastendruck:\nEin: ";
                     foreach (Datapoint datapoint in channel.Datapointlist.Datapointlist)
                     {
                         if (datapoint.Type == "PRESS_LONG")
                         {
+                            timelong = datapoint.Timestamp;
                         }
                         if (datapoint.Type == "PRESS_SHORT")
                         {
                             iStateChangeID2 = datapoint.Ise_id;
-                            strein = "\nLetzter Tastendruck:\nEin: ";
-                            strein += datapoint.Timestamp.ToString();
+                            //strein += datapoint.Timestamp.ToString();
+                            timeshort = datapoint.Timestamp;
                         }
                     }
+                    if (timeshort < timelong)
+                        strein += timelong.ToString();
+                    else
+                        strein += timeshort.ToString();
                 }
             }
             Textblock3 += strein + straus;
