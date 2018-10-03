@@ -252,6 +252,16 @@ namespace Hausautomation
                 await functionlist.CopyAsync(ApplicationData.Current.LocalFolder);
                 bCopied = true;
             }
+            try
+            {
+                await ApplicationData.Current.LocalFolder.GetFileAsync("rssilist.xml");
+            }
+            catch (FileNotFoundException)
+            {
+                StorageFile functionlist = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///XML/rssilist.xml"));
+                await functionlist.CopyAsync(ApplicationData.Current.LocalFolder);
+                bCopied = true;
+            }
             if (bCopied == true)
             {
                 ReadXDoc readXDoc = new ReadXDoc();
