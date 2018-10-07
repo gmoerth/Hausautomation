@@ -540,6 +540,7 @@ namespace Hausautomation.Model
         public int iStateChangeID4 { get; set; } // ise_id wird für StateChange benötigt
 
         private static List<BitmapImage> sources; // Images der Devices
+        private static List<string> missing_devices; // Fehlende Devices anzeigen
 
         public BitmapImage Image { get; set; }
         #endregion
@@ -547,6 +548,7 @@ namespace Hausautomation.Model
         #region Konstruktor
         public Device()
         {
+            missing_devices = new List<string>();
             Channellist = new ChannelList();
             Image = new BitmapImage();
             sources = new List<BitmapImage>()
@@ -566,6 +568,7 @@ namespace Hausautomation.Model
                 new BitmapImage(new Uri("ms-appx:///Assets/HM-OU-LED16.png")),          // 12
                 new BitmapImage(new Uri("ms-appx:///Assets/HM-RC-Key4-2.png")),         // 13
                 new BitmapImage(new Uri("ms-appx:///Assets/HmIP-FSM.png")),             // 14
+                new BitmapImage(new Uri("ms-appx:///Assets/Square150x150Logo.scale-200.png")), // 15
             };
             Image = sources[0]; // Zentrale hat kein "device_type"
         }
@@ -701,9 +704,13 @@ namespace Hausautomation.Model
                 case "HM-RC-Key4-2":
                     Image = sources[13];
                     break;
+                /*case "HM-RCV-50":
+                    Image = sources[0];
+                    break;*/
                 default:
-                    MessageDialog showDialog = new MessageDialog(Device_type, "Bild nicht implementiert!");
-                    var result = showDialog.ShowAsync();
+                    Image = sources[15];
+                    //MessageDialog showDialog = new MessageDialog(Device_type, "Bild nicht implementiert!");
+                    //var result = showDialog.ShowAsync();
                     break;
                     //throw new NotImplementedException();
             }
@@ -762,8 +769,12 @@ namespace Hausautomation.Model
                 case null: // HM-RCV-50 Zentrale
                     break;
                 default:
-                    MessageDialog showDialog = new MessageDialog(Device_type, "Gerät nicht implementiert!");
-                    var result = showDialog.ShowAsync();
+                    if (missing_devices.IndexOf(Device_type) == -1) // Fehlermeldung nur einmal pro Gerät anzeigen
+                    {
+                        missing_devices.Add(Device_type);
+                        MessageDialog showDialog = new MessageDialog(Device_type + "\nBitte schicken sie die Dateien 'devicelist.xml'\nund 'statelist.xml' zum Autor des Programms.", "Gerät noch nicht implementiert!");
+                        var result = showDialog.ShowAsync();
+                    }
                     break;
                     //throw new NotImplementedException();
             }
