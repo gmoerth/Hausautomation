@@ -1,0 +1,7 @@
+MainPackage=C:\Users\gmoer\source\repos\Hausautomation\Hausautomation\bin\ARM\Release\Upload\Hausautomation_1.1.0.0_ARM.appx
+SymbolPackage=C:\Users\gmoer\source\repos\Hausautomation\Hausautomation\bin\ARM\Release\Upload\Hausautomation_1.1.0.0\Hausautomation_1.1.0.0_ARM.appxsym
+ResourcePack=C:\Users\gmoer\source\repos\Hausautomation\Hausautomation\bin\ARM\Release\Upload\Hausautomation_1.1.0.0_language-de.appx
+ResourcePack=C:\Users\gmoer\source\repos\Hausautomation\Hausautomation\bin\ARM\Release\Upload\Hausautomation_1.1.0.0_scale-100.appx
+ResourcePack=C:\Users\gmoer\source\repos\Hausautomation\Hausautomation\bin\ARM\Release\Upload\Hausautomation_1.1.0.0_scale-125.appx
+ResourcePack=C:\Users\gmoer\source\repos\Hausautomation\Hausautomation\bin\ARM\Release\Upload\Hausautomation_1.1.0.0_scale-150.appx
+ResourcePack=C:\Users\gmoer\source\repos\Hausautomation\Hausautomation\bin\ARM\Release\Upload\Hausautomation_1.1.0.0_scale-400.appx

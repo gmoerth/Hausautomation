@@ -1,0 +1,2 @@
+MainPackage=C:\Users\gmoer\source\repos\Hausautomation\Hausautomation\bin\x86\Release\Upload\Hausautomation_1.1.0.0_x86.appx
+SymbolPackage=C:\Users\gmoer\source\repos\Hausautomation\Hausautomation\bin\x86\Release\Upload\Hausautomation_1.1.0.0\Hausautomation_1.1.0.0_x86.appxsym
