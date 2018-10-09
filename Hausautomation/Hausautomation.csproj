@@ -17,7 +17,8 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
-    <PackageCertificateKeyFile>Hausautomation_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>Hausautomation_StoreKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateThumbprint>32612701B3B78ACF77CC4B5E69EEBA7689F36CDA</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -141,6 +142,7 @@
     </AppxManifest>
     <None Include="ClassDiagram1.cd" />
     <None Include="ClassDiagram2.cd" />
+    <None Include="Hausautomation_StoreKey.pfx" />
     <None Include="Hausautomation_TemporaryKey.pfx" />
     <None Include="project.json" />
   </ItemGroup>
@@ -161,6 +163,7 @@
     <Content Include="Assets\Hausautomation.jpg" />
     <Content Include="Assets\HM-OU-LED16.png" />
     <Content Include="Assets\HM-RC-Key4-2.png" />
+    <None Include="Package.StoreAssociation.xml" />
     <Content Include="XML\functionlist.xml" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
