@@ -1,26 +1,21 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <rssiList>
   <rssi device="BidCoS-RF" rx="65536" tx="-81" />
-  <rssi device="IEQ0100217" rx="65536" tx="-75" />
-  <rssi device="NEQ0212241" rx="-55" tx="-52" />
-  <rssi device="NEQ0250556" rx="65536" tx="-80" />
-  <rssi device="NEQ1663455" rx="-46" tx="-52" />
-  <rssi device="OEQ0320613" rx="65536" tx="-39" />
-  <rssi device="OEQ0475224" rx="-53" tx="-49" />
-  <rssi device="OEQ0475809" rx="65536" tx="-39" />
-  <rssi device="OEQ0475838" rx="65536" tx="-45" />
-  <rssi device="OEQ0475868" rx="-44" tx="-44" />
-  <rssi device="OEQ0488052" rx="65536" tx="-57" />
-  <rssi device="OEQ0622439" rx="65536" tx="-45" />
-  <rssi device="OEQ0623636" rx="-68" tx="-64" />
-  <rssi device="OEQ0623744" rx="-53" tx="-50" />
-  <rssi device="OEQ0623833" rx="-52" tx="-52" />
-  <rssi device="OEQ0677210" rx="65536" tx="-77" />
-  <rssi device="OEQ0807137" rx="65536" tx="-58" />
-  <rssi device="OEQ1070775" rx="-81" tx="65536" />
-  <rssi device="OEQ1200658" rx="65536" tx="-70" />
-  <rssi device="OEQ1201633" rx="65536" tx="-49" />
-  <rssi device="OEQ1201741" rx="65536" tx="-58" />
-  <rssi device="OEQ1201754" rx="65536" tx="-56" />
-  <rssi device="PEQ0625964" rx="-85" tx="65536" />
+  <rssi device="IEQ0100287" rx="65536" tx="-75" />
+  <rssi device="NEQ0548964" rx="-55" tx="-52" />
+  <rssi device="NEQ0865726" rx="65536" tx="-80" />
+  <rssi device="NEQ2587158" rx="-46" tx="-52" />
+  <rssi device="OEQ0378541" rx="65536" tx="-39" />
+  <rssi device="OEQ0458632" rx="-53" tx="-49" />
+  <rssi device="OEQ0474412" rx="65536" tx="-39" />
+  <rssi device="OEQ0756321" rx="65536" tx="-45" />
+  <rssi device="OEQ0669874" rx="-44" tx="-44" />
+  <rssi device="OEQ0886354" rx="65536" tx="-57" />
+  <rssi device="OEQ0333257" rx="-52" tx="-52" />
+  <rssi device="OEQ0614412" rx="65536" tx="-77" />
+  <rssi device="OEQ0885471" rx="65536" tx="-58" />
+  <rssi device="OEQ1775934" rx="65536" tx="-70" />
+  <rssi device="OEQ1536971" rx="65536" tx="-49" />
+  <rssi device="OEQ1333654" rx="65536" tx="-58" />
+  <rssi device="OEQ1333547" rx="65536" tx="-56" />
 </rssiList>
