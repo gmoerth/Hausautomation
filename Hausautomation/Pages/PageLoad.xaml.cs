@@ -102,7 +102,7 @@ namespace Hausautomation.Pages
 
         private string GetTitle()
         {
-            Assembly asm = Assembly.GetExecutingAssembly();
+            /*Assembly asm = Assembly.GetExecutingAssembly();
             object[] obj = asm.GetCustomAttributes(false);
             foreach (object o in obj)
             {
@@ -112,12 +112,13 @@ namespace Hausautomation.Pages
                     return ata.Title;
                 }
             }
-            return string.Empty;
+            return string.Empty;*/
+            return "Hausautomation";
         }
 
         private string GetProdukt()
         {
-            Assembly asm = Assembly.GetExecutingAssembly();
+            /*Assembly asm = Assembly.GetExecutingAssembly();
             object[] obj = asm.GetCustomAttributes(false);
             foreach (object o in obj)
             {
@@ -127,12 +128,13 @@ namespace Hausautomation.Pages
                     return apa.Product;
                 }
             }
-            return string.Empty;
+            return string.Empty;*/
+            return "Hausautomation";
         }
 
         private string GetCopyright()
         {
-            Assembly asm = Assembly.GetExecutingAssembly();
+            /*Assembly asm = Assembly.GetExecutingAssembly();
             object[] obj = asm.GetCustomAttributes(false);
             foreach (object o in obj)
             {
@@ -142,12 +144,13 @@ namespace Hausautomation.Pages
                     return aca.Copyright;
                 }
             }
-            return string.Empty;
+            return string.Empty;*/
+            return "Copyright © G_&_CH_MOERTH 2018";
         }
 
         private string GetTrademark()
         {
-            Assembly asm = Assembly.GetExecutingAssembly();
+            /*Assembly asm = Assembly.GetExecutingAssembly();
             object[] obj = asm.GetCustomAttributes(false);
             foreach (object o in obj)
             {
@@ -157,12 +160,13 @@ namespace Hausautomation.Pages
                     return ata.Trademark;
                 }
             }
-            return string.Empty;
+            return string.Empty;*/
+            return "GMC-COMPUTER";
         }
 
         private string GetFileVersion()
         {
-            Assembly asm = Assembly.GetExecutingAssembly();
+            /*Assembly asm = Assembly.GetExecutingAssembly();
             object[] obj = asm.GetCustomAttributes(false);
             foreach (object o in obj)
             {
@@ -172,7 +176,8 @@ namespace Hausautomation.Pages
                     return afa.Version;
                 }
             }
-            return string.Empty;
+            return string.Empty;*/
+            return "1.1.1.0";
         }
 
     }

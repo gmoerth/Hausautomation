@@ -234,7 +234,19 @@ namespace Hausautomation.Model
                         HttpWebResponse response = (HttpWebResponse)await request.GetResponseAsync() as HttpWebResponse;
                         StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.GetEncoding("iso-8859-1"));
                         xdoc = XDocument.Load(reader);
-                        xdoc.Save(localFolder.Path + "/" + xml); // TODO
+                        //xdoc.Save(localFolder.Path + "/" + xml); // Windows 10 Fall Creators Update (10.0; Build 16299) oder höher
+                        FileStream fileStream = null;
+                        try
+                        {
+                            fileStream = new FileStream(localFolder.Path + "/" + xml, FileMode.Create);
+                            xdoc.Save(fileStream);
+                            fileStream.Dispose();
+                        }
+                        finally
+                        {
+                            if (fileStream != null)
+                                fileStream.Dispose();
+                        }
                     }
                     else
                     {

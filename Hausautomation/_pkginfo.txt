@@ -1,1 +1,1 @@
-C:\Users\gmoer\source\repos\Hausautomation\Hausautomation\bin\ARM\Release\Upload\Hausautomation_1.1.0.0\Hausautomation_1.1.0.0_x86_x64_arm.appxbundle
+C:\Users\gmoer\source\repos\Hausautomation\Hausautomation\bin\ARM\Release\Upload\Hausautomation_1.1.1.0\Hausautomation_1.1.1.0_x86_x64_arm.appxbundle

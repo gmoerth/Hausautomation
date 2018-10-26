@@ -25,4 +25,5 @@ Pfade			"LocalState"
 PC				C:\Users\Gerhard\AppData\Local\Packages\7e54ccaa-a3c0-48e3-8ded-b0c43979c189_b0ckz6vx689s4\LocalState
 Tablet			C:\Users\gmoer\AppData\Local\Packages\7e54ccaa-a3c0-48e3-8ded-b0c43979c189_b0ckz6vx689s4\LocalState
 				C:\Users\gmoer\AppData\Local\Packages\61177GMC-COMPUTER.Hausautomation_zn03347g6jnc2\LocalState
+		Exe		C:\Program Files\WindowsApps\61177GMC-COMPUTER.Hausautomation_1.1.0.0_x64__zn03347g6jnc2
 Raspberry		/C/Data/Users/DefaultAccount/AppData/Local/Packages/7e54ccaa-a3c0-48e3-8ded-b0c43979c189_b0ckz6vx689s4/LocalState
